@@ -3,6 +3,7 @@ using System.Collections;
 
 public class RyuAnimatorController : MonoBehaviour
 {
+    public bool grounded = true;
 
     private Animator animator;
     const int RIGHT = 1;
@@ -30,5 +31,14 @@ public class RyuAnimatorController : MonoBehaviour
             animator.SetInteger("Motion", 0);
         else
             animator.SetInteger("Motion", 1);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        animator.SetInteger("Jump", 0);
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        animator.SetInteger("Jump", 1);
     }
 }

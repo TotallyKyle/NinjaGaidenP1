@@ -584,6 +584,7 @@ GameObject:
   - 114: {fileID: 1992795563}
   - 95: {fileID: 1992795564}
   - 114: {fileID: 1992795565}
+  - 61: {fileID: 1992795566}
   m_Layer: 0
   m_Name: Ryu
   m_TagString: Untagged
@@ -598,7 +599,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992795558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -92.3227005, y: 2.54660177, z: 0}
+  m_LocalPosition: {x: -92.3227005, y: 2.40555906, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149784554}
@@ -648,9 +649,9 @@ BoxCollider2D:
   m_GameObject: {fileID: 1992795558}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: .170000002, y: .319999993}
-  m_Center: {x: 0, y: .159999996}
+  m_IsTrigger: 1
+  m_Size: {x: 1, y: .0500000007}
+  m_Center: {x: 0, y: 0}
 --- !u!114 &1992795563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,3 +692,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666a44eb206cfbe4784ca9d790428188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grounded: 1
+--- !u!61 &1992795566
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992795558}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1.0625, y: 2}
+  m_Center: {x: 0, y: 1}
