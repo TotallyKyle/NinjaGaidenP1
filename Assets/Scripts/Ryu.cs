@@ -5,7 +5,7 @@ public class Ryu : MonoBehaviour
 {
     //Variable mechanics like running and jumping speed
     public float speed = 8;
-    public float jumpSpeed = 24;
+    public float jumpSpeed = 7.74758027f;
     public Vector2 playerVelocity;
 
     //Input from User
@@ -29,7 +29,7 @@ public class Ryu : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         playerVelocity = rigidbody2D.velocity;
-        playerVelocity = horizontalInput * speed;
+        playerVelocity.x = horizontalInput * speed;
 
         //Ryu's Jumping Motion
         if (Input.GetKeyDown(KeyCode.Space) ||
