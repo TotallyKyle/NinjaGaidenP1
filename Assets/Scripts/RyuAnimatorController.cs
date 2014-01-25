@@ -18,7 +18,7 @@ public class RyuAnimatorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Ryu ryuScript = GetComponent<Ryu>();
         var vertical = Input.GetAxis("Vertical");
         var horizontal = Input.GetAxis("Horizontal");
 
@@ -31,14 +31,16 @@ public class RyuAnimatorController : MonoBehaviour
             animator.SetInteger("Motion", 0);
         else
             animator.SetInteger("Motion", 1);
-    }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        animator.SetInteger("Jump", 0);
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        animator.SetInteger("Jump", 1);
+        if (ryuScript.grounded)
+            animator.SetInteger("Jump", 0);
+        else
+            animator.SetInteger("Jump", 1);
+
+        if (ryuScript.climbing)
+            animator.SetInteger("Climbing", 1);
+        else
+            animator.SetInteger("Climbing", 0);
+
     }
 }

@@ -200,7 +200,7 @@ Animator:
   m_GameObject: {fileID: 301553139}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3ad0888bb0e2373488b935965f723648, type: 2}
+  m_Controller: {fileID: 9100000, guid: aa46a23fbb82a0d4d92b68352a736143, type: 2}
   m_CullingMode: 0
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
@@ -380,7 +380,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poi: {fileID: 1992795559}
-  u: .100000001
   offset: {x: 0, y: 0, z: -5}
 --- !u!1 &1103011655
 GameObject:
@@ -518,8 +517,8 @@ Transform:
   m_PrefabInternal: {fileID: 1661871646}
   m_GameObject: {fileID: 1289687539}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.2000008, y: 2, z: 0}
-  m_LocalScale: {x: -.148558244, y: 8, z: .921347141}
+  m_LocalPosition: {x: 19.141613, y: 2, z: 0}
+  m_LocalScale: {x: -.0649942383, y: 8, z: .921347141}
   m_Children:
   - {fileID: 1593045153}
   m_Father: {fileID: 1184323545}
@@ -530,7 +529,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1289687539}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c89df62703cabf042b7f68b0147d2008, type: 2}
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1}
   m_Center: {x: .5, y: .5}
@@ -781,7 +780,6 @@ GameObject:
   - 4: {fileID: 1992795559}
   - 212: {fileID: 1992795561}
   - 50: {fileID: 1992795560}
-  - 61: {fileID: 1992795562}
   - 114: {fileID: 1992795563}
   - 95: {fileID: 1992795564}
   - 114: {fileID: 1992795565}
@@ -815,7 +813,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 1
+  m_GravityScale: 7
   m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -844,17 +842,6 @@ SpriteRenderer:
   m_SortingLayerID: 3343046449
   m_Sprite: {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!61 &1992795562
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992795558}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: 1, y: .0500000007}
-  m_Center: {x: 0, y: 0}
 --- !u!114 &1992795563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,9 +853,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9808bf4e000704d99e48819b1e8761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  jumpSpeed: 8
+  runSpeed: 5.625
+  jumpSpeed: 25
   playerVelocity: {x: 0, y: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
   horizontalInput: 0
   verticalInput: 0
   climbing: 0
@@ -917,7 +905,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992795558}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c89df62703cabf042b7f68b0147d2008, type: 2}
   m_IsTrigger: 1
   m_Size: {x: .00999999978, y: 2}
   m_Center: {x: -.600000024, y: 1}
@@ -928,7 +916,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992795558}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c89df62703cabf042b7f68b0147d2008, type: 2}
   m_IsTrigger: 1
   m_Size: {x: .00999999978, y: 2}
   m_Center: {x: .600000024, y: 1}
