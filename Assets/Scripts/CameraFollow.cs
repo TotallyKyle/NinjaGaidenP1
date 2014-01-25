@@ -10,10 +10,23 @@ public class CameraFollow : MonoBehaviour {
 	// Point of Interest (i.e. Ryu for the Main Camera)
 	public Transform 	poi;
 
-	public Vector3		offset = new Vector3(0,12.625f,-5);
+	// Map dimensions in units
+	private const float mapHeight = 208f / 16f;
+	private const float mapWidth = 3584f / 16f; 
+
+	private float cameraBound;
 	
+	void Awake() {
+		Camera.main.orthographicSize = mapHeight / 2f;
+		float aspectRatio = (float) Screen.width / (float) Screen.height;
+		cameraBound = mapHeight * aspectRatio / 2f;
+	}
+
 	void Update () {
-		Vector3 offsetPos = poi.position + offset;
-		transform.position = offsetPos;
+		Vector3 pos = transform.position;
+		pos.y = Camera.main.orthographicSize;
+		pos.x = Mathf.Max(poi.transform.position.x, cameraBound);
+		pos.x = Mathf.Min(pos.x, mapWidth - cameraBound);
+		transform.position = pos;
 	}
 }
