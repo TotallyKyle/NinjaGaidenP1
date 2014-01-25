@@ -22,23 +22,30 @@ public class Ryu : MonoBehaviour
 
     void Update()
     { // Every Frame
-        if (!climbing)
-            horizontalInput = Input.GetAxis("Horizontal");
-        else
-            horizontalInput = 0;
+        horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
         playerVelocity = rigidbody2D.velocity;
+        /***Ryu's Horizontal Motion***/
+        //Running
         playerVelocity.x = horizontalInput * speed;
 
-        //Ryu's Jumping Motion
+        if (climbing)
+            playerVelocity.x = 0;
+
+        /***Ryu's Vertical Motion***/
+        //Jumping
         if (Input.GetKeyDown(KeyCode.Space) ||
             Input.GetKeyDown(KeyCode.UpArrow) ||
             Input.GetKeyDown(KeyCode.W))
         {
-            if (grounded || climbing)
+            if (grounded)
                 playerVelocity.y = jumpSpeed;
         }
+
+        //Climbing
+        if (climbing)
+            playerVelocity.y = 0;
 
         rigidbody2D.velocity = playerVelocity;
 
@@ -54,7 +61,12 @@ public class Ryu : MonoBehaviour
         if (other.tag == "Ground")
             grounded = true;
         else if (other.tag == "Wall")
+        {
             climbing = true;
+            playerVelocity.y = 0;
+            playerVelocity.x = 0;
+            rigidbody2D.velocity = playerVelocity;
+        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
