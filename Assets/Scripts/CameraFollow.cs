@@ -11,8 +11,8 @@ public class CameraFollow : MonoBehaviour {
 	public Transform 	poi;
 
 	// Map dimensions in units
-	private const float mapHeight = 208f / 16f;
-	private const float mapWidth = 3584f / 16f; 
+	private float mapHeight	= Utilities.PixelsToUnits(208);
+	private float mapWidth	= Utilities.PixelsToUnits(3684);
 
 	private float cameraBound;
 	

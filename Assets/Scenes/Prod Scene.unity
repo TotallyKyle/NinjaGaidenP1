@@ -380,7 +380,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poi: {fileID: 1992795559}
-  offset: {x: 0, y: 0, z: -5}
 --- !u!1 &1103011655
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,7 +812,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1992795558}
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_FixedAngle: 1
   m_IsKinematic: 0
@@ -865,9 +864,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9808bf4e000704d99e48819b1e8761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  jumpSpeed: 8
+  runSpeed: 5.625
+  jumpSpeed: 8.92142868
   playerVelocity: {x: 0, y: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
   horizontalInput: 0
   verticalInput: 0
   climbing: 0

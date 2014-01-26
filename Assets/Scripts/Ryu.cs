@@ -3,9 +3,16 @@ using System.Collections;
 
 public class Ryu : MonoBehaviour
 {
-    //Variable mechanics like running and jumping speed
-    public float runSpeed = 5.625f;
-    public float jumpSpeed = 7.74758027f;
+    /*
+     * Variable mechanics like running and jumping speed
+     */
+	// 1.5 pixels/frame / 16 pixels/meter * 60 frames/second
+    public float runSpeed = 5.625f; 
+	// Using a gravity of -1m/s*s, the velocity was found using:
+	// t = 21 frames / 60 fps
+	// h = 48px / 16px / meter
+	// v = (h + t^2) / t = 8.92142857
+    public float jumpSpeed = 8.92142857f;
     public Vector2 playerVelocity;
     public Vector3 playerPosition;
 
