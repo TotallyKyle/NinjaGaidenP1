@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
-public class RyuAnimation {
-	public string name;
-	public Sprite[] frames;
-}
-
 public class Ryu : MonoBehaviour {
 
 	// Constants
@@ -25,13 +19,13 @@ public class Ryu : MonoBehaviour {
 	public const float SPEED_MED	= 1.0f / 16f * 50f;
 	public const float SPEED_SLOW	= 0.5f / 16f * 50f;
 
+
 	// Ground raycasting
 	// ============================================
 
 	/*
 	 * true if Ryu is on some ground, false otherwise
 	 */
-	public bool grounded = true;
 	public Transform groundCheck;
 	public float groundRadius = 0.2f;
 
@@ -40,13 +34,13 @@ public class Ryu : MonoBehaviour {
 	 */
 	public LayerMask groundLayer;
 
+
 	// Wall raycasting
 	// ============================================
 
 	/*
 	 * true if Ryu is on a wall, false otherwise
 	 */
-	public bool climbing = false;
 	public Transform wallCheck;
 	public float wallRadius = 0.2f;
 
@@ -55,78 +49,91 @@ public class Ryu : MonoBehaviour {
 	 */
 	public LayerMask wallLayer;
 
+
 	// State
 	// =====================================
-
+	
+	public bool running = false;
+	public bool grounded = true;
+	public bool climbing = false;
 	public bool facingRight = true;
 
-	/*
-	 * Array of all of Ryu's different state animations
-	 */
-	public RyuAnimation[] ryuAnimations;
-
-	void Start() {
-	}
-
 	void Update() {
+		/*
+		 * Check for GetKeyDown here so that key events aren't missed in FixedUpdate
+	 	 */
 		bool jumpKey = Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt);
 		if (grounded && jumpKey) {
-			// Animate jump
 			rigidbody2D.AddForce(new Vector2(0, 1500f));
 		}
 	}
 
     void FixedUpdate() {
-		/*
-		 * Check if we are on the ground or not by casting downward 
-		 */
-		grounded = 
-			Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-
-		// If grounded, ignore collisions with walls
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded);
-
-		/*
-		 * Check if we are climbing on a wall by casting to the side
-		 */ 
-		climbing = !grounded && 
-			Physics2D.OverlapCircle(wallCheck.position, wallRadius, wallLayer);
+		checkForGround();
+		checkForWalls();
 		if (climbing) {
 			rigidbody2D.Sleep();
-			// Animate climb
 		} else {
-
-			/*
-		 	 * Handle horizontal movement
-		 	 */
-			float velocity = 0f;
-			if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
-				if (!grounded) {
-					if (facingRight)
-						velocity = -1 * SPEED_SLOW;
-					else
-						velocity = -1 * SPEED;
-				} else {
-					velocity = -1 * SPEED;
-					if (facingRight)
-						flip();
-				}
-			} else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
-				if (!grounded) {
-					if (!facingRight)
-						velocity = SPEED_SLOW;
-					else
-						velocity = SPEED;
-				} else {
-					velocity = SPEED;
-					if (!facingRight)
-						flip();
-				}
-			}
-			// Animate idle or running
-			rigidbody2D.velocity = new Vector2(velocity, rigidbody2D.velocity.y);
+			handleHorizontalInput();
 		}
     }
+
+	/*
+	 * Check if we are on the ground or not by casting downward 
+	 */
+	private void checkForGround() {
+		grounded = 
+			Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+		// If grounded, ignore collisions with walls
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded);
+	}
+
+	/*
+	 * Check if we are climbing on a wall by casting to the side
+	 */ 
+	private void checkForWalls() {
+		// We are never climbing if we are grounded
+		// (Could change if we implement ladders)
+		climbing = !grounded && 
+			Physics2D.OverlapCircle(wallCheck.position, wallRadius, wallLayer);
+	}
+
+	/*
+	 * Detect user input and adjust Ryu's horizontal velocity accordingly
+	 */
+	private void handleHorizontalInput() {
+		float velocity = 0f;
+		if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
+			if (!grounded) {
+				running = false;
+				if (facingRight)
+					velocity = -1 * SPEED_SLOW;
+				else
+					velocity = -1 * SPEED;
+			} else {
+				running = true;
+				velocity = -1 * SPEED;
+				if (facingRight)
+					flip();
+			}
+		} else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
+			if (!grounded) {
+				running = false;
+				if (!facingRight)
+					velocity = SPEED_SLOW;
+				else
+					velocity = SPEED;
+			} else {
+				running = true;
+				velocity = SPEED;
+				if (!facingRight)
+					flip();
+			}
+		} else {
+			running = false;
+		}
+		rigidbody2D.velocity = new Vector2(velocity, rigidbody2D.velocity.y);
+	}
 
 	private void flip() {
 		facingRight = !facingRight;

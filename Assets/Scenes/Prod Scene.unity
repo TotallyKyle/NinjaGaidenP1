@@ -894,13 +894,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1992795559}
-  - 212: {fileID: 1992795561}
   - 50: {fileID: 1992795560}
-  - 61: {fileID: 1992795562}
   - 114: {fileID: 1992795563}
   - 61: {fileID: 1992795566}
-  - 61: {fileID: 1992795568}
-  - 61: {fileID: 1992795567}
+  - 212: {fileID: 1992795561}
+  - 114: {fileID: 1992795562}
   m_Layer: 8
   m_Name: Ryu
   m_TagString: Untagged
@@ -959,17 +957,36 @@ SpriteRenderer:
   m_SortingLayerID: 3343046449
   m_Sprite: {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!61 &1992795562
-BoxCollider2D:
+--- !u!114 &1992795562
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992795558}
   m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: 1, y: .0500000007}
-  m_Center: {x: 0, y: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b68f1254117343beb239560c1d8dafe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlled: {fileID: 1992795563}
+  animationInfo:
+  - name: Idle
+    sprites:
+    - {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  - name: Running
+    sprites:
+    - {fileID: 21300002, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300004, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300006, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  - name: Jumping
+    sprites:
+    - {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300014, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300016, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300018, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  - name: Climbing
+    sprites:
+    - {fileID: 21300010, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
 --- !u!114 &1992795563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,29 +998,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9808bf4e000704d99e48819b1e8761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grounded: 1
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 521726789}
   groundRadius: .200000003
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  climbing: 0
-  wallCheck: {fileID: 0}
+    m_Bits: 1024
+  wallCheck: {fileID: 1987430582}
   wallRadius: .200000003
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
+  running: 0
+  grounded: 1
+  climbing: 0
   facingRight: 1
-  ryuAnimations:
-  - name: Idle
-    frames:
-    - {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
-  - name: Running
-    frames: []
-  - name: Jumping
-    frames: []
-  - name: Climbing
-    frames: []
 --- !u!61 &1992795566
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1015,25 +1023,3 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1.0625, y: 2}
   m_Center: {x: 0, y: 1}
---- !u!61 &1992795567
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992795558}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: .00999999978, y: 2}
-  m_Center: {x: -.600000024, y: 1}
---- !u!61 &1992795568
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992795558}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: .00999999978, y: 2}
-  m_Center: {x: .600000024, y: 1}
