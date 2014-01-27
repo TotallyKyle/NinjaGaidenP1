@@ -287,6 +287,32 @@ Transform:
   m_Children:
   - {fileID: 757400076}
   m_Father: {fileID: 0}
+--- !u!1 &521726788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 521726789}
+  m_Layer: 8
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &521726789
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 521726788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1992795559}
 --- !u!1 &757400071
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +828,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 521726789}
   m_Father: {fileID: 149784554}
 --- !u!50 &1992795560
 Rigidbody2D:
@@ -816,7 +843,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_FixedAngle: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
 --- !u!212 &1992795561
@@ -864,14 +891,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9808bf4e000704d99e48819b1e8761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5.625
+  mSpeed: 5.625
+  mSlowSpeed: 1.875
   jumpSpeed: 8.92142868
-  playerVelocity: {x: 0, y: 0}
-  playerPosition: {x: 0, y: 0, z: 0}
-  horizontalInput: 0
-  verticalInput: 0
   climbing: 0
   grounded: 1
+  mGrounded: 1
+  mGroundCheck: {fileID: 521726789}
+  mGroundRadius: .200000003
+  mGroundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967039
+  mFacingRight: 1
 --- !u!95 &1992795564
 Animator:
   serializedVersion: 2
@@ -884,7 +915,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 547d2d04f8b64954681826494ee1ca6c, type: 2}
   m_CullingMode: 0
   m_ApplyRootMotion: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_HasTransformHierarchy: 1
 --- !u!114 &1992795565
 MonoBehaviour:
@@ -892,7 +923,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992795558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 666a44eb206cfbe4784ca9d790428188, type: 3}
   m_Name: 
