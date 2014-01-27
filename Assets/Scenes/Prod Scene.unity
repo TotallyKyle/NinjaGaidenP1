@@ -140,6 +140,71 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &242468811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 242468814}
+  - 212: {fileID: 242468813}
+  - 95: {fileID: 242468812}
+  m_Layer: 0
+  m_Name: Ryu Jump Right 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &242468812
+Animator:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242468811}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 343107629491a4d35ae8d689348e6406, type: 2}
+  m_CullingMode: 0
+  m_ApplyRootMotion: 1
+  m_AnimatePhysics: 0
+  m_HasTransformHierarchy: 1
+--- !u!212 &242468813
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242468811}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &242468814
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242468811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 2.375, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &301553139
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +481,7 @@ GameObject:
   - 4: {fileID: 1103011656}
   - 33: {fileID: 1103011659}
   - 23: {fileID: 1103011657}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +790,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1813212411}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -754,7 +819,7 @@ GameObject:
   - 4: {fileID: 1927493344}
   - 114: {fileID: 1927493346}
   - 61: {fileID: 1927493345}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Environment
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -795,6 +860,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb3a0a5697235c4c98ebf1a1478d6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1987430581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1987430582}
+  m_Layer: 8
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1987430582
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1987430581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .600000024, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1992795559}
 --- !u!1 &1992795558
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,8 +898,6 @@ GameObject:
   - 50: {fileID: 1992795560}
   - 61: {fileID: 1992795562}
   - 114: {fileID: 1992795563}
-  - 95: {fileID: 1992795564}
-  - 114: {fileID: 1992795565}
   - 61: {fileID: 1992795566}
   - 61: {fileID: 1992795568}
   - 61: {fileID: 1992795567}
@@ -830,6 +919,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 521726789}
+  - {fileID: 1987430582}
   m_Father: {fileID: 149784554}
 --- !u!50 &1992795560
 Rigidbody2D:
@@ -891,44 +981,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9808bf4e000704d99e48819b1e8761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSpeed: 5.625
-  mSlowSpeed: 1.875
-  jumpSpeed: 8.92142868
-  climbing: 0
   grounded: 1
-  mGrounded: 1
-  mGroundCheck: {fileID: 521726789}
-  mGroundRadius: .200000003
-  mGroundLayer:
+  groundCheck: {fileID: 0}
+  groundRadius: .200000003
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967039
-  mFacingRight: 1
---- !u!95 &1992795564
-Animator:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992795558}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 547d2d04f8b64954681826494ee1ca6c, type: 2}
-  m_CullingMode: 0
-  m_ApplyRootMotion: 0
-  m_AnimatePhysics: 1
-  m_HasTransformHierarchy: 1
---- !u!114 &1992795565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1992795558}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 666a44eb206cfbe4784ca9d790428188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grounded: 1
+    m_Bits: 0
+  climbing: 0
+  wallCheck: {fileID: 0}
+  wallRadius: .200000003
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  facingRight: 1
+  ryuAnimations:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  - name: Running
+    frames: []
+  - name: Jumping
+    frames: []
+  - name: Climbing
+    frames: []
 --- !u!61 &1992795566
 BoxCollider2D:
   m_ObjectHideFlags: 0
