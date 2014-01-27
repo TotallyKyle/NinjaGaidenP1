@@ -62,9 +62,22 @@ public class Ryu : MonoBehaviour {
 		/*
 		 * Check for GetKeyDown here so that key events aren't missed in FixedUpdate
 	 	 */
-		bool jumpKey = Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt);
-		if (grounded && jumpKey) {
-			rigidbody2D.AddForce(new Vector2(0, 1500f));
+		bool jumpKey = Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.RightAlt);
+		bool jumpKeyDown = Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt);
+		if (grounded && jumpKeyDown) {
+			jump(false);
+		} else if (climbing) {
+			if (facingRight) {
+				if ((jumpKeyDown && Input.GetKey(KeyCode.LeftArrow)) || 
+				    (jumpKey && Input.GetKeyDown(KeyCode.LeftArrow))) {
+					jump(true);
+					flip();
+				}
+			} else if ((jumpKeyDown && Input.GetKey(KeyCode.RightArrow)) || 
+			           (jumpKey && Input.GetKeyDown(KeyCode.RightArrow))) {
+				jump(true);
+				flip();
+			}
 		}
 	}
 
@@ -133,6 +146,10 @@ public class Ryu : MonoBehaviour {
 			running = false;
 		}
 		rigidbody2D.velocity = new Vector2(velocity, rigidbody2D.velocity.y);
+	}
+
+	private void jump(bool fromWall) {
+		rigidbody2D.AddForce(new Vector2(0, 1500f));
 	}
 
 	private void flip() {
