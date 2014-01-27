@@ -8,11 +8,11 @@ using System.Collections;
 public class CameraFollow : MonoBehaviour {
 	
 	// Point of Interest (i.e. Ryu for the Main Camera)
-	public Transform 	poi;
+	public Transform poi;
 
 	// Map dimensions in units
-	private float mapHeight	= Utilities.PixelsToUnits(208);
-	private float mapWidth	= Utilities.PixelsToUnits(3684);
+	private float mapHeight	= 208f / 16f;
+	private float mapWidth	= 3584f / 16f;
 
 	private float cameraBound;
 	
