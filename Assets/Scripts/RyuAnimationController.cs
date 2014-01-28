@@ -9,15 +9,14 @@ public class RyuAnimationController : AnimationController<Ryu> {
 	private const int ANIM_CLIMBING	= 3;
 
 	public override void UpdateAnimationState() {
-		if (controlled.climbing) {
+		if (controlled.climbing)
 			setDisplayedAnimation(ANIM_CLIMBING);
-		} else if (!controlled.grounded) {
+		else if (!controlled.grounded)
 			setDisplayedAnimation(ANIM_JUMPING);
-		} else if (controlled.running) {
+		else if (controlled.running)
 			setDisplayedAnimation(ANIM_RUNNING);
-		} else {
+		else
 			setDisplayedAnimation(ANIM_IDLE);
-		}
 	}
 }
 

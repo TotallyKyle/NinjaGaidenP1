@@ -13,11 +13,12 @@ public class Ryu : MonoBehaviour {
 	private const int LAYER_WALLS	= 9;
 
     /*
-     * Variable mechanics like running and jumping speed
+     * Different speeds for different actions
      */
-    public const float SPEED		= 1.5f / 16f * 50f; 
-	public const float SPEED_MED	= 1.0f / 16f * 50f;
-	public const float SPEED_SLOW	= 0.5f / 16f * 50f;
+    public const float SPEED		= 1.5f / 16f * 60f; 
+	public const float SPEED_MED	= 1.0f / 16f * 60f;
+	public const float SPEED_SLOW	= 0.5f / 16f * 60f;
+	public const float JUMP_SPEED	= 19.5f;
 
 
 	// Ground raycasting
@@ -41,7 +42,8 @@ public class Ryu : MonoBehaviour {
 	/*
 	 * true if Ryu is on a wall, false otherwise
 	 */
-	public Transform wallCheck;
+	public Transform wallCheckFront;
+	public Transform wallCheckAbove;
 	public float wallRadius = 0.2f;
 
 	/*
@@ -57,6 +59,7 @@ public class Ryu : MonoBehaviour {
 	public bool grounded = true;
 	public bool climbing = false;
 	public bool facingRight = true;
+	public bool inWall = true;
 
 	void Update() {
 		/*
@@ -97,8 +100,7 @@ public class Ryu : MonoBehaviour {
 	private void checkForGround() {
 		grounded = 
 			Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-		// If grounded, ignore collisions with walls
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded);
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || inWall);
 	}
 
 	/*
@@ -107,8 +109,10 @@ public class Ryu : MonoBehaviour {
 	private void checkForWalls() {
 		// We are never climbing if we are grounded
 		// (Could change if we implement ladders)
-		climbing = !grounded && 
-			Physics2D.OverlapCircle(wallCheck.position, wallRadius, wallLayer);
+		inWall = 
+			Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
+		climbing = !grounded && !inWall &&
+			Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
 	}
 
 	/*
@@ -119,10 +123,12 @@ public class Ryu : MonoBehaviour {
 		if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
 			if (!grounded) {
 				running = false;
-				if (facingRight)
+				if (facingRight) {
 					velocity = -1 * SPEED_SLOW;
-				else
+					climbing = false;
+				} else {
 					velocity = -1 * SPEED;
+				}
 			} else {
 				running = true;
 				velocity = -1 * SPEED;
@@ -132,10 +138,12 @@ public class Ryu : MonoBehaviour {
 		} else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
 			if (!grounded) {
 				running = false;
-				if (!facingRight)
+				if (!facingRight) {
 					velocity = SPEED_SLOW;
-				else
+					climbing = false;
+				} else {
 					velocity = SPEED;
+				}
 			} else {
 				running = true;
 				velocity = SPEED;
@@ -149,7 +157,10 @@ public class Ryu : MonoBehaviour {
 	}
 
 	private void jump(bool fromWall) {
-		rigidbody2D.AddForce(new Vector2(0, 1500f));
+		rigidbody2D.WakeUp();
+		Vector2 velocity = rigidbody2D.velocity;
+		velocity.y = fromWall ? JUMP_SPEED / 2f : JUMP_SPEED;
+		rigidbody2D.velocity = velocity;
 	}
 
 	private void flip() {
