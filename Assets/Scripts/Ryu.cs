@@ -60,6 +60,7 @@ public class Ryu : MonoBehaviour {
 	public bool climbing = false;
 	public bool facingRight = true;
 	public bool inWall = true;
+	public bool crouching = false;
 
 	void Update() {
 		/*
@@ -90,7 +91,7 @@ public class Ryu : MonoBehaviour {
 		if (climbing) {
 			rigidbody2D.Sleep();
 		} else {
-			handleHorizontalInput();
+			handleInput();
 		}
     }
 
@@ -118,19 +119,16 @@ public class Ryu : MonoBehaviour {
 	/*
 	 * Detect user input and adjust Ryu's horizontal velocity accordingly
 	 */
-	private void handleHorizontalInput() {
+	private void handleInput() {
 		float velocity = 0f;
 		if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
 			if (!grounded) {
 				running = false;
-				if (facingRight) {
-					velocity = -1 * SPEED_SLOW;
-					climbing = false;
-				} else {
-					velocity = -1 * SPEED;
-				}
+				crouching = false;
+				velocity = -1 * (facingRight ? SPEED_SLOW : SPEED);
 			} else {
 				running = true;
+				crouching = false;
 				velocity = -1 * SPEED;
 				if (facingRight)
 					flip();
@@ -138,20 +136,21 @@ public class Ryu : MonoBehaviour {
 		} else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
 			if (!grounded) {
 				running = false;
-				if (!facingRight) {
-					velocity = SPEED_SLOW;
-					climbing = false;
-				} else {
-					velocity = SPEED;
-				}
+				crouching = false;
+				velocity = facingRight ? SPEED : SPEED_SLOW;
 			} else {
 				running = true;
+				crouching = false;
 				velocity = SPEED;
 				if (!facingRight)
 					flip();
 			}
+		} else if (Input.GetKey(KeyCode.DownArrow)){
+			running = false;
+			crouching = true;
 		} else {
 			running = false;
+			crouching = false;
 		}
 		rigidbody2D.velocity = new Vector2(velocity, rigidbody2D.velocity.y);
 	}
