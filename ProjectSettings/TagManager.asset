@@ -5,6 +5,7 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - Enemies
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   User Layer 8: Player
   User Layer 9: Wall
   User Layer 10: Ground
-  User Layer 11: 
+  User Layer 11: Enemies
   User Layer 12: 
   User Layer 13: 
   User Layer 14: 
