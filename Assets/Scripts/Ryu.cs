@@ -54,33 +54,30 @@ public class Ryu : MonoBehaviour {
 
 	// State
 	// =====================================
-	
+
 	public bool running = false;
 	public bool grounded = true;
 	public bool climbing = false;
 	public bool facingRight = true;
 	public bool inWall = true;
 	public bool crouching = false;
+	public bool attacking = false;
+	private int attackFrameCount = 0;
 
 	void Update() {
 		/*
 		 * Check for GetKeyDown here so that key events aren't missed in FixedUpdate
 	 	 */
-		bool jumpKey = Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.RightAlt);
-		bool jumpKeyDown = Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt);
-		if (grounded && jumpKeyDown) {
-			jump(false);
-		} else if (climbing) {
-			if (facingRight) {
-				if ((jumpKeyDown && Input.GetKey(KeyCode.LeftArrow)) || 
-				    (jumpKey && Input.GetKeyDown(KeyCode.LeftArrow))) {
-					jump(true);
-					flip();
-				}
-			} else if ((jumpKeyDown && Input.GetKey(KeyCode.RightArrow)) || 
-			           (jumpKey && Input.GetKeyDown(KeyCode.RightArrow))) {
-				jump(true);
-				flip();
+		if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt)) {
+			// Can only jump when grounded
+			if (grounded) {
+				jump(false);
+			}
+		} else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightShift)) {
+			// Can attack from any state except climbing
+			if (!climbing) {
+				attacking = true;
+				// TODO attack
 			}
 		}
 	}
@@ -90,7 +87,11 @@ public class Ryu : MonoBehaviour {
 		checkForWalls();
 		if (climbing) {
 			rigidbody2D.Sleep();
+			handleWallJump();
+		} else if (attacking) {
+			handleAttack();
 		} else {
+			// Can only move horizontally if not climbing or attacking
 			handleInput();
 		}
     }
@@ -117,6 +118,41 @@ public class Ryu : MonoBehaviour {
 	}
 
 	/*
+	 * Tests for the appropriate conditions to initiate a wall jump
+	 */
+	private void handleWallJump() {
+		if ((Input.GetKey(KeyCode.Z) && Input.GetKey(KeyCode.LeftArrow)) || 
+		    (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.LeftArrow))) {
+			if (facingRight) {
+				jump(true);
+				flip();
+			}
+		} else if ((Input.GetKey(KeyCode.Z) && Input.GetKey(KeyCode.RightArrow)) || 
+		           (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.RightArrow))) {
+			if (!facingRight) {
+				jump(true);
+				flip();
+			}
+		}
+	}
+
+	/*
+	 * Handles keeping track of how long Ryu has been attacking
+	 */
+	private void handleAttack() {
+		if (attackFrameCount == 1) {
+			// TODO extend attacking collision box
+		} else {
+			// TODO retract collision box
+			if (attackFrameCount == 3) {
+				// Done attacking
+				attacking = false;
+				attackFrameCount = 0;
+			}
+		}
+	}
+
+	/*
 	 * Detect user input and adjust Ryu's horizontal velocity accordingly
 	 */
 	private void handleInput() {
@@ -130,8 +166,7 @@ public class Ryu : MonoBehaviour {
 				running = true;
 				crouching = false;
 				velocity = -1 * SPEED;
-				if (facingRight)
-					flip();
+				if (facingRight) flip();
 			}
 		} else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
 			if (!grounded) {
@@ -142,12 +177,12 @@ public class Ryu : MonoBehaviour {
 				running = true;
 				crouching = false;
 				velocity = SPEED;
-				if (!facingRight)
-					flip();
+				if (!facingRight) flip();
 			}
 		} else if (Input.GetKey(KeyCode.DownArrow)){
 			running = false;
 			crouching = true;
+			// TODO make collision box smaller
 		} else {
 			running = false;
 			crouching = false;
@@ -160,6 +195,11 @@ public class Ryu : MonoBehaviour {
 		Vector2 velocity = rigidbody2D.velocity;
 		velocity.y = fromWall ? JUMP_SPEED / 2f : JUMP_SPEED;
 		rigidbody2D.velocity = velocity;
+	}
+
+	private void startAttack() {
+		attacking = true;
+		attackFrameCount = 0;
 	}
 
 	private void flip() {
