@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400000}
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
+  - 95: {fileID: 9500000}
   m_Layer: 11
   m_Name: Batman
   m_TagString: Enemies
@@ -57,24 +57,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1.5, y: 2}
   m_Center: {x: 0, y: 1}
---- !u!114 &11400000
-MonoBehaviour:
+--- !u!95 &9500000
+Animator:
+  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc60b2eac62cd3347ae28398e3ee4f77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlled: {fileID: 11400002}
-  animationInfo:
-  - name: Animation
-    sprites:
-    - {fileID: 21300024, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
-    - {fileID: 21300022, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
-    - {fileID: 21300020, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 04d6308251a101e43bc1b55fb8582a59, type: 2}
+  m_CullingMode: 0
+  m_ApplyRootMotion: 0
+  m_AnimatePhysics: 0
+  m_HasTransformHierarchy: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
