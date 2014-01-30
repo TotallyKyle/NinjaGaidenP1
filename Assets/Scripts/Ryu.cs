@@ -61,8 +61,16 @@ public class Ryu : MonoBehaviour {
 	public bool facingRight = true;
 	public bool inWall = true;
 	public bool crouching = false;
+
 	public bool attacking = false;
 	private int attackFrameCount = 0;
+
+	public GameObject sword;
+	private SwordController swordController;
+
+	void Start() {
+		swordController = sword.GetComponent<SwordController>();
+	}
 
 	void Update() {
 		/*
@@ -76,8 +84,7 @@ public class Ryu : MonoBehaviour {
 		} else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightShift)) {
 			// Can attack from any state except climbing
 			if (!climbing) {
-				attacking = true;
-				// TODO attack
+				startAttack();
 			}
 		}
 	}
@@ -140,15 +147,11 @@ public class Ryu : MonoBehaviour {
 	 * Handles keeping track of how long Ryu has been attacking
 	 */
 	private void handleAttack() {
-		if (attackFrameCount == 1) {
-			// TODO extend attacking collision box
-		} else {
-			// TODO retract collision box
-			if (attackFrameCount == 3) {
-				// Done attacking
-				attacking = false;
-				attackFrameCount = 0;
-			}
+		if (attackFrameCount++ == 3) {
+			// Done attacking
+			swordController.retractSword();
+			attacking = false;
+			attackFrameCount = 0;
 		}
 	}
 
@@ -200,6 +203,7 @@ public class Ryu : MonoBehaviour {
 	private void startAttack() {
 		attacking = true;
 		attackFrameCount = 0;
+		swordController.extendSword();
 	}
 
 	private void flip() {

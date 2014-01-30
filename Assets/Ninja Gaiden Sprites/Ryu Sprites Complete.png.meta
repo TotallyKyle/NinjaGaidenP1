@@ -142,9 +142,9 @@ TextureImporter:
         y: 224
         width: 26
         height: 29
-      alignment: 7
-      pivot: {x: .5, y: 0}
-    - name: Ryu Stand Attack Cast 0
+      alignment: 6
+      pivot: {x: 0, y: 0}
+    - name: Ryu Stand Attack Right 0
       rect:
         serializedVersion: 2
         x: 30
@@ -160,8 +160,8 @@ TextureImporter:
         y: 224
         width: 40
         height: 29
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 9
+      pivot: {x: .212500006, y: 0}
     - name: Ryu Stand Attack Right 2
       rect:
         serializedVersion: 2
@@ -169,8 +169,8 @@ TextureImporter:
         y: 224
         width: 29
         height: 29
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 9
+      pivot: {x: .293099999, y: 0}
     - name: Ryu Jump Attack Right 0
       rect:
         serializedVersion: 2
@@ -232,8 +232,8 @@ TextureImporter:
         y: 192
         width: 39
         height: 23
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 9
+      pivot: {x: .217899993, y: 0}
     - name: Ryu Crouch Attack Right 2
       rect:
         serializedVersion: 2
@@ -241,8 +241,8 @@ TextureImporter:
         y: 192
         width: 29
         height: 23
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 9
+      pivot: {x: .293099999, y: 0}
     - name: Ryu Jump Left 3
       rect:
         serializedVersion: 2
