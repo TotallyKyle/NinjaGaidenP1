@@ -11,6 +11,7 @@ public class Ryu : MonoBehaviour {
 	 */
 	private const int LAYER_PLAYER	= 8;
 	private const int LAYER_WALLS	= 9;
+	private const int LAYER_GROUND	= 10;
 
     /*
      * Different speeds for different actions
@@ -20,23 +21,7 @@ public class Ryu : MonoBehaviour {
 	public const float SPEED_SLOW	= 0.5f / 16f * 60f;
 	public const float JUMP_SPEED	= 19.5f;
 
-
-	// Ground raycasting
-	// ============================================
-
-	/*
-	 * true if Ryu is on some ground, false otherwise
-	 */
-	public Transform groundCheck;
-	public float groundRadius = 0.2f;
-
-	/*
-	 * Tells the collider what to consider ground
-	 */
-	public LayerMask groundLayer;
-
-
-	// Wall raycasting
+	// Wall checking
 	// ============================================
 
 	/*
@@ -56,7 +41,11 @@ public class Ryu : MonoBehaviour {
 	// =====================================
 
 	public bool running = false;
+
 	public bool grounded = true;
+	public Collider2D feetCollider;
+	public GameObject currentGround;
+
 	public bool climbing = false;
 	public bool facingRight = true;
 	public bool inWall = true;
@@ -93,17 +82,16 @@ public class Ryu : MonoBehaviour {
 
 		if (crouching) {
 			swordController.onCrouchStateChanged(true);
-			boxCollider.size = new Vector2(boxCollider.size.x, 1.5f);
-			boxCollider.center = new Vector2(boxCollider.center.x, 0.75f);
+			boxCollider.size = new Vector2(boxCollider.size.x, 1.3f);
+			boxCollider.center = new Vector2(boxCollider.center.x, 0.85f);
 		} else {
 			swordController.onCrouchStateChanged(false);
-			boxCollider.size = new Vector2(boxCollider.size.x, 2.0f);
-			boxCollider.center = new Vector2(boxCollider.center.x, 1.0f);
+			boxCollider.size = new Vector2(boxCollider.size.x, 1.8f);
+			boxCollider.center = new Vector2(boxCollider.center.x, 1.1f);
 		}
 	}
 
     void FixedUpdate() {
-		checkForGround();
 		checkForWalls();
 		if (climbing) {
 			rigidbody2D.Sleep();
@@ -116,13 +104,36 @@ public class Ryu : MonoBehaviour {
 		}
     }
 
-	/*
-	 * Check if we are on the ground or not by casting downward 
-	 */
-	private void checkForGround() {
-		grounded = 
-			Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || inWall);
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.gameObject.layer == LAYER_GROUND) {
+			grounded = true;
+			currentGround = collision.gameObject;
+			Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, true);
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision) {
+		if (collision.gameObject == currentGround) {
+			grounded = false;
+			currentGround = null;
+			Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, inWall);
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		switch (collider.gameObject.layer) {
+		case LAYER_GROUND:
+			feetCollider.enabled = false;
+			break;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collider) {
+		switch (collider.gameObject.layer) {
+		case LAYER_GROUND:
+			feetCollider.enabled = true;
+			break;
+		}
 	}
 
 	/*
