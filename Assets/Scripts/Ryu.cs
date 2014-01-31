@@ -68,8 +68,11 @@ public class Ryu : MonoBehaviour {
 	public GameObject sword;
 	private SwordController swordController;
 
+	private BoxCollider2D boxCollider;
+
 	void Start() {
 		swordController = sword.GetComponent<SwordController>();
+		boxCollider = GetComponent<BoxCollider2D>();
 	}
 
 	void Update() {
@@ -86,6 +89,16 @@ public class Ryu : MonoBehaviour {
 			if (!climbing) {
 				startAttack();
 			}
+		}
+
+		if (crouching) {
+			swordController.onCrouchStateChanged(true);
+			boxCollider.size = new Vector2(boxCollider.size.x, 1.5f);
+			boxCollider.center = new Vector2(boxCollider.center.x, 0.75f);
+		} else {
+			swordController.onCrouchStateChanged(false);
+			boxCollider.size = new Vector2(boxCollider.size.x, 2.0f);
+			boxCollider.center = new Vector2(boxCollider.center.x, 1.0f);
 		}
 	}
 
@@ -185,7 +198,6 @@ public class Ryu : MonoBehaviour {
 		} else if (Input.GetKey(KeyCode.DownArrow)){
 			running = false;
 			crouching = true;
-			// TODO make collision box smaller
 		} else {
 			running = false;
 			crouching = false;
