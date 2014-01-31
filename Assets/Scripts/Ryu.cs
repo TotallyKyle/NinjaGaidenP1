@@ -69,12 +69,12 @@ public class Ryu : MonoBehaviour {
 		/*
 		 * Check for GetKeyDown here so that key events aren't missed in FixedUpdate
 	 	 */
-		if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightAlt)) {
+		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
 			// Can only jump when grounded
 			if (grounded) {
 				jump(false);
 			}
-		} else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightShift)) {
+		} else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
 			// Can attack from any state except climbing
 			if (!climbing) {
 				startAttack();

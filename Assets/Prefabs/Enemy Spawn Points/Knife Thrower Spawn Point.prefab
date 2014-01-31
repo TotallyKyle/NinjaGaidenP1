@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Batman SpawnPoint
+  m_Name: Knife Thrower Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f03cb8b849de184b972599f7cf5772d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exist: 0
-  enemy: {fileID: 400000, guid: afa902f1dac6cc7499c16c2be65ab0f7, type: 2}
+  enemy: {fileID: 400000, guid: 0f83ff9309cbc044ca718f5ea2db7baa, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
