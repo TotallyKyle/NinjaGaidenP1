@@ -12,6 +12,7 @@ public class Ryu : MonoBehaviour {
 	private const int LAYER_PLAYER	= 8;
 	private const int LAYER_WALLS	= 9;
 	private const int LAYER_GROUND	= 10;
+	private const int LAYER_ENEMY	= 11;
 
     /*
      * Different speeds for different actions
@@ -122,6 +123,9 @@ public class Ryu : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider) {
 		switch (collider.gameObject.layer) {
+		case LAYER_ENEMY:
+			// TODO take hit
+			break;
 		case LAYER_GROUND:
 			feetCollider.enabled = false;
 			break;
