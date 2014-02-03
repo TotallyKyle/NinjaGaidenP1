@@ -81,19 +81,20 @@ public class Ryu : MonoBehaviour {
 			}
 		}
 
+		checkForWalls();
+
 		if (crouching) {
 			swordController.onCrouchStateChanged(true);
 			boxCollider.size = new Vector2(boxCollider.size.x, 1.3f);
 			boxCollider.center = new Vector2(boxCollider.center.x, 0.85f);
 		} else {
 			swordController.onCrouchStateChanged(false);
-			boxCollider.size = new Vector2(boxCollider.size.x, 1.8f);
-			boxCollider.center = new Vector2(boxCollider.center.x, 1.1f);
+			boxCollider.size = new Vector2(boxCollider.size.x, 1.7f);
+			boxCollider.center = new Vector2(boxCollider.center.x, 1.05f);
 		}
 	}
 
     void FixedUpdate() {
-		checkForWalls();
 		if (climbing) {
 			rigidbody2D.Sleep();
 			handleWallJump();
@@ -127,7 +128,7 @@ public class Ryu : MonoBehaviour {
 			// TODO take hit
 			break;
 		case LAYER_GROUND:
-			feetCollider.enabled = grounded;
+			feetCollider.enabled = false;
 			break;
 		}
 	}
@@ -156,13 +157,13 @@ public class Ryu : MonoBehaviour {
 	 * Tests for the appropriate conditions to initiate a wall jump
 	 */
 	private void handleWallJump() {
-		if ((Input.GetKey(KeyCode.Z) && Input.GetKey(KeyCode.LeftArrow)) || 
+		if ((Input.GetKey(KeyCode.X) && Input.GetKey(KeyCode.LeftArrow)) || 
 		    (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.LeftArrow))) {
 			if (facingRight) {
 				jump(true);
 				flip();
 			}
-		} else if ((Input.GetKey(KeyCode.Z) && Input.GetKey(KeyCode.RightArrow)) || 
+		} else if ((Input.GetKey(KeyCode.X) && Input.GetKey(KeyCode.RightArrow)) || 
 		           (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.RightArrow))) {
 			if (!facingRight) {
 				jump(true);
