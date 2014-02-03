@@ -40,13 +40,8 @@ public class Knife : MonoBehaviour
 
     void Update()
     {
-        rigidbody2D.velocity = vel;
-
-        //If goes off camera, destroy the object
-        GameObject camera = GameObject.Find("Main Camera");
-        float relativePosition = transform.position.x - camera.transform.position.x;
-        if (Mathf.Abs(relativePosition) > 26 / 3)
-            Destroy(transform.gameObject);       
+        rigidbody2D.velocity = vel; 
+		checkOffCamera();
     }
 
     private void flip()
@@ -55,4 +50,16 @@ public class Knife : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
+
+    void OnTriggerEnter2D(Collider2D collider) {
+        Destroy(transform.gameObject);
+    }
+
+	//If goes off camera, destroy the object
+	private void checkOffCamera(){
+		GameObject camera = GameObject.Find("Main Camera");
+		float relativePosition = transform.position.x - camera.transform.position.x;
+		if (Mathf.Abs(relativePosition) > 26 / 3)
+			Destroy(transform.gameObject);       
+	}
 }
