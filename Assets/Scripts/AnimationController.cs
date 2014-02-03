@@ -29,8 +29,11 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 		spriteRenderer = controlled.GetComponent<SpriteRenderer>();
 	}
 
-	void FixedUpdate() {
+	void Update() {
 		UpdateAnimationState();
+	}
+
+	void FixedUpdate() {
 		Sprite[] anim = animationInfo[displayedAnimation].sprites;
 		spriteRenderer.sprite = anim[frameCount++];
 		frameCount %= anim.Length;

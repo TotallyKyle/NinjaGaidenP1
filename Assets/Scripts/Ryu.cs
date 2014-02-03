@@ -20,7 +20,7 @@ public class Ryu : MonoBehaviour {
     public const float SPEED		= 1.5f / 16f * 60f; 
 	public const float SPEED_MED	= 1.0f / 16f * 60f;
 	public const float SPEED_SLOW	= 0.5f / 16f * 60f;
-	public const float JUMP_SPEED	= 19.5f;
+	public const float JUMP_SPEED	= 18.6f;
 
 	// Wall checking
 	// ============================================
@@ -127,7 +127,7 @@ public class Ryu : MonoBehaviour {
 			// TODO take hit
 			break;
 		case LAYER_GROUND:
-			feetCollider.enabled = false;
+			feetCollider.enabled = grounded;
 			break;
 		}
 	}
@@ -221,9 +221,10 @@ public class Ryu : MonoBehaviour {
 	}
 
 	private void jump(bool fromWall) {
+		// TODO fix jump from wall velocity
 		rigidbody2D.WakeUp();
 		Vector2 velocity = rigidbody2D.velocity;
-		velocity.y = fromWall ? JUMP_SPEED / 2f : JUMP_SPEED;
+		velocity.y = fromWall ? JUMP_SPEED / 1f : JUMP_SPEED;
 		rigidbody2D.velocity = velocity;
 	}
 
