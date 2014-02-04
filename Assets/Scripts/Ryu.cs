@@ -14,6 +14,7 @@ public class Ryu : MonoBehaviour {
     private const int LAYER_GROUND = 10;
     private const int LAYER_ENEMY = 11;
     private const int LAYER_ENEMY_PROJECTILES = 13;
+	private const int LAYER_ITEMS = 14;
 
     /*
      * Different speeds for different actions
@@ -27,32 +28,28 @@ public class Ryu : MonoBehaviour {
 
     // Wall checking
     // ============================================
-
-    /*
-     * true if Ryu is on a wall, false otherwise
-     */
+	
+	public bool inWall = true;
+	public bool climbing = false;
     public Transform wallCheckFront;
     public Transform wallCheckAbove;
     public float wallRadius = 0.2f;
-
-    /*
-     * Tells the collider what to consider walls
-     */
     public LayerMask wallLayer;
 
+	// Ground checking
+	// ============================================
+	
+	public bool grounded = true;
+	public Transform groundCheck;
+	public Transform groundCheck2;
+	public LayerMask groundLayer;
 
     // State
     // =====================================
 
     public bool running = false;
-
-    public bool grounded = true;
-    public Collider2D feetCollider;
-    public GameObject currentGround;
-
-    public bool climbing = false;
+	public bool ascending = false;
     public bool facingRight = true;
-    public bool inWall = true;
     public bool crouching = false;
     public bool damaged = false;
     public bool invincible = false;
@@ -63,41 +60,60 @@ public class Ryu : MonoBehaviour {
     public GameObject sword;
     private SwordController swordController;
 
-    private BoxCollider2D boxCollider;
+    private BoxCollider2D mainTrigger;
+	private BoxCollider2D feetCollider;
 
-    void Start() {
+	// Items
+	// =====================================
+
+	public ItemScript item;
+
+	void Start() {
         swordController = sword.GetComponent<SwordController>();
-        boxCollider = GetComponent<BoxCollider2D>();
+		BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+		foreach (BoxCollider2D collider in colliders) {
+			if (collider.isTrigger) 
+				mainTrigger = collider;
+			else
+				feetCollider = collider;
+		}
     }
 
     void Update() {
-        /*
-         * Check for GetKeyDown here so that key events aren't missed in FixedUpdate
-         */
-        if (!damaged) {
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
-                // Can only jump when grounded
-                if (grounded) {
-                    jump(false);
-                }
-            } else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
-                // Can attack from any state except climbing
-                if (!climbing) {
-                    startAttack();
-                }
-            }
-        }
+		if (!damaged) {
+			if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
+				// Can only jump when grounded
+				if (grounded) {
+					jump(false);
+				}
+			} else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
+				// Can attack from any state except climbing
+				if (!climbing) {
+					startAttack();
+				}
+			}
+		}
 
-        checkForWalls();
+		grounded = Physics2D.OverlapArea(groundCheck.position, groundCheck2.position, groundLayer);
+		
+		ascending = rigidbody2D.velocity.y > 0;
+		
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
+		
+		inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
+		
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
+		
+		climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
 
         if (crouching) {
             swordController.onCrouchStateChanged(true);
-            boxCollider.size = new Vector2(boxCollider.size.x, 1.3f);
-            boxCollider.center = new Vector2(boxCollider.center.x, 0.85f);
+			mainTrigger.size = new Vector2(mainTrigger.size.x, 1.3f);
+			mainTrigger.center = new Vector2(mainTrigger.center.x, 0.85f);
         } else {
             swordController.onCrouchStateChanged(false);
-            boxCollider.size = new Vector2(boxCollider.size.x, 1.7f);
-            boxCollider.center = new Vector2(boxCollider.center.x, 1.05f);
+			mainTrigger.size = new Vector2(mainTrigger.size.x, 1.7f);
+			mainTrigger.center = new Vector2(mainTrigger.center.x, 1.05f);
         }
     }
 
@@ -116,33 +132,28 @@ public class Ryu : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.layer == LAYER_GROUND) {
-            grounded = true;
-            currentGround = collision.gameObject;
-            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, true);
-        } else if (collision.gameObject.layer == LAYER_ENEMY) {
-            if (!invincible)
-                handleDamage(collision.gameObject);
-        }
+		switch (collision.gameObject.layer) {
+		case LAYER_ENEMY:
+			if (!invincible)
+				handleDamage(collision.gameObject);
+			break;
+		case LAYER_ITEMS:
+			ItemScript freeItem = collision.gameObject.GetComponent<ItemScript>();
+			if (!freeItem.isAutomatic()) {
+				item = freeItem;
+				item.transform.parent = transform;
+				item.pickUp();
+			} else {
+				freeItem.pickUp();
+			}
+			break;
+		}
     }
 
     void OnCollisionExit2D(Collision2D collision) {
-        if (collision.gameObject == currentGround) {
-            grounded = false;
-            currentGround = null;
-            Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, inWall);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        switch (collider.gameObject.layer) {
-            case LAYER_ENEMY:
-                // TODO take hit
-                break;
-            case LAYER_GROUND:
-                feetCollider.enabled = false;
-                break;
-        }
         switch (collider.gameObject.tag) {
             case "Enemies":
                 if (!invincible)
@@ -152,23 +163,6 @@ public class Ryu : MonoBehaviour {
     }
 
     void OnTriggerExit2D(Collider2D collider) {
-        switch (collider.gameObject.layer) {
-            case LAYER_GROUND:
-                feetCollider.enabled = true;
-                break;
-        }
-    }
-
-    /*
-     * Check if we are climbing on a wall by casting to the side
-     */
-    private void checkForWalls() {
-        // We are never climbing if we are grounded
-        // (Could change if we implement ladders)
-        inWall =
-            Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
-        climbing = !grounded && !inWall &&
-            Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
     }
 
     /*
@@ -240,10 +234,9 @@ public class Ryu : MonoBehaviour {
     }
 
     private void jump(bool fromWall) {
-        // TODO fix jump from wall velocity
         rigidbody2D.WakeUp();
         Vector2 velocity = rigidbody2D.velocity;
-        velocity.y = fromWall ? JUMP_SPEED / 1f : JUMP_SPEED;
+        velocity.y = fromWall ? WALL_JUMP_SPEED : JUMP_SPEED;
         rigidbody2D.velocity = velocity;
     }
 

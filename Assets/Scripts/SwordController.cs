@@ -17,12 +17,12 @@ public class SwordController : MonoBehaviour {
 
 	public void extendSword() {
 		Physics2D.IgnoreLayerCollision(swordLayer, enemyLayer, false);
-		setScaleX(0.95f);
+		boxCollider.enabled = true;
 	}
 
 	public void retractSword() {
 		Physics2D.IgnoreLayerCollision(swordLayer, enemyLayer, true);
-		setScaleX(0f);
+		boxCollider.enabled = false;
 	}
 
 	private void setScaleX(float scaleX) {
