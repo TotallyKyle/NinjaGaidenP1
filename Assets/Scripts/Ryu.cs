@@ -37,13 +37,17 @@ public class Ryu : MonoBehaviour {
 	 */
 	public LayerMask wallLayer;
 
+	// Ground checking
+	// ============================================
+	
+	public bool grounded = true;
+	public Transform groundCheck;
 
 	// State
 	// =====================================
 
 	public bool running = false;
 
-	public bool grounded = true;
 	public Collider2D feetCollider;
 	public GameObject currentGround;
 
