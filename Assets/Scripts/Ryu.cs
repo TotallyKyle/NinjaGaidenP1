@@ -281,7 +281,7 @@ public class Ryu : MonoBehaviour {
 
         //Invoke a function that executes to restore player states
         Invoke("postDamageHandler", .5f);
-        Invoke("makeVincible", 2);
+        Invoke("makeVincible", 1.5f);
     }
 
     private void postDamageHandler() {
