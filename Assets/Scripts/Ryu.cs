@@ -55,6 +55,7 @@ public class Ryu : MonoBehaviour {
     public bool inWall = true;
     public bool crouching = false;
     public bool damaged = false;
+    public bool invincible = false;
 
     public bool attacking = false;
     private int attackFrameCount = 0;
