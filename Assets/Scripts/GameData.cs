@@ -48,52 +48,52 @@ public class GameData : MonoBehaviour {
         Texture2D[] numberArray = { zero, one, two, three, four, five, six, seven, eight, nine };
 
         //Score
-        createHUD("Score", .15f, 0, score, 55, -15, 10, 10);
+        createHUD("Score", .15f, 0, score, 100, -25, 5, 10);
 
         //Score Digits
         for (int i = 1; i < 7; i++) {
-            createHUD("Score " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(scoreData / Mathf.Pow(10, 6 - i)) % 10], 98 + (i - 1) * 9, -15, 7, 10);
+            createHUD("Score " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(scoreData / Mathf.Pow(10, 6 - i)) % 10], 154 + (i - 1) * 11, -25, 10, 10);
         }
 
         //Timer
-        createHUD("Timer", .15f, 0, timer, 55, -27, 10, 10);
+        createHUD("Timer", .15f, 0, timer, 100, -37, 5, 10);
 
         //Timer Digits
         for (int i = 1; i < 4; i++) {
-            createHUD("Timer " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(timerData / Mathf.Pow(10, 3 - i)) % 10], 98 + (i - 1) * 9, -27, 7, 10);
+            createHUD("Timer " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(timerData / Mathf.Pow(10, 3 - i)) % 10], 154 + (i - 1) * 11, -37, 10, 10);
         }
 
         //Lives
-        createHUD("Lives", .02f, 0, lives, 32, -39, 10, 10);
+        createHUD("Lives", .02f, 0, lives, 67, -51, 10, 10);
 
         //Lives Digits
         for (int i = 1; i < 3; i++) {
-            createHUD("Lives " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(livesData / Mathf.Pow(10, 2 - i)) % 10], 50 + (i - 1) * 9, -39, 7, 10);
+            createHUD("Lives " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(livesData / Mathf.Pow(10, 2 - i)) % 10], 90 + (i - 1) * 11, -51, 10, 10);
         }
 
         //Spiritual Power
-        createHUD("Spirit Power", .025f, 0, spiritPower, 79, -39, 10, 10);
+        createHUD("Spirit Power", .025f, 0, spiritPower, 129, -52, 10, 10);
 
         //Spirit Power Digits
         for (int i = 1; i < 4; i++) {
-            createHUD("Spirit Power " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(spiritData / Mathf.Pow(10, 3 - i)) % 10], 99 + (i - 1) * 9, -39, 7, 10);
+            createHUD("Spirit Power " + i + " Digit", 0, 0, numberArray[(int)Mathf.Floor(spiritData / Mathf.Pow(10, 3 - i)) % 10], 154 + (i - 1) * 11, -51, 10, 10);
         }
 
         //Stage
-        createHUD("Stage", .15f, 0, stage, 205, -15, 10, 10);
+        createHUD("Stage", .15f, 0, stage, 300, -25, 5, 10);
 
         //Power Up
-        createHUD("Power Up", .1f, 0.05f, powerUp, 145, -35, 10, 10);
+        createHUD("Power Up", .1f, 0.05f, powerUp, 218, -41, 10, 3);
 
         //Ryu's Health
-        createHUD("Ninja", .15f, 0, ninja, 205, -27, 10, 10);
+        createHUD("Ninja", .15f, 0, ninja, 300, -37, 5, 10);
 
         //Ryu's Health Bars
         for (int i = healthData; i < 16; i++) {
-            createHUD("Health " + i, 0, 0, healthEmpty, 247 + i * 7, -27, 6, 10);
+            createHUD("Ninja " + i, 0, 0, healthEmpty, 355 + i * 9, -37, 8, 12);
         }
         for (int i = 0; i < healthData; i++) {
-            createHUD("Health " + i, 0, 0, healthFull, 247 + i * 7, -27, 6, 10);
+            createHUD("Health " + i, 0, 0, healthFull, 355 + i * 9, -37, 8, 12);
         }
     }
 
