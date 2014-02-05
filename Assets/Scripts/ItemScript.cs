@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent (typeof (SpriteRenderer))]
 public abstract class ItemScript : MonoBehaviour {
 
-	private bool pickedUp = false;
+	public bool pickedUp = false;
 
 	public abstract bool isAutomatic();
 
@@ -20,7 +20,7 @@ public abstract class ItemScript : MonoBehaviour {
 		onPickedUp();
 	}
 
-	void Start() {
+	protected virtual void Start() {
 		Invoke("destroyItem", 5);
 	}
 
