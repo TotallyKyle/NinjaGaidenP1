@@ -17,7 +17,7 @@ public class ThrowingStarItem : ItemScript {
 	}
 
 	public override void deploy() {
-		// TODO check for spriti power
+		// TODO check for sprit power
 		Instantiate(star, GameObject.Find("Ryu").transform.position, Quaternion.identity);
 	}
 

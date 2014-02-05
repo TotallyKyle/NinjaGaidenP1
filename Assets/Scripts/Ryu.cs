@@ -60,9 +60,6 @@ public class Ryu : MonoBehaviour {
     public GameObject sword;
     private SwordController swordController;
 
-    private BoxCollider2D mainTrigger;
-	private BoxCollider2D feetCollider;
-
 	// Items
 	// =====================================
 
@@ -70,13 +67,6 @@ public class Ryu : MonoBehaviour {
 
 	void Start() {
         swordController = sword.GetComponent<SwordController>();
-		BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
-		foreach (BoxCollider2D collider in colliders) {
-			if (collider.isTrigger) 
-				mainTrigger = collider;
-			else
-				feetCollider = collider;
-		}
     }
 
     void Update() {
@@ -106,15 +96,7 @@ public class Ryu : MonoBehaviour {
 		
 		climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
 
-        if (crouching) {
-            swordController.onCrouchStateChanged(true);
-			mainTrigger.size = new Vector2(mainTrigger.size.x, 1.3f);
-			mainTrigger.center = new Vector2(mainTrigger.center.x, 0.85f);
-        } else {
-            swordController.onCrouchStateChanged(false);
-			mainTrigger.size = new Vector2(mainTrigger.size.x, 1.7f);
-			mainTrigger.center = new Vector2(mainTrigger.center.x, 1.05f);
-        }
+		swordController.onCrouchStateChanged(crouching);
     }
 
     void FixedUpdate() {
