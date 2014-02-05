@@ -8,11 +8,6 @@ public class ThrowingStar : MonoBehaviour
 	// =============================================
 	
 	/*
-     * Layer indecies 
-     */
-	private const int LAYER_ENEMIES = 11;
-	
-	/*
      * Different speeds for different actions
      */
 	public const float SPEED = 3f / 16f * 60f;
