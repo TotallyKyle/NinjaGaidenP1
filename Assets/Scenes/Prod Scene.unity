@@ -1751,7 +1751,7 @@ GameObject:
   - 61: {fileID: 450610226}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2361,7 +2361,7 @@ GameObject:
   - 61: {fileID: 611764011}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2500,7 +2500,7 @@ GameObject:
   - 61: {fileID: 652157634}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2980,7 +2980,7 @@ GameObject:
   - 61: {fileID: 750026845}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3411,7 +3411,7 @@ GameObject:
   - 61: {fileID: 799596084}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3550,7 +3550,7 @@ GameObject:
   - 61: {fileID: 814905659}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5224,7 +5224,7 @@ GameObject:
   - 4: {fileID: 1184323545}
   m_Layer: 9
   m_Name: Walls
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5754,7 +5754,7 @@ GameObject:
   - 61: {fileID: 1289687541}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5933,7 +5933,7 @@ GameObject:
   - 61: {fileID: 1375630006}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6239,7 +6239,7 @@ GameObject:
   - 61: {fileID: 1484354654}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7210,6 +7210,14 @@ Prefab:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
+      propertyPath: m_TagString
+      value: Wall Right
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
   m_RootGameObject: {fileID: 1184323544}
@@ -7982,7 +7990,7 @@ GameObject:
   - 61: {fileID: 1935426934}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall Left
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8369,7 +8377,7 @@ GameObject:
   - 61: {fileID: 2023083283}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8422,7 +8430,7 @@ GameObject:
   - 61: {fileID: 2027003308}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

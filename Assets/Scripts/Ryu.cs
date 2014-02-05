@@ -100,18 +100,22 @@ public class Ryu : MonoBehaviour {
             }
         }
 
+        //Ground Checking
         grounded = Physics2D.OverlapArea(groundCheck.position, groundCheck2.position, groundLayer);
 
         ascending = rigidbody2D.velocity.y > 0;
 
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
 
+        //Wall Checking
         inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
 
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
 
+        //Wall Climbing
         climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
 
+        //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
     }
 
