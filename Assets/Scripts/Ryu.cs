@@ -57,6 +57,9 @@ public class Ryu : MonoBehaviour {
     public bool attacking = false;
     private int attackFrameCount = 0;
 
+	public bool casting = false;
+	private int castingFrameCount = 0;
+
     public GameObject sword;
     private SwordController swordController;
 
@@ -79,7 +82,11 @@ public class Ryu : MonoBehaviour {
 			} else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
 				// Can attack from any state except climbing
 				if (!climbing) {
-					startAttack();
+					if (Input.GetKey(KeyCode.UpArrow) && !running && grounded && !casting) {
+						startCasting();
+					} else if (!attacking){
+						startAttack();
+					}
 				}
 			}
 		}
@@ -106,7 +113,9 @@ public class Ryu : MonoBehaviour {
                 handleWallJump();
             } else if (attacking) {
                 handleAttack();
-            } else {
+			} else if (casting) {
+				handleCasting();
+			} else {
                 // Can only move horizontally if not climbing or attacking
                 handleInput();
             }
@@ -178,6 +187,13 @@ public class Ryu : MonoBehaviour {
         }
     }
 
+	private void handleCasting() {
+		if (castingFrameCount++ == 3) {
+			casting = false;
+			castingFrameCount = 0;
+		}
+	}
+
     /*
      * Detect user input and adjust Ryu's horizontal velocity accordingly
      */
@@ -205,7 +221,7 @@ public class Ryu : MonoBehaviour {
                 velocity = SPEED;
                 if (!facingRight) flip();
             }
-        } else if (Input.GetKey(KeyCode.DownArrow)) {
+		} else if (Input.GetKey(KeyCode.DownArrow)) {
             running = false;
             crouching = true;
         } else {
@@ -227,6 +243,14 @@ public class Ryu : MonoBehaviour {
         attackFrameCount = 0;
         swordController.extendSword();
     }
+
+	private void startCasting() {
+		casting = true;
+		castingFrameCount = 0;
+		if (item != null) {
+			item.deploy();
+		}
+	}
 
     private void flip() {
         facingRight = !facingRight;
