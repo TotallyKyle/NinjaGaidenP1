@@ -11,6 +11,7 @@ public class SpiritPowerItem : ItemScript {
 
 	public override void deploy() {
 		// TODO increment spirit power by value amount
+        GameObject.Find("Game HUD").GetComponent<GameData>().spiritData+= spiritPowerValue;
 	}
 
 	public override void onPickedUp() {

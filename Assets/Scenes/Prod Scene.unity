@@ -1727,17 +1727,17 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 640397963}
-  - {fileID: 225570071}
-  - {fileID: 1287286408}
-  - {fileID: 1057301197}
-  - {fileID: 1853057882}
   - {fileID: 30520756}
-  - {fileID: 2142518669}
   - {fileID: 1358395829}
-  - {fileID: 813785064}
-  - {fileID: 795823116}
+  - {fileID: 1853057882}
   - {fileID: 1577056103}
+  - {fileID: 795823116}
+  - {fileID: 1287286408}
+  - {fileID: 640397963}
+  - {fileID: 813785064}
+  - {fileID: 225570071}
+  - {fileID: 2142518669}
+  - {fileID: 1057301197}
   m_Father: {fileID: 310907310}
 --- !u!1 &450610224
 GameObject:
@@ -6909,6 +6909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55758bb96aeee4944b76c264467b8039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 2004296066}
 --- !u!61 &1658486256
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7302,6 +7303,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: gameData
+      value: 
+      objectReference: {fileID: 2004296066}
+    - target: {fileID: 11400000, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: gameData
+      value: 
+      objectReference: {fileID: 2004296066}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
   m_RootGameObject: {fileID: 2140857030}
@@ -9059,8 +9068,10 @@ MonoBehaviour:
   damaged: 0
   invincible: 0
   attacking: 0
+  casting: 0
   sword: {fileID: 1658486253}
   item: {fileID: 0}
+  gameData: {fileID: 2004296066}
 --- !u!212 &2140857036
 SpriteRenderer:
   m_ObjectHideFlags: 0

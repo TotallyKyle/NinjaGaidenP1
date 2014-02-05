@@ -27,11 +27,11 @@ public class GameData : MonoBehaviour {
     public Texture2D dash;
 
     //The Variables that actually hold the information
-    public int scoreData = 0;
-    public int timerData = 0;
-    public int healthData = 0;
-    public int spiritData = 0;
-    public int livesData = 0;
+    public int scoreData;
+    public int timerData;
+    public int healthData;
+    public int spiritData;
+    public int livesData;
 
     // Use this for initialization
     void Start() {
