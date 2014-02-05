@@ -118,7 +118,6 @@ public class Ryu : MonoBehaviour {
 			Collider2D wall = walls[0];
 			switch (wall.tag) {
 			case "Wall Right":
-				Debug.Log(rigidbody2D.velocity.x);
 				if (!facingRight || rigidbody2D.velocity.x < 0) {
 					climbing = true;
 				} else {
@@ -126,7 +125,6 @@ public class Ryu : MonoBehaviour {
 				}
 				break;
 			case "Wall Left":
-				Debug.Log(rigidbody2D.velocity.x);
 				if (facingRight || rigidbody2D.velocity.x > 0) {
 					climbing = true;
 				} else {
