@@ -14,7 +14,7 @@ public class Ryu : MonoBehaviour {
     private const int LAYER_GROUND = 10;
     private const int LAYER_ENEMY = 11;
     private const int LAYER_ENEMY_PROJECTILES = 13;
-	private const int LAYER_ITEMS = 14;
+    private const int LAYER_ITEMS = 14;
 
     /*
      * Different speeds for different actions
@@ -28,27 +28,27 @@ public class Ryu : MonoBehaviour {
 
     // Wall checking
     // ============================================
-	
-	public bool inWall = true;
-	public bool climbing = false;
+
+    public bool inWall = true;
+    public bool climbing = false;
     public Transform wallCheckFront;
     public Transform wallCheckAbove;
     public float wallRadius = 0.2f;
     public LayerMask wallLayer;
 
-	// Ground checking
-	// ============================================
-	
-	public bool grounded = true;
-	public Transform groundCheck;
-	public Transform groundCheck2;
-	public LayerMask groundLayer;
+    // Ground checking
+    // ============================================
+
+    public bool grounded = true;
+    public Transform groundCheck;
+    public Transform groundCheck2;
+    public LayerMask groundLayer;
 
     // State
     // =====================================
 
     public bool running = false;
-	public bool ascending = false;
+    public bool ascending = false;
     public bool facingRight = true;
     public bool crouching = false;
     public bool damaged = false;
@@ -57,53 +57,66 @@ public class Ryu : MonoBehaviour {
     public bool attacking = false;
     private int attackFrameCount = 0;
 
-	public bool casting = false;
-	private int castingFrameCount = 0;
+    public bool casting = false;
+    private int castingFrameCount = 0;
 
     public GameObject sword;
     private SwordController swordController;
 
-	// Items
-	// =====================================
+    // Items
+    // =====================================
 
-	public ItemScript item;
+    public ItemScript item;
 
-	void Start() {
+    // Game Data
+    // =====================================
+    public GameData gameData;
+
+    void Start() {
         swordController = sword.GetComponent<SwordController>();
+        gameData.scoreData = 0;
+        gameData.timerData = 150;
+        gameData.healthData = 16;
+        gameData.spiritData = 0;
+        gameData.livesData = 2;
     }
 
     void Update() {
-		if (!damaged) {
-			if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
-				// Can only jump when grounded
-				if (grounded) {
-					jump(false);
-				}
-			} else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
-				// Can attack from any state except climbing
-				if (!climbing) {
-					if (Input.GetKey(KeyCode.UpArrow) && !running && grounded && !casting) {
-						startCasting();
-					} else if (!attacking){
-						startAttack();
-					}
-				}
-			}
-		}
+        if (!damaged) {
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
+                // Can only jump when grounded
+                if (grounded) {
+                    jump(false);
+                }
+            } else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
+                // Can attack from any state except climbing
+                if (!climbing) {
+                    if (Input.GetKey(KeyCode.UpArrow) && !running && grounded && !casting) {
+                        startCasting();
+                    } else if (!attacking) {
+                        startAttack();
+                    }
+                }
+            }
+        }
 
-		grounded = Physics2D.OverlapArea(groundCheck.position, groundCheck2.position, groundLayer);
-		
-		ascending = rigidbody2D.velocity.y > 0;
-		
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
-		
-		inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
-		
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
-		
-		climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
+        //Ground Checking
+        grounded = Physics2D.OverlapArea(groundCheck.position, groundCheck2.position, groundLayer);
 
-		swordController.onCrouchStateChanged(crouching);
+        ascending = rigidbody2D.velocity.y > 0;
+
+        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
+
+        //Wall Checking
+        inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
+
+        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
+
+        //Wall Climbing
+        climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
+
+        //Sword Crouch Checking
+        swordController.onCrouchStateChanged(crouching);
     }
 
     void FixedUpdate() {
@@ -113,9 +126,9 @@ public class Ryu : MonoBehaviour {
                 handleWallJump();
             } else if (attacking) {
                 handleAttack();
-			} else if (casting) {
-				handleCasting();
-			} else {
+            } else if (casting) {
+                handleCasting();
+            } else {
                 // Can only move horizontally if not climbing or attacking
                 handleInput();
             }
@@ -123,22 +136,22 @@ public class Ryu : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-		switch (collision.gameObject.layer) {
-		case LAYER_ENEMY:
-			if (!invincible)
-				handleDamage(collision.gameObject);
-			break;
-		case LAYER_ITEMS:
-			ItemScript freeItem = collision.gameObject.GetComponent<ItemScript>();
-			if (!freeItem.isAutomatic()) {
-				item = freeItem;
-				item.transform.parent = transform;
-				item.pickUp();
-			} else {
-				freeItem.pickUp();
-			}
-			break;
-		}
+        switch (collision.gameObject.layer) {
+            case LAYER_ENEMY:
+                if (!invincible)
+                    handleDamage(collision.gameObject);
+                break;
+            case LAYER_ITEMS:
+                ItemScript freeItem = collision.gameObject.GetComponent<ItemScript>();
+                if (!freeItem.isAutomatic()) {
+                    item = freeItem;
+                    item.transform.parent = transform;
+                    item.pickUp();
+                } else {
+                    freeItem.pickUp();
+                }
+                break;
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision) {
@@ -187,12 +200,12 @@ public class Ryu : MonoBehaviour {
         }
     }
 
-	private void handleCasting() {
-		if (castingFrameCount++ == 3) {
-			casting = false;
-			castingFrameCount = 0;
-		}
-	}
+    private void handleCasting() {
+        if (castingFrameCount++ == 3) {
+            casting = false;
+            castingFrameCount = 0;
+        }
+    }
 
     /*
      * Detect user input and adjust Ryu's horizontal velocity accordingly
@@ -221,7 +234,7 @@ public class Ryu : MonoBehaviour {
                 velocity = SPEED;
                 if (!facingRight) flip();
             }
-		} else if (Input.GetKey(KeyCode.DownArrow)) {
+        } else if (Input.GetKey(KeyCode.DownArrow)) {
             running = false;
             crouching = true;
         } else {
@@ -244,13 +257,13 @@ public class Ryu : MonoBehaviour {
         swordController.extendSword();
     }
 
-	private void startCasting() {
-		casting = true;
-		castingFrameCount = 0;
-		if (item != null) {
-			item.deploy();
-		}
-	}
+    private void startCasting() {
+        casting = true;
+        castingFrameCount = 0;
+        if (item != null) {
+            item.deploy();
+        }
+    }
 
     private void flip() {
         facingRight = !facingRight;
@@ -263,8 +276,22 @@ public class Ryu : MonoBehaviour {
     private void handleDamage(GameObject damageSource) {
         //Set damage states and ignore physics
         damaged = true;
+        makeInvincible();
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, true);
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, true);
+
+        //Decrease Health in Game Data
+        gameData.healthData--;
+
+        //Decreases Lives if You Die, Pauses Game if You Run Out of Lives
+        if (gameData.healthData <= 0) {
+            gameData.livesData--;
+            gameData.healthData = 16;
+        }
+
+        if (gameData.livesData <= 0) {
+            Time.timeScale = 0;
+        }
 
         //Direction where damage source came from
         //Sets recoil appropriately

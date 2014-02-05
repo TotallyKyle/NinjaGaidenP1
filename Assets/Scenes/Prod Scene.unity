@@ -1727,17 +1727,17 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 640397963}
-  - {fileID: 225570071}
-  - {fileID: 1287286408}
-  - {fileID: 1057301197}
-  - {fileID: 1853057882}
   - {fileID: 30520756}
-  - {fileID: 2142518669}
   - {fileID: 1358395829}
-  - {fileID: 813785064}
-  - {fileID: 795823116}
+  - {fileID: 1853057882}
   - {fileID: 1577056103}
+  - {fileID: 795823116}
+  - {fileID: 1287286408}
+  - {fileID: 640397963}
+  - {fileID: 813785064}
+  - {fileID: 225570071}
+  - {fileID: 2142518669}
+  - {fileID: 1057301197}
   m_Father: {fileID: 310907310}
 --- !u!1 &450610224
 GameObject:
@@ -1751,7 +1751,7 @@ GameObject:
   - 61: {fileID: 450610226}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2361,7 +2361,7 @@ GameObject:
   - 61: {fileID: 611764011}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2500,7 +2500,7 @@ GameObject:
   - 61: {fileID: 652157634}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2980,7 +2980,7 @@ GameObject:
   - 61: {fileID: 750026845}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3411,7 +3411,7 @@ GameObject:
   - 61: {fileID: 799596084}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3550,7 +3550,7 @@ GameObject:
   - 61: {fileID: 814905659}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5224,7 +5224,7 @@ GameObject:
   - 4: {fileID: 1184323545}
   m_Layer: 9
   m_Name: Walls
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5754,7 +5754,7 @@ GameObject:
   - 61: {fileID: 1289687541}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5933,7 +5933,7 @@ GameObject:
   - 61: {fileID: 1375630006}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6239,7 +6239,7 @@ GameObject:
   - 61: {fileID: 1484354654}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6909,6 +6909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55758bb96aeee4944b76c264467b8039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 2004296066}
 --- !u!61 &1658486256
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7209,6 +7210,14 @@ Prefab:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
+      propertyPath: m_TagString
+      value: Wall Right
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f25c9dafbb04d054695fc7f7518191ca, type: 2}
   m_RootGameObject: {fileID: 1184323544}
@@ -7302,6 +7311,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: gameData
+      value: 
+      objectReference: {fileID: 2004296066}
+    - target: {fileID: 11400000, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: gameData
+      value: 
+      objectReference: {fileID: 2004296066}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
   m_RootGameObject: {fileID: 2140857030}
@@ -7973,7 +7990,7 @@ GameObject:
   - 61: {fileID: 1935426934}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall Left
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8360,7 +8377,7 @@ GameObject:
   - 61: {fileID: 2023083283}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8413,7 +8430,7 @@ GameObject:
   - 61: {fileID: 2027003308}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Wall
+  m_TagString: Wall Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9059,8 +9076,10 @@ MonoBehaviour:
   damaged: 0
   invincible: 0
   attacking: 0
+  casting: 0
   sword: {fileID: 1658486253}
   item: {fileID: 0}
+  gameData: {fileID: 2004296066}
 --- !u!212 &2140857036
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class SwordController : MonoBehaviour {
 	private int swordLayer;
 	private int enemyLayer;
 
+    public GameData gameData;
+
 	private BoxCollider2D boxCollider;
 
 	void Start() {
@@ -42,6 +44,7 @@ public class SwordController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == enemyLayer) {
 			Destroy(other.gameObject);
+            gameData.scoreData+= 100;
 		}
 	}
 }
