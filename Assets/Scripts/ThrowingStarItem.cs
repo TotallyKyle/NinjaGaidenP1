@@ -3,17 +3,20 @@ using System.Collections;
 
 public class ThrowingStarItem : ItemScript {
 	
-	private ThrowingStar star;
+	private GameObject starPrefab;
 
 	public override bool isAutomatic() {
 		return false;
 	}
 
-
+	protected override void Start() {
+		starPrefab = (GameObject) Resources.Load("/Prefabs/Items/ThrowingStar");
+		base.Start();
+	}
 
 	public override void deploy() {
 		// TODO check for sprit power
-		Instantiate(star, GameObject.Find("Ryu").transform.position, Quaternion.identity);
+		Instantiate(starPrefab, GameObject.Find("Ryu").transform.position, Quaternion.identity);
 	}
 
 	public override void onPickedUp() {

@@ -271,6 +271,11 @@ MonoBehaviour:
     - {fileID: 21300038, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300040, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300042, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+  - name: Casting
+    sprites:
+    - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,7 +308,9 @@ MonoBehaviour:
   damaged: 0
   invincible: 0
   attacking: 0
+  casting: 0
   sword: {fileID: 100000}
+  item: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
