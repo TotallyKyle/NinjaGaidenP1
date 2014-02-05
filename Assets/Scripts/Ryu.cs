@@ -113,26 +113,52 @@ public class Ryu : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
 
         //Wall Climbing
-        climbing = !grounded && !inWall && Physics2D.OverlapCircle(wallCheckFront.position, wallRadius, wallLayer);
+		Collider2D[] walls = Physics2D.OverlapCircleAll(wallCheckFront.position, wallRadius, wallLayer);
+		if (walls.Length > 0 && !grounded && !inWall) {
+			Collider2D wall = walls[0];
+			switch (wall.tag) {
+			case "Wall Right":
+				Debug.Log(rigidbody2D.velocity.x);
+				if (!facingRight || rigidbody2D.velocity.x < 0) {
+					climbing = true;
+				} else {
+					climbing = false;
+				}
+				break;
+			case "Wall Left":
+				Debug.Log(rigidbody2D.velocity.x);
+				if (facingRight || rigidbody2D.velocity.x > 0) {
+					climbing = true;
+				} else {
+					climbing = false;
+				}
+				break;
+			case "Wall Both":
+				climbing = true;
+				break;
+			}
+		} else {
+			climbing = false;
+		}
 
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
     }
 
     void FixedUpdate() {
-        if (!damaged) {
-            if (climbing) {
-                rigidbody2D.Sleep();
-                handleWallJump();
-            } else if (attacking) {
-                handleAttack();
-            } else if (casting) {
-                handleCasting();
-            } else {
-                // Can only move horizontally if not climbing or attacking
-                handleInput();
-            }
-        }
+		if (!damaged) {
+			if (climbing) {
+				rigidbody2D.Sleep();
+				handleWallJump();
+			} else if (attacking) {
+				handleAttack();
+			} else if (casting) {
+				handleCasting();
+			} else {
+				// Can only move horizontally if not climbing or attacking
+				handleInput();
+			}
+		}
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
