@@ -13,7 +13,7 @@ GameObject:
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
   m_Layer: 14
-  m_Name: ThrowingStarItem
+  m_Name: BonusItemBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.7880898, y: 9.23838043, z: 0}
+  m_LocalPosition: {x: 52.7525368, y: 6.61237049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,7 +39,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -64,10 +64,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c81f5999050f4d3aa2ac5112d209e64, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b851fb06424f48f1b3fff2dc551d552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUp: 0
+  scoreBonus: 500
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -89,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortingLayerID: 517072579
-  m_Sprite: {fileID: 21300014, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
+  m_Sprite: {fileID: 21300004, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

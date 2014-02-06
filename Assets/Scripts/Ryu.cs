@@ -110,8 +110,6 @@ public class Ryu : MonoBehaviour {
         //Wall Checking
         inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
 
-        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, grounded || (!grounded && inWall));
-
         //Wall Climbing
 		Collider2D[] walls = Physics2D.OverlapCircleAll(wallCheckFront.position, wallRadius, wallLayer);
 		if (walls.Length > 0 && !grounded && !inWall) {
