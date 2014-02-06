@@ -11,6 +11,8 @@ TagManager:
   - 
   - 
   - 
+  - Wall
+  - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast
@@ -26,7 +28,7 @@ TagManager:
   User Layer 12: Sword
   User Layer 13: Enemy Projectiles
   User Layer 14: Items
-  User Layer 15: 
+  User Layer 15: Enemy Patrol Walls
   User Layer 16: 
   User Layer 17: 
   User Layer 18: 
