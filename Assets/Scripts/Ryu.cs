@@ -167,24 +167,21 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			switch (collider.gameObject.tag) {
 			case "Wall Right":
 				if (!facingRight || rigidbody2D.velocity.x < 0) {
-					climbing = true;
-					rigidbody2D.Sleep();
+					climb();
 				} else {
 					climbing = false;
 				}
 				break;
 			case "Wall Left":
 				if (facingRight || rigidbody2D.velocity.x > 0) {
-					climbing = true;
-					rigidbody2D.Sleep();
+					climb();
 				} else {
 					climbing = false;
 				}
 				break;
 			case "Wall Both":
 				if (rigidbody2D.velocity.x != 0) {
-					climbing = true;
-					rigidbody2D.Sleep();
+					climb();
 				}
 				break;
 			}
@@ -260,6 +257,12 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         rigidbody2D.velocity = velocity;
 		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
     }
+
+	private void climb() {
+		climbing = true;
+		rigidbody2D.Sleep();
+		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
+	}
 
     private void startAttack() {
         attacking = true;
