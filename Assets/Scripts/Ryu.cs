@@ -34,6 +34,13 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public Transform groundCheck2;
     public LayerMask groundLayer;
 
+	public BoxCollider2D mainCollider;
+	public BoxCollider2D feetCollider;
+	private Vector2 jumpSize = new Vector2(1.2f, 1f);
+	private Vector2 jumpCenter = Vector2.zero;
+	private Vector2 standSize;
+	private Vector2 standCenter;
+
     // State
     // =====================================
 
@@ -74,6 +81,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
 		RyuAnimationController anim = GetComponent<RyuAnimationController>();
 		anim.setAnimationListener(this);
+
+		standSize = mainCollider.size;
+		standCenter = mainCollider.center;
     }
 
 	void AnimationController<Ryu>.AnimationListener.onAnimationRepeat(int animationIndex) {
@@ -112,11 +122,18 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         }
 
         //Ground Checking
+		bool wasGrounded = grounded;
         grounded = Physics2D.OverlapArea(groundCheck.position, groundCheck2.position, groundLayer);
-
+		if (!wasGrounded && grounded) {
+			mainCollider.size = standSize;
+			mainCollider.center = standCenter;
+		} else if (wasGrounded && !grounded) {
+			mainCollider.size = jumpSize;
+			mainCollider.center = jumpCenter;
+		}
+	
         ascending = rigidbody2D.velocity.y > 0;
-
-        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
+		feetCollider.enabled = !ascending;
 
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
@@ -163,25 +180,22 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
                     handleDamage(collider.gameObject);
                 break;
         }
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && !grounded) {
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && !grounded && !climbing) {
 			switch (collider.gameObject.tag) {
 			case "Wall Right":
-				if (!facingRight || rigidbody2D.velocity.x < 0) {
+				if (rigidbody2D.velocity.x < 0) {
+					if (facingRight) flip();
 					climb();
 				} else {
 					climbing = false;
 				}
 				break;
 			case "Wall Left":
-				if (facingRight || rigidbody2D.velocity.x > 0) {
+				if (rigidbody2D.velocity.x > 0) {
+					if (!facingRight) flip();
 					climb();
 				} else {
 					climbing = false;
-				}
-				break;
-			case "Wall Both":
-				if (rigidbody2D.velocity.x != 0) {
-					climb();
 				}
 				break;
 			}
@@ -200,15 +214,17 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     private void handleWallJump() {
         if ((Input.GetKey(KeyCode.X) && Input.GetKey(KeyCode.LeftArrow)) ||
             (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.LeftArrow))) {
-            if (facingRight) {
+			if (facingRight) {
+				flip();
                 jump(true);
-                flip();
+				climbing = false;
             }
         } else if ((Input.GetKey(KeyCode.X) && Input.GetKey(KeyCode.RightArrow)) ||
                    (Input.GetKey(KeyCode.RightAlt) && Input.GetKey(KeyCode.RightArrow))) {
-            if (!facingRight) {
-                jump(true);
-                flip();
+			if (!facingRight) {
+				flip();
+				jump(true);
+				climbing = false;
             }
         }
     }
@@ -251,16 +267,21 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     }
 
     private void jump(bool fromWall) {
+		// Ensure physics
         rigidbody2D.WakeUp();
+
+		// Set correct velocity
         Vector2 velocity = rigidbody2D.velocity;
         velocity.y = fromWall ? WALL_JUMP_SPEED : JUMP_SPEED;
         rigidbody2D.velocity = velocity;
+
+		// Jump sound
 		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
     }
 
 	private void climb() {
-		climbing = true;
 		rigidbody2D.Sleep();
+		climbing = true;
 		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
 	}
 
@@ -276,7 +297,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         }
     }
 
-    private void flip() {
+	private void flip() {
         facingRight = !facingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
