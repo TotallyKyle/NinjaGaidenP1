@@ -9,8 +9,13 @@ public class AnimationControllerInfo {
 
 public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehaviour {
 
+	public interface AnimationListener {
+		void onAnimationRepeat(int animationIndex);
+	}
+
 	private int frameCount = 0;
-	private int displayedAnimation = 0;
+	private int animationIndex = 0;
+	private AnimationListener listener;
 	private SpriteRenderer spriteRenderer;
 
 	/*
@@ -25,8 +30,11 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 	 */
 	public abstract void UpdateAnimationState();
 
-	void Start() {
-		spriteRenderer = controlled.GetComponent<SpriteRenderer>();
+	protected virtual void Start() {
+		if (controlled != null)
+			spriteRenderer = controlled.GetComponent<SpriteRenderer>();
+		else
+			spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void Update() {
@@ -34,15 +42,22 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 	}
 
 	void FixedUpdate() {
-		Sprite[] anim = animationInfo[displayedAnimation].sprites;
+		Sprite[] anim = animationInfo[animationIndex].sprites;
 		spriteRenderer.sprite = anim[frameCount++];
 		frameCount %= anim.Length;
+		if (frameCount == 0 && listener != null) {
+			listener.onAnimationRepeat(animationIndex);
+		}
 	}
 
-	public void setDisplayedAnimation(int displayedAnimation) {
-		if (this.displayedAnimation != displayedAnimation) {
-			this.displayedAnimation = displayedAnimation;
+	public void setDisplayedAnimation(int animationIndex) {
+		if (this.animationIndex != animationIndex) {
+			this.animationIndex = animationIndex;
 			frameCount = 0;
 		}
+	}
+
+	public void setAnimationListener(AnimationListener listener) {
+		this.listener = listener;
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ryu : MonoBehaviour {
+public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     // Constants
     // =============================================
@@ -26,16 +26,6 @@ public class Ryu : MonoBehaviour {
     public const float WALL_JUMP_SPEED = 13;
     public const float INJURED_JUMP_SPEED = 13;
 
-    // Wall checking
-    // ============================================
-
-    public bool inWall = true;
-    public bool climbing = false;
-    public Transform wallCheckFront;
-    public Transform wallCheckAbove;
-    public float wallRadius = 0.2f;
-    public LayerMask wallLayer;
-
     // Ground checking
     // ============================================
 
@@ -48,17 +38,14 @@ public class Ryu : MonoBehaviour {
     // =====================================
 
     public bool running = false;
+	public bool climbing = false;
     public bool ascending = false;
     public bool facingRight = true;
     public bool crouching = false;
     public bool damaged = false;
-    public bool invincible = false;
-
+	public bool invincible = false;
     public bool attacking = false;
-    private int attackFrameCount = 0;
-
     public bool casting = false;
-    private int castingFrameCount = 0;
 
     public GameObject sword;
     private SwordController swordController;
@@ -79,7 +66,26 @@ public class Ryu : MonoBehaviour {
         gameData.healthData = 16;
         gameData.spiritData = 0;
         gameData.livesData = 2;
+
+		RyuAnimationController anim = GetComponent<RyuAnimationController>();
+		anim.setAnimationListener(this);
     }
+
+	void AnimationController<Ryu>.AnimationListener.onAnimationRepeat(int animationIndex) {
+		switch (animationIndex) {
+		case RyuAnimationController.ANIM_ATTACK:
+		case RyuAnimationController.ANIM_CROUCH_ATTACK:
+			if (attacking) {
+				attacking = false;
+				swordController.retractSword();
+			}
+			break;
+		case RyuAnimationController.ANIM_CASTING:
+			if (casting)
+				casting = false;
+			break;
+		}
+	}
 
     void Update() {
         if (!damaged) {
@@ -107,36 +113,6 @@ public class Ryu : MonoBehaviour {
 
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, ascending);
 
-        //Wall Checking
-        inWall = Physics2D.OverlapCircle(wallCheckAbove.position, wallRadius, wallLayer);
-
-        //Wall Climbing
-		Collider2D[] walls = Physics2D.OverlapCircleAll(wallCheckFront.position, wallRadius, wallLayer);
-		if (walls.Length > 0 && !grounded && !inWall) {
-			Collider2D wall = walls[0];
-			switch (wall.tag) {
-			case "Wall Right":
-				if (!facingRight || rigidbody2D.velocity.x < 0) {
-					climbing = true;
-				} else {
-					climbing = false;
-				}
-				break;
-			case "Wall Left":
-				if (facingRight || rigidbody2D.velocity.x > 0) {
-					climbing = true;
-				} else {
-					climbing = false;
-				}
-				break;
-			case "Wall Both":
-				climbing = true;
-				break;
-			}
-		} else {
-			climbing = false;
-		}
-
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
     }
@@ -146,12 +122,8 @@ public class Ryu : MonoBehaviour {
 			if (climbing) {
 				rigidbody2D.Sleep();
 				handleWallJump();
-			} else if (attacking) {
-				handleAttack();
-			} else if (casting) {
-				handleCasting();
-			} else {
-				// Can only move horizontally if not climbing or attacking
+			} else if (!attacking && !casting) {
+				// Can only move horizontally if not climbing or attacking or casting
 				handleInput();
 			}
 		}
@@ -186,9 +158,38 @@ public class Ryu : MonoBehaviour {
                     handleDamage(collider.gameObject);
                 break;
         }
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && !grounded) {
+			switch (collider.gameObject.tag) {
+			case "Wall Right":
+				if (!facingRight || rigidbody2D.velocity.x < 0) {
+					climbing = true;
+					rigidbody2D.Sleep();
+				} else {
+					climbing = false;
+				}
+				break;
+			case "Wall Left":
+				if (facingRight || rigidbody2D.velocity.x > 0) {
+					climbing = true;
+					rigidbody2D.Sleep();
+				} else {
+					climbing = false;
+				}
+				break;
+			case "Wall Both":
+				if (rigidbody2D.velocity.x != 0) {
+					climbing = true;
+					rigidbody2D.Sleep();
+				}
+				break;
+			}
+		}
     }
 
     void OnTriggerExit2D(Collider2D collider) {
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+			climbing = false;
+		}
     }
 
     /*
@@ -207,25 +208,6 @@ public class Ryu : MonoBehaviour {
                 jump(true);
                 flip();
             }
-        }
-    }
-
-    /*
-     * Handles keeping track of how long Ryu has been attacking
-     */
-    private void handleAttack() {
-        if (attackFrameCount++ == 3) {
-            // Done attacking
-            swordController.retractSword();
-            attacking = false;
-            attackFrameCount = 0;
-        }
-    }
-
-    private void handleCasting() {
-        if (castingFrameCount++ == 3) {
-            casting = false;
-            castingFrameCount = 0;
         }
     }
 
@@ -275,13 +257,11 @@ public class Ryu : MonoBehaviour {
 
     private void startAttack() {
         attacking = true;
-        attackFrameCount = 0;
         swordController.extendSword();
     }
 
     private void startCasting() {
         casting = true;
-        castingFrameCount = 0;
         if (item != null) {
             item.deploy();
         }

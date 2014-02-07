@@ -31,6 +31,10 @@ public class ThrowingStar : MonoBehaviour
 	
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemies")) {
+			DieScript dieScript = collider.GetComponent<DieScript>();
+			if (dieScript != null) {
+				dieScript.die();
+			}
 			Destroy(collider.gameObject);
 			Destroy(transform.gameObject);
 		}
