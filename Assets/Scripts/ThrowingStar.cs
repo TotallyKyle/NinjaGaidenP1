@@ -13,12 +13,15 @@ public class ThrowingStar : AnimationController<ThrowingStar>
 	public const float SPEED = 3f / 16f * 60f;
 
 	public Vector2 vel;
+
+	public AudioClip starClip;
 	
 	/*
      * Checks which direction the Knife Thrower threw the knife
      */
 	protected override void Start() {
 		base.Start();
+		AudioSource.PlayClipAtPoint(starClip, transform.position);
 		Ryu ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		float speed = ryu.facingRight ? SPEED : -SPEED;
 		vel = new Vector2(speed, 0f);

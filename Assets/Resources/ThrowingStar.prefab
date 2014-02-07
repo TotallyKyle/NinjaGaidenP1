@@ -74,6 +74,7 @@ MonoBehaviour:
     - {fileID: 21300016, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
     - {fileID: 21300018, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
   vel: {x: 0, y: 0}
+  starClip: {fileID: 8300000, guid: cf512764cd98d4b119704167d6e64e30, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

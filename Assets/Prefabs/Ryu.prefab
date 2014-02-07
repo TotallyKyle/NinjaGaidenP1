@@ -311,7 +311,7 @@ MonoBehaviour:
   sword: {fileID: 100000}
   item: {fileID: 0}
   gameData: {fileID: 0}
-  jumpClip: {fileID: 8300000, guid: cf512764cd98d4b119704167d6e64e30, type: 3}
+  jumpClip: {fileID: 8300000, guid: 708cb131682744053b37d55ebf590f70, type: 3}
   hitClip: {fileID: 8300000, guid: 3674737e91dcd4b10902c125b43a0fce, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
