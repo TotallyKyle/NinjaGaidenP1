@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
+  - 114: {fileID: 11400004}
   m_Layer: 11
   m_Name: KnifeThrower
   m_TagString: Enemies
@@ -98,6 +99,17 @@ MonoBehaviour:
     sprites:
     - {fileID: 21300012, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
     - {fileID: 21300010, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125b9a8e50b2c43d4abf40c9a4d21699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

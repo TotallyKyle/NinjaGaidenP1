@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(AudioSource))]
 public class SwordController : MonoBehaviour {
 
 	private int swordLayer;
@@ -23,7 +22,7 @@ public class SwordController : MonoBehaviour {
 	public void extendSword() {
 		Physics2D.IgnoreLayerCollision(swordLayer, enemyLayer, false);
 		boxCollider.enabled = true;
-		audio.PlayOneShot(swordClip, 1.0f);
+		AudioSource.PlayClipAtPoint(swordClip, transform.position, 1.0f);
 	}
 
 	public void retractSword() {

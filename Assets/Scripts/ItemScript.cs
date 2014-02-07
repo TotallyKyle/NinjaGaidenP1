@@ -6,6 +6,8 @@ public abstract class ItemScript : MonoBehaviour {
 
 	public bool pickedUp = false;
 
+	public AudioClip pickUpClip;
+
 	public abstract bool isAutomatic();
 
 	public abstract void deploy();
@@ -13,6 +15,7 @@ public abstract class ItemScript : MonoBehaviour {
 	public abstract void onPickedUp();
 
 	public void pickUp() {
+		AudioSource.PlayClipAtPoint(pickUpClip, transform.position, 1.0f);
 		pickedUp = true;
 		if (isAutomatic()) {
 			deploy();
