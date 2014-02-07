@@ -128,8 +128,10 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			mainCollider.size = standSize;
 			mainCollider.center = standCenter;
 		} else if (wasGrounded && !grounded) {
+			Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, true);
 			mainCollider.size = jumpSize;
 			mainCollider.center = jumpCenter;
+			Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, false);
 		}
 	
         ascending = rigidbody2D.velocity.y > 0;
@@ -139,12 +141,15 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         swordController.onCrouchStateChanged(crouching);
     }
 
+	private void revertPlayerToWallCollisions() {
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, false);
+	}
+
     void FixedUpdate() {
 		if (!damaged) {
-			if (climbing) {
-				rigidbody2D.Sleep();
+			if (climbing)
 				handleWallJump();
-			} else if (!attacking && !casting) {
+			else if (!attacking && !casting) {
 				// Can only move horizontally if not climbing or attacking or casting
 				handleInput();
 			}
@@ -173,6 +178,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     void OnCollisionExit2D(Collision2D collision) {
     }
 
+	// Work around for OnTriggerEnter2D being called more than once
+	private bool wallEntered = false;
+
     void OnTriggerEnter2D(Collider2D collider) {
         switch (collider.gameObject.tag) {
             case "Enemies":
@@ -180,32 +188,36 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
                     handleDamage(collider.gameObject);
                 break;
         }
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && !grounded && !climbing) {
-			switch (collider.gameObject.tag) {
-			case "Wall Right":
-				Debug.Log("rigidbody2D.velocity.x = " + rigidbody2D.velocity.x);
-				if (rigidbody2D.velocity.x < 0) {
-					Debug.Log("facingRight = " + facingRight);
-					if (facingRight) flip();
-					climb();
-				} else {
-					climbing = false;
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+			if (!wallEntered) {
+				wallEntered = true;
+				if (!grounded && !climbing) {
+					switch (collider.gameObject.tag) {
+					case "Wall Right":
+						if (rigidbody2D.velocity.x < 0) {
+							if (facingRight) flip();
+							climb();
+						} else {
+							climbing = false;
+						}
+						break;
+					case "Wall Left":
+						if (rigidbody2D.velocity.x > 0) {
+							if (!facingRight) flip();
+							climb();
+						} else {
+							climbing = false;
+						}
+						break;
+					}
 				}
-				break;
-			case "Wall Left":
-				if (rigidbody2D.velocity.x > 0) {
-					if (!facingRight) flip();
-					climb();
-				} else {
-					climbing = false;
-				}
-				break;
 			}
 		}
     }
 
     void OnTriggerExit2D(Collider2D collider) {
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+			wallEntered = false;
 			climbing = false;
 		}
     }
