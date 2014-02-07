@@ -15,12 +15,17 @@ public class ThrowingStar : AnimationController<ThrowingStar>
 	public Vector2 vel;
 
 	public AudioClip starClip;
+
+	private static GameData sGameData;
 	
 	/*
      * Checks which direction the Knife Thrower threw the knife
      */
 	protected override void Start() {
 		base.Start();
+		if (sGameData == null) {
+			sGameData = GameObject.Find("Game HUD").GetComponent<GameData>();
+		}
 		AudioSource.PlayClipAtPoint(starClip, transform.position);
 		Ryu ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		float speed = ryu.facingRight ? SPEED : -SPEED;
@@ -39,6 +44,7 @@ public class ThrowingStar : AnimationController<ThrowingStar>
 			if (dieScript != null) {
 				dieScript.die();
 			}
+			sGameData.scoreData += 100;
 			Destroy(collider.gameObject);
 			Destroy(transform.gameObject);
 		}
