@@ -183,7 +183,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall") && !grounded && !climbing) {
 			switch (collider.gameObject.tag) {
 			case "Wall Right":
+				Debug.Log("rigidbody2D.velocity.x = " + rigidbody2D.velocity.x);
 				if (rigidbody2D.velocity.x < 0) {
+					Debug.Log("facingRight = " + facingRight);
 					if (facingRight) flip();
 					climb();
 				} else {
