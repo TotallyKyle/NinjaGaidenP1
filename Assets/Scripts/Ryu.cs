@@ -59,6 +59,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     // =====================================
     public GameData gameData;
 
+	// Sounds
+	// =====================================
+	public AudioClip jumpClip;
+	public AudioClip hitClip;
+
     void Start() {
         swordController = sword.GetComponent<SwordController>();
         gameData.scoreData = 0;
@@ -253,6 +258,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         Vector2 velocity = rigidbody2D.velocity;
         velocity.y = fromWall ? WALL_JUMP_SPEED : JUMP_SPEED;
         rigidbody2D.velocity = velocity;
+		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
     }
 
     private void startAttack() {
@@ -279,6 +285,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         //Set damage states and ignore physics
         damaged = true;
         makeInvincible();
+		AudioSource.PlayClipAtPoint(hitClip, transform.position);
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, true);
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, true);
 

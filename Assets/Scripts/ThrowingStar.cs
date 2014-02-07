@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ThrowingStar : MonoBehaviour
+public class ThrowingStar : AnimationController<ThrowingStar>
 {
 	
 	// Constants
@@ -17,7 +17,8 @@ public class ThrowingStar : MonoBehaviour
 	/*
      * Checks which direction the Knife Thrower threw the knife
      */
-	void Start() {
+	protected override void Start() {
+		base.Start();
 		Ryu ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		float speed = ryu.facingRight ? SPEED : -SPEED;
 		vel = new Vector2(speed, 0f);
@@ -46,6 +47,9 @@ public class ThrowingStar : MonoBehaviour
 		float relativePosition = transform.position.x - camera.transform.position.x;
 		if (Mathf.Abs(relativePosition) > 26 / 3)
 			Destroy(transform.gameObject);       
+	}
+
+	public override void UpdateAnimationState() {
 	}
 }
 

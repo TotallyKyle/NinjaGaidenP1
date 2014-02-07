@@ -67,6 +67,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71650be469d7c435cb114748c5dd6e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlled: {fileID: 0}
+  animationInfo:
+  - name: Anim
+    sprites:
+    - {fileID: 21300016, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
+    - {fileID: 21300018, guid: 8c5c3b695b9bb7b41ba718fcc2f6be95, type: 3}
   vel: {x: 0, y: 0}
 --- !u!212 &21200000
 SpriteRenderer:
