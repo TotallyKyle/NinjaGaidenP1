@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour {
 
 	// Map dimensions in units
 	private float mapHeight	= Utilities.PixelsToUnits(208);
-	private float mapWidth	= Utilities.PixelsToUnits(3684);
+	private float mapWidth	= Utilities.PixelsToUnits(3072);
 
 	private float cameraBound;
 	
