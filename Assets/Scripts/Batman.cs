@@ -51,6 +51,11 @@ public class Batman : MonoBehaviour
             Destroy(transform.gameObject);
     }
 
+    void OnTriggerEnter2D(Collider2D collider) {
+        flip();
+        vel.x = -vel.x;
+    }
+
     private void flip()
     {
         Vector3 scale = transform.localScale;
