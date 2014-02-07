@@ -22,7 +22,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public const float SPEED = 1.5f / 16f * 60f;
     public const float SPEED_MED = 1.0f / 16f * 60f;
     public const float SPEED_SLOW = 0.5f / 16f * 60f;
-    public const float JUMP_SPEED = 18.6f;
+    public const float JUMP_SPEED = 18.5f;
     public const float WALL_JUMP_SPEED = 13;
     public const float INJURED_JUMP_SPEED = 13;
 
@@ -147,9 +147,10 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     void FixedUpdate() {
 		if (!damaged) {
-			if (climbing)
+			if (climbing) {
+				rigidbody2D.Sleep();
 				handleWallJump();
-			else if (!attacking && !casting) {
+			} else if (!attacking && !casting) {
 				// Can only move horizontally if not climbing or attacking or casting
 				handleInput();
 			}
