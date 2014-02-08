@@ -5,6 +5,7 @@ using System.Collections;
 public class AnimationControllerInfo {
 	public string name;
 	public Sprite[] sprites;
+	public float animationTime = 1f / 20f;
 }
 
 public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehaviour {
@@ -13,7 +14,8 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 		void onAnimationRepeat(int animationIndex);
 	}
 
-	private int frameCount = 0;
+	private float timer = 0f;
+	private int spriteIndex = 0;
 	private int animationIndex = 0;
 	private AnimationListener listener;
 	private SpriteRenderer spriteRenderer;
@@ -39,21 +41,33 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 
 	void Update() {
 		UpdateAnimationState();
+
+		timer += Time.deltaTime;
+
+		AnimationControllerInfo info = animationInfo[animationIndex];
+
+		if (timer >= info.animationTime) {
+			timer = 0;
+
+			spriteRenderer.sprite = info.sprites[spriteIndex++];
+
+			spriteIndex %= info.sprites.Length;
+
+			if (spriteIndex == 0 && listener != null) {
+				listener.onAnimationRepeat(animationIndex);
+			}
+		}
 	}
 
 	void FixedUpdate() {
-		Sprite[] anim = animationInfo[animationIndex].sprites;
-		spriteRenderer.sprite = anim[frameCount++];
-		frameCount %= anim.Length;
-		if (frameCount == 0 && listener != null) {
-			listener.onAnimationRepeat(animationIndex);
-		}
+
 	}
 
 	public void setDisplayedAnimation(int animationIndex) {
 		if (this.animationIndex != animationIndex) {
 			this.animationIndex = animationIndex;
-			frameCount = 0;
+			spriteIndex = 0;
+			timer = 0f;
 		}
 	}
 

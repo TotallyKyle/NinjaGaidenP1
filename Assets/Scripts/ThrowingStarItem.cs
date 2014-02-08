@@ -5,7 +5,7 @@ public class ThrowingStarItem : ItemScript {
 	
 	private Object starPrefab;
 	private GameData gameData;
-	private Vector3 offset = new Vector3(0.5f, 1f, 0f);
+	private Vector3 offset = new Vector3(0.5f, 0f, 0f);
 
 	public override bool isAutomatic() {
 		return false;

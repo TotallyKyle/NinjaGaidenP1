@@ -105,6 +105,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b7a51b5f288fb4074bb69cfbeaf80274, type: 3}
     - {fileID: 21300000, guid: 74a1f6a0391f045f092fc70c62b2aa24, type: 3}
     - {fileID: 21300000, guid: 1b50a103eba944e388db329a617b7d38, type: 3}
+    animationTime: .100000001
   explosionClip: {fileID: 8300000, guid: 94943fb1445cc4e59ae2bd7c791e9459, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:

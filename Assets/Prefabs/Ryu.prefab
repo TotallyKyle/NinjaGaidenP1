@@ -250,38 +250,46 @@ MonoBehaviour:
   - name: Idle
     sprites:
     - {fileID: 21300000, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .100000001
   - name: Running
     sprites:
     - {fileID: 21300002, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300004, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300006, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0500000007
   - name: Jumping
     sprites:
     - {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300014, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300016, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300018, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0500000007
   - name: Climbing
     sprites:
     - {fileID: 21300008, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .100000001
   - name: Crouching
     sprites:
     - {fileID: 21300036, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .100000001
   - name: Attack
     sprites:
     - {fileID: 21300022, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300024, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300026, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0599999987
   - name: Crouching Attack
     sprites:
     - {fileID: 21300038, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300040, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300042, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0599999987
   - name: Casting
     sprites:
     - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0500000007
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

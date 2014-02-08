@@ -22,7 +22,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public const float SPEED = 1.5f / 16f * 60f;
     public const float SPEED_MED = 1.0f / 16f * 60f;
     public const float SPEED_SLOW = 0.5f / 16f * 60f;
-    public const float JUMP_SPEED = 18.5f;
+    public const float JUMP_SPEED = 18.74f;
     public const float WALL_JUMP_SPEED = 13;
     public const float INJURED_JUMP_SPEED = 13;
 
@@ -139,23 +139,23 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
-    }
 
-	private void revertPlayerToWallCollisions() {
-		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, false);
-	}
-
-    void FixedUpdate() {
 		if (!damaged) {
 			if (climbing) {
 				rigidbody2D.Sleep();
 				handleWallJump();
-			} else if (!attacking && !casting) {
+			} else if (grounded && (attacking || casting)) {
+				rigidbody2D.velocity = Vector2.zero;
+			} else {
 				// Can only move horizontally if not climbing or attacking or casting
 				handleInput();
 			}
 		}
     }
+
+	private void revertPlayerToWallCollisions() {
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, false);
+	}
 
     void OnCollisionEnter2D(Collision2D collision) {
         switch (collision.gameObject.layer) {
