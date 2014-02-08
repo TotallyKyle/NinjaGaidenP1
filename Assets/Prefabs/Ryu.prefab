@@ -293,7 +293,7 @@ MonoBehaviour:
   - name: Damaged
     sprites:
     - {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
-    animationTime: .00999999978
+    animationTime: .100000001
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

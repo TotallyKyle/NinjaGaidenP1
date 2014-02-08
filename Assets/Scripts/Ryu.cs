@@ -23,8 +23,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public const float SPEED_MED = 1.0f / 16f * 60f;
     public const float SPEED_SLOW = 0.5f / 16f * 60f;
     public const float JUMP_SPEED = 18.74f;
-    public const float WALL_JUMP_SPEED = 13;
-    public const float INJURED_JUMP_SPEED = 13;
+    public const float WALL_JUMP_SPEED = 12;
+    public const float INJURED_JUMP_SPEED = 12;
 
     // Ground checking
     // ============================================
