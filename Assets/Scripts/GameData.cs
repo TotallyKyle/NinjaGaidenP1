@@ -29,7 +29,7 @@ public class GameData : MonoBehaviour {
     //The Variables that actually hold the information
     public static int scoreData = 0;
     public static int timerData = 150;
-    public static int healthData = 1;
+    public static int healthData = 16;
     public static int spiritData = 0;
     public static int livesData = 2;
 

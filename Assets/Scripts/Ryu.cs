@@ -387,8 +387,19 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
 		music.enabled = false;
 		AudioSource.PlayClipAtPoint(deadClip, transform.position);
-		Utilities.PauseGameFor(4, () => {
-			gameData.Reset();
-		});
+		StartCoroutine("deathPause");
+	}
+
+	public IEnumerator deathPause() {
+		Utilities.PauseGame();
+
+		float end = Time.realtimeSinceStartup + 4;
+
+		while (Time.realtimeSinceStartup < end) {
+			yield return 0;
+		}
+
+		Utilities.ResumeGame();
+		gameData.Reset();
 	}
 }

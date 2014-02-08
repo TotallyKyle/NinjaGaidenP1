@@ -11,21 +11,7 @@ public class Utilities {
 	}
 
 	public static void PauseGame() {
-		Time.timeScale = 0.0001f;
-	}
-
-	public static IEnumerator PauseGameFor(float seconds, Action onResume) {
-		PauseGame();
-
-		float end = Time.realtimeSinceStartup + seconds;
-
-		while (Time.realtimeSinceStartup < end) {
-			yield return 0;
-		}
-
-		ResumeGame();
-
-		onResume();
+		Time.timeScale = 0f;
 	}
 
 	public static void ResumeGame() {
