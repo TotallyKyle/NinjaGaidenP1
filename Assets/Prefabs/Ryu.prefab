@@ -277,7 +277,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300024, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300026, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
-    animationTime: .0599999987
+    animationTime: .100000001
   - name: Crouching Attack
     sprites:
     - {fileID: 21300038, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
@@ -290,6 +290,10 @@ MonoBehaviour:
     - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     - {fileID: 21300020, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     animationTime: .0500000007
+  - name: Damaged
+    sprites:
+    - {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .00999999978
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

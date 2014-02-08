@@ -11,9 +11,12 @@ public class RyuAnimationController : AnimationController<Ryu> {
 	public const int ANIM_ATTACK		= 5;
 	public const int ANIM_CROUCH_ATTACK	= 6;
 	public const int ANIM_CASTING		= 7;
+	public const int ANIM_DAMAGED		= 8;
 
 	public override void UpdateAnimationState() {
-		if (controlled.climbing)
+		if (controlled.damaged)
+			setDisplayedAnimation(ANIM_DAMAGED);
+		else if (controlled.climbing)
 			setDisplayedAnimation(ANIM_CLIMBING);
 		else if (controlled.attacking) {
 			if (controlled.crouching)
