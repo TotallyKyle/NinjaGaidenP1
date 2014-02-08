@@ -23,8 +23,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public const float SPEED_MED = 1.0f / 16f * 60f;
     public const float SPEED_SLOW = 0.5f / 16f * 60f;
     public const float JUMP_SPEED = 18.74f;
-    public const float WALL_JUMP_SPEED = 12;
-    public const float INJURED_JUMP_SPEED = 12;
+    public const float WALL_JUMP_SPEED = 10.5f;
+    public const float INJURED_JUMP_SPEED = 14;
 
     // Ground checking
     // ============================================
@@ -71,8 +71,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 	public AudioClip jumpClip;
 	public AudioClip hitClip;
 
+	private SpriteRenderer spriteRenderer;
+
     void Start() {
         swordController = sword.GetComponent<SwordController>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
         
 		RyuAnimationController anim = GetComponent<RyuAnimationController>();
 		anim.setAnimationListener(this);
@@ -122,6 +125,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		if (!wasGrounded && grounded) {
 			mainCollider.size = standSize;
 			mainCollider.center = standCenter;
+			if (damaged) {
+				landAfterHit();
+			}
 		} else if (wasGrounded && !grounded) {
 			Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_WALLS, true);
 			mainCollider.size = jumpSize;
@@ -290,6 +296,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     }
 
 	private void climb() {
+		if (damaged) {
+			landAfterHit();
+		}
 		rigidbody2D.Sleep();
 		climbing = true;
 		AudioSource.PlayClipAtPoint(jumpClip, transform.position);
@@ -336,30 +345,36 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         float relativePosition = transform.position.x - damageSource.transform.position.x;
         Vector2 vel = new Vector2(0f, 0f);
         if (relativePosition < 0) {
-            vel.x = -SPEED_SLOW;
+            vel.x = -SPEED_MED;
         } else {
-            vel.x = SPEED_SLOW;
+			vel.x = SPEED_MED;
         }
         vel.y = INJURED_JUMP_SPEED;
         rigidbody2D.velocity = vel;
 
         //Invoke a function that executes to restore player states
-        Invoke("postDamageHandler", .5f);
         Invoke("makeVincible", 1.5f);
     }
 
-    private void postDamageHandler() {
-        damaged = false;
-        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, false);
-        Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, false);
-    }
+	private void landAfterHit() {
+		damaged = false;
+		Color color = spriteRenderer.color;
+		color.a = 0.5f;
+		spriteRenderer.color = color;
+	}
 
     private void makeInvincible() {
-        invincible = true;
+		invincible = true;
     }
 
     private void makeVincible() {
-        invincible = false;
+		invincible = false;
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, false);
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, false);
+
+		Color color = spriteRenderer.color;
+		color.a = 1f;
+		spriteRenderer.color = color;
     }
 	
 	public AudioSource music;
@@ -367,17 +382,13 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
 	public void die() {
 		damaged = true;
-		Utilities.SetObjectsInLayerEnabled(LAYER_ENEMY, false);
 		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, false);
 		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, false);
 		GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
-		rigidbody2D.Sleep();
 		music.enabled = false;
 		AudioSource.PlayClipAtPoint(deadClip, transform.position);
-		Invoke("reset", 4);
-	}
-
-	private void reset() {
-		gameData.Reset();
+		Utilities.PauseGameFor(4, () => {
+			gameData.Reset();
+		});
 	}
 }

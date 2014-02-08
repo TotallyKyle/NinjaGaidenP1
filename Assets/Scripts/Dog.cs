@@ -14,7 +14,7 @@ public class Dog : MonoBehaviour {
     /*
      * Different speeds for different actions
      */
-    public const float SPEED = 1.5f / 16f * 60f;
+    public const float SPEED = 2f / 16f * 60f;
     public const float JUMP = 12f;
     public Vector2 vel;
 

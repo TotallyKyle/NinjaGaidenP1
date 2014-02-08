@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Utilities {
@@ -10,11 +11,35 @@ public class Utilities {
 	}
 
 	public static void PauseGame() {
-		Time.timeScale = 0;
+		Time.timeScale = 0.0001f;
+	}
+
+	public static IEnumerator PauseGameFor(float seconds, Action onResume) {
+		PauseGame();
+
+		float end = Time.realtimeSinceStartup + seconds;
+
+		while (Time.realtimeSinceStartup < end) {
+			yield return 0;
+		}
+
+		ResumeGame();
+
+		onResume();
 	}
 
 	public static void ResumeGame() {
-		Time.timeScale = 1;
+		Time.timeScale = 1f;
+	}
+
+	public static void FreezeAllRigidbodies(bool freeze) {
+		Rigidbody2D[] bodies = MonoBehaviour.FindObjectsOfType(typeof(Rigidbody2D)) as Rigidbody2D[];
+		foreach (Rigidbody2D body in bodies) {
+			if (freeze)
+				body.Sleep();
+			else
+				body.WakeUp();
+		}
 	}
 
 	public static void SetObjectsInLayerEnabled(int layer, bool enabled) {
