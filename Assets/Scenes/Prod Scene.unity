@@ -534,6 +534,14 @@ Prefab:
       propertyPath: gameData
       value: 
       objectReference: {fileID: 2004296066}
+    - target: {fileID: 11400004, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: deadClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f66920a0858d5463d9a609f654f92d54, type: 3}
+    - target: {fileID: 11400004, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 757400078}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e25921eb4ba57424b8fc04aa303129bb, type: 2}
   m_RootGameObject: {fileID: 2140857030}
@@ -9258,7 +9266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55758bb96aeee4944b76c264467b8039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 2004296066}
   swordClip: {fileID: 8300000, guid: 1c8001b998f2244ecbe9680ed1d48924, type: 3}
 --- !u!61 &1658486256
 BoxCollider2D:
@@ -11384,11 +11391,6 @@ MonoBehaviour:
   eight: {fileID: 2800000, guid: 7e655d4e78d87a24da61a70f21e07cb9, type: 3}
   nine: {fileID: 2800000, guid: eef5b9418bede9748a309a4f1cb0bf42, type: 3}
   dash: {fileID: 2800000, guid: 194f4a57c3e08d340aac5e7d0a59b173, type: 3}
-  scoreData: 120
-  timerData: 111
-  healthData: 4
-  spiritData: 0
-  livesData: 0
 --- !u!4 &2004296067
 Transform:
   m_ObjectHideFlags: 0
@@ -12278,6 +12280,8 @@ MonoBehaviour:
   gameData: {fileID: 2004296066}
   jumpClip: {fileID: 8300000, guid: 708cb131682744053b37d55ebf590f70, type: 3}
   hitClip: {fileID: 8300000, guid: 3674737e91dcd4b10902c125b43a0fce, type: 3}
+  music: {fileID: 757400078}
+  deadClip: {fileID: 8300000, guid: f66920a0858d5463d9a609f654f92d54, type: 3}
 --- !u!212 &2140857036
 SpriteRenderer:
   m_ObjectHideFlags: 0

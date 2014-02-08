@@ -10,7 +10,7 @@ public class SpiritPowerItem : ItemScript {
 	}
 
 	public override void deploy() {
-        GameObject.Find("Game HUD").GetComponent<GameData>().spiritData+= spiritPowerValue;
+        GameData.spiritData+= spiritPowerValue;
 	}
 
 	public override void onPickedUp() {

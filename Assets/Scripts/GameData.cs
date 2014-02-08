@@ -27,16 +27,22 @@ public class GameData : MonoBehaviour {
     public Texture2D dash;
 
     //The Variables that actually hold the information
-    public int scoreData;
-    public int timerData;
-    public int healthData;
-    public int spiritData;
-    public int livesData;
+    public static int scoreData = 0;
+    public static int timerData = 150;
+    public static int healthData = 16;
+    public static int spiritData = 0;
+    public static int livesData = 2;
 
-    // Use this for initialization
     void Start() {
-
     }
+
+	public void Reset() {
+		timerData = 150;
+		healthData = 16;
+		spiritData /= 2;
+		livesData--;
+		Application.LoadLevel("Prod Scene");
+	}
 
     // Update is called once per frame
     void Update() {

@@ -73,12 +73,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     void Start() {
         swordController = sword.GetComponent<SwordController>();
-        gameData.scoreData = 0;
-        gameData.timerData = 150;
-        gameData.healthData = 16;
-        gameData.spiritData = 0;
-        gameData.livesData = 2;
-
+        
 		RyuAnimationController anim = GetComponent<RyuAnimationController>();
 		anim.setAnimationListener(this);
 
@@ -329,16 +324,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, true);
 
         //Decrease Health in Game Data
-        gameData.healthData--;
+        GameData.healthData--;
 
-        //Decreases Lives if You Die, Pauses Game if You Run Out of Lives
-        if (gameData.healthData <= 0) {
-            gameData.livesData--;
-            gameData.healthData = 16;
-        }
-
-        if (gameData.livesData <= 0) {
-            Time.timeScale = 0;
+        if (GameData.healthData <= 0) {
+			die();
+			return;
         }
 
         //Direction where damage source came from
@@ -371,4 +361,23 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     private void makeVincible() {
         invincible = false;
     }
+	
+	public AudioSource music;
+	public AudioClip deadClip;
+
+	public void die() {
+		damaged = true;
+		Utilities.SetObjectsInLayerEnabled(LAYER_ENEMY, false);
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, false);
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, false);
+		GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
+		rigidbody2D.Sleep();
+		music.enabled = false;
+		AudioSource.PlayClipAtPoint(deadClip, transform.position);
+		Invoke("reset", 4);
+	}
+
+	private void reset() {
+		gameData.Reset();
+	}
 }

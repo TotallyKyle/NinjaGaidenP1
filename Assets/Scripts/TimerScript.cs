@@ -11,9 +11,13 @@ public class TimerScript : MonoBehaviour {
 	}
 
 	private void checkTime() {
-		gameData.timerData -= 1;
-		if (gameData.timerData == 0) {
-			// TODO kill Ryu, freeze everything, and reload scene
+		GameData.timerData -= 1;
+		if (GameData.timerData == 0) {
+			GameObject.Find("Ryu").GetComponent<Ryu>().die();
 		}
+	}
+
+	public void Stop() {
+		CancelInvoke();
 	}
 }

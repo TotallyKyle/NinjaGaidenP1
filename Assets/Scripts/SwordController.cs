@@ -6,8 +6,6 @@ public class SwordController : MonoBehaviour {
 	private int swordLayer;
 	private int enemyLayer;
 
-    public GameData gameData;
-
 	private BoxCollider2D boxCollider;
 
 	public AudioClip swordClip;
@@ -51,7 +49,7 @@ public class SwordController : MonoBehaviour {
 				dieScript.die();
 			}
 			Destroy(other.gameObject);
-            gameData.scoreData+= 100;
+			GameData.scoreData+= 100;
 		}
 	}
 }

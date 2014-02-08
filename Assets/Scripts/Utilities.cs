@@ -16,4 +16,18 @@ public class Utilities {
 	public static void ResumeGame() {
 		Time.timeScale = 1;
 	}
+
+	public static void SetObjectsInLayerEnabled(int layer, bool enabled) {
+		GameObject[] objects = MonoBehaviour.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+		foreach (GameObject object_ in objects) {
+			if (object_.layer == layer) {
+				if (object_.rigidbody2D != null) {
+					if (enabled)
+						object_.rigidbody2D.WakeUp();
+					else
+						object_.rigidbody2D.Sleep();
+				}
+			}
+		}
+	}
 }

@@ -10,7 +10,7 @@ public class BonusItem : ItemScript {
 	}
 
 	public override void deploy() {
-		GameObject.Find("Game HUD").GetComponent<GameData>().scoreData += scoreBonus;
+		GameData.scoreData += scoreBonus;
 	}
 
 	public override void onPickedUp() {
