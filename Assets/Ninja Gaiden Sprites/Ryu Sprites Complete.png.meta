@@ -62,7 +62,7 @@ TextureImporter:
         width: 22
         height: 31
       alignment: 9
-      pivot: {x: .574999988, y: .516129017}
+      pivot: {x: .558181822, y: .516129017}
     - name: Ryu Run Right 1
       rect:
         serializedVersion: 2

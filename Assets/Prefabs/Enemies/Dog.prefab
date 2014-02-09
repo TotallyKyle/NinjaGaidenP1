@@ -13,7 +13,6 @@ GameObject:
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   - 61: {fileID: 6100002}
   m_Layer: 11
   m_Name: Dog
@@ -95,18 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648da92cb1fd69544be9deef29ea04bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 200
   vel: {x: 0, y: 0}
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 125b9a8e50b2c43d4abf40c9a4d21699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

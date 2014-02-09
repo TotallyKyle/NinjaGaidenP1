@@ -23,8 +23,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public const float SPEED_MED = 1.0f / 16f * 60f;
     public const float SPEED_SLOW = 0.5f / 16f * 60f;
 
-    public const float JUMP_SPEED = 18.7f;
-    public const float WALL_JUMP_SPEED = 10f;
+    public const float JUMP_SPEED = 18.5f;
+    public const float WALL_JUMP_SPEED = 10.5f;
     public const float INJURED_JUMP_SPEED = 12.5f;
 
     // Ground checking
@@ -233,7 +233,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			break;
 		case LAYER_WALLS:
 			if (!wallEntered) {
+
 				wallEntered = true;
+
 				if (!grounded && !climbing) {
 					switch (collider.gameObject.tag) {
 					case "Wall Right":

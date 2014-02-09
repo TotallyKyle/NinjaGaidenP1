@@ -3,7 +3,11 @@ using System.Collections;
 
 public class EnemyScript : MonoBehaviour {
 
+	public int score = 100;
+
 	protected bool frozen = false;
+
+	private Vector3 offset = new Vector3(0f, 1f, 0f);
 
 	void Awake() {
 		EnemyController.GetInstance().RegisterEnemy(this);
@@ -19,6 +23,12 @@ public class EnemyScript : MonoBehaviour {
 		frozen = false;
 		rigidbody2D.WakeUp();
 		rigidbody2D.isKinematic = false;
+	}
+
+	public void Die() {
+		Instantiate(Resources.Load("Explosion"), transform.position + offset, Quaternion.identity);
+		GameData.scoreData += score;
+		Destroy(gameObject);
 	}
 
 	void OnDestroy() {

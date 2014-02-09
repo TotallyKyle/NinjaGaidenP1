@@ -13,7 +13,6 @@ GameObject:
   - 114: {fileID: 11400000}
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
-  - 114: {fileID: 11400004}
   m_Layer: 11
   m_Name: Boxer
   m_TagString: Enemies
@@ -69,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64a1b2fa42e90438ba9587733be2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 200
   vel: {x: 0, y: 0}
   attackInvoked: 0
   attacking: 0
@@ -84,26 +84,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c068392ee25e429ccc4e6ca5d3a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animate: 1
   controlled: {fileID: 11400000}
   animationInfo:
   - name: Running
     sprites:
     - {fileID: 21300008, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
     - {fileID: 21300006, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
+    animationTime: .0500000007
   - name: Attacking
     sprites:
     - {fileID: 21300004, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 125b9a8e50b2c43d4abf40c9a4d21699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+    animationTime: .0500000007
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

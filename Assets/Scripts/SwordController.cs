@@ -44,12 +44,10 @@ public class SwordController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == enemyLayer) {
-			DieScript dieScript = other.GetComponent<DieScript>();
-			if (dieScript != null) {
-				dieScript.die();
+			EnemyScript enemy = other.GetComponent<EnemyScript>();
+			if (enemy != null) {
+				enemy.Die();
 			}
-			Destroy(other.gameObject);
-			GameData.scoreData+= 100;
 		}
 	}
 }

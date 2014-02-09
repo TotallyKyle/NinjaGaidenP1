@@ -35,13 +35,11 @@ public class ThrowingStar : AnimationController<ThrowingStar>
 	
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemies")) {
-			DieScript dieScript = collider.GetComponent<DieScript>();
-			if (dieScript != null) {
-				dieScript.die();
+			EnemyScript enemy = collider.GetComponent<EnemyScript>();
+			if (enemy != null) {
+				enemy.Die();
 			}
-			GameData.scoreData += 100;
-			Destroy(collider.gameObject);
-			Destroy(transform.gameObject);
+			Destroy(gameObject);
 		}
 	}
 	
