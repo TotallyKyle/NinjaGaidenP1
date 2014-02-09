@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Batman : MonoBehaviour
+public class Batman : EnemyScript
 {
 
     // Constants
@@ -41,6 +41,11 @@ public class Batman : MonoBehaviour
 
     void Update()
     {
+		if (frozen) {
+			vel = Vector2.zero;
+			return;
+		}
+
         //Constantly update velocity
         rigidbody2D.velocity = vel;
 
@@ -52,12 +57,14 @@ public class Batman : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
-        flip();
-        vel.x = -vel.x;
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy Patrol Walls")) {
+        	flip();
+		}
     }
 
     private void flip()
-    {
+	{
+		vel.x = -vel.x;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;

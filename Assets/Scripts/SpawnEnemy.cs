@@ -8,7 +8,15 @@ public class SpawnEnemy : MonoBehaviour {
     //States
     public bool offCamera = true;
 
+	public bool spawning = true;
+
+	void Start() {
+		EnemyController.GetInstance().RegisterSpawnPoint(this);
+	}
+
     void Update() {
+		if (!spawning) return;
+
         Transform enemySpawned;
         GameObject camera = GameObject.Find("Main Camera");
         float relativePosition = camera.transform.position.x - transform.position.x;
@@ -19,4 +27,8 @@ public class SpawnEnemy : MonoBehaviour {
         } else if ((Mathf.Abs(relativePosition) > 26 / 3))
             offCamera = true;
     }
+
+	void OnDestroy() {
+		EnemyController.GetInstance().UnregisterSpawnPoint(this);
+	}
 }

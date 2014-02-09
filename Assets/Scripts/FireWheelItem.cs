@@ -1,19 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class BonusItem : ItemScript {
+public class FireWheelItem : ItemScript {
 
-	public int scoreBonus = 500;
+	private Object fireWheel;
 
 	public override bool IsAutomatic() {
 		return true;
 	}
 
 	public override void Deploy() {
-		GameData.scoreData += scoreBonus;
+		// TODO instantiate fire wheel
 	}
 
 	public override void OnPickedUp() {
+		// TODO set power up sprite in game data
 		Destroy(this.gameObject);
 	}
 }

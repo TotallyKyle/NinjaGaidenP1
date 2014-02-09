@@ -14,6 +14,8 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 		void onAnimationRepeat(int animationIndex);
 	}
 
+	public bool animate = true;
+
 	private float timer = 0f;
 	private int spriteIndex = 0;
 	private int animationIndex = 0;
@@ -42,6 +44,8 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 	void Update() {
 		UpdateAnimationState();
 
+		if (!animate) return;
+
 		timer += Time.deltaTime;
 
 		AnimationControllerInfo info = animationInfo[animationIndex];
@@ -49,9 +53,9 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 		if (timer >= info.animationTime) {
 			timer = 0;
 
-			spriteRenderer.sprite = info.sprites[spriteIndex++];
+			spriteIndex = (spriteIndex +1) % info.sprites.Length;
 
-			spriteIndex %= info.sprites.Length;
+			spriteRenderer.sprite = info.sprites[spriteIndex];
 
 			if (spriteIndex == 0 && listener != null) {
 				listener.onAnimationRepeat(animationIndex);
@@ -68,6 +72,9 @@ public abstract class AnimationController<T> : MonoBehaviour where T : MonoBehav
 			this.animationIndex = animationIndex;
 			spriteIndex = 0;
 			timer = 0f;
+			// Immediately set inital sprite
+			spriteRenderer.sprite = 
+				animationInfo[animationIndex].sprites[0];
 		}
 	}
 

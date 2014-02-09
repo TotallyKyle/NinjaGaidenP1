@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KnifeThrower : MonoBehaviour
+public class KnifeThrower : EnemyScript
 {
 
     // Constants
@@ -52,6 +52,11 @@ public class KnifeThrower : MonoBehaviour
 
     void Update()
     {
+		if (frozen) {
+			vel = Vector2.zero;
+			return;
+		}
+
         //If goes off camera, destroy the object
         GameObject camera = GameObject.Find("Main Camera");
         float relativePosition = transform.position.x - camera.transform.position.x;

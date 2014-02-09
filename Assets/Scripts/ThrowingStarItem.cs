@@ -6,7 +6,7 @@ public class ThrowingStarItem : ItemScript {
 	private Object starPrefab;
 	private Vector3 offset = new Vector3(0.5f, 0f, 0f);
 
-	public override bool isAutomatic() {
+	public override bool IsAutomatic() {
 		return false;
 	}
 
@@ -15,7 +15,7 @@ public class ThrowingStarItem : ItemScript {
 		base.Start();
 	}
 
-	public override void deploy() {
+	public override void Deploy() {
 		if (GameData.spiritData < 3) {
 			return;
 		}
@@ -28,10 +28,9 @@ public class ThrowingStarItem : ItemScript {
 		GameData.spiritData -= 3;
 	}
 
-	public override void onPickedUp() {
+	public override void OnPickedUp() {
 		// TODO show sprite in the ui layer
 		GetComponent<SpriteRenderer>().sprite = null;
-		rigidbody2D.Sleep();
-		collider2D.isTrigger = true;
+		collider2D.enabled = false;
 	}
 }

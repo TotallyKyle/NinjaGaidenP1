@@ -5,15 +5,15 @@ public class SpiritPowerItem : ItemScript {
 
 	public int spiritPowerValue = 5;
 
-	public override bool isAutomatic() {
+	public override bool IsAutomatic() {
 		return true;
 	}
 
-	public override void deploy() {
+	public override void Deploy() {
         GameData.spiritData+= spiritPowerValue;
 	}
 
-	public override void onPickedUp() {
+	public override void OnPickedUp() {
 		Destroy(this.gameObject);
 	}
 }

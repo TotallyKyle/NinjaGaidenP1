@@ -4,6 +4,7 @@ using System.Collections;
 public class TimerScript : MonoBehaviour {
 
 	public GameData gameData;
+	public AudioClip tickClip;
 
 	void Start () {
 		gameData = GameObject.Find("Game HUD").GetComponent<GameData>();
@@ -11,7 +12,10 @@ public class TimerScript : MonoBehaviour {
 	}
 
 	private void checkTime() {
-		GameData.timerData -= 1;
+		GameData.timerData--;
+		if (GameData.timerData <= 10) {
+			AudioSource.PlayClipAtPoint(tickClip, transform.position);
+		}
 		if (GameData.timerData == 0) {
 			GameObject.Find("Ryu").GetComponent<Ryu>().die();
 		}

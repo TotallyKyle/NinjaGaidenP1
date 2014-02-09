@@ -32,6 +32,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400004}
+  m_Layer: 0
+  m_Name: JumpGroundCheck2
+  m_TagString: Untagged
+  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400006}
+  m_Layer: 0
+  m_Name: JumpGroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +120,28 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
+--- !u!4 &400004
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: -.600000024, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
+--- !u!4 &400006
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.5, y: -.400000006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400008}
 --- !u!4 &400008
 Transform:
   m_ObjectHideFlags: 1
@@ -102,6 +154,8 @@ Transform:
   m_Children:
   - {fileID: 400010}
   - {fileID: 400002}
+  - {fileID: 400006}
+  - {fileID: 400004}
   - {fileID: 400000}
   m_Father: {fileID: 0}
 --- !u!4 &400010
@@ -150,8 +204,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: d07c05390582a4c42ac3e770879c5caf, type: 2}
   m_IsTrigger: 1
-  m_Size: {x: .899999976, y: 1.79999995}
-  m_Center: {x: 0, y: .115000002}
+  m_Size: {x: 1.04999995, y: 1.89999998}
+  m_Center: {x: 0, y: .0500000007}
 --- !u!61 &6100004
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -161,8 +215,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: d07c05390582a4c42ac3e770879c5caf, type: 2}
   m_IsTrigger: 0
-  m_Size: {x: .949999988, y: .200000003}
-  m_Center: {x: -.0700000003, y: -.88499999}
+  m_Size: {x: 1.04999995, y: .100000001}
+  m_Center: {x: 0, y: -.949999988}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -232,7 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55758bb96aeee4944b76c264467b8039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 0}
   swordClip: {fileID: 8300000, guid: 1c8001b998f2244ecbe9680ed1d48924, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -245,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b68f1254117343beb239560c1d8dafe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animate: 1
   controlled: {fileID: 11400004}
   animationInfo:
   - name: Idle
@@ -308,6 +362,8 @@ MonoBehaviour:
   grounded: 1
   groundCheck: {fileID: 400010}
   groundCheck2: {fileID: 400002}
+  jumpGroundCheck: {fileID: 400006}
+  jumpGroundCheck2: {fileID: 400004}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -315,7 +371,6 @@ MonoBehaviour:
   feetCollider: {fileID: 6100004}
   running: 0
   climbing: 0
-  ascending: 0
   facingRight: 1
   crouching: 0
   damaged: 0
@@ -327,6 +382,8 @@ MonoBehaviour:
   gameData: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: 708cb131682744053b37d55ebf590f70, type: 3}
   hitClip: {fileID: 8300000, guid: 3674737e91dcd4b10902c125b43a0fce, type: 3}
+  music: {fileID: 0}
+  deadClip: {fileID: 8300000, guid: f66920a0858d5463d9a609f654f92d54, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

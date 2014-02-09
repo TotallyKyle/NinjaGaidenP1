@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Boxer : MonoBehaviour {
+public class Boxer : EnemyScript {
 
     // Constants
     // =============================================
@@ -41,6 +41,14 @@ public class Boxer : MonoBehaviour {
     }
 
     void Update() {
+		if (frozen) {
+			GetComponent<BoxerAnimationController>().animate = false;
+			vel = Vector2.zero;
+			return;
+		} else {
+			GetComponent<BoxerAnimationController>().animate = true;
+		}
+
         //Checks which direction Ryu is then changes the anim to be running in that direction
         GameObject player = GameObject.Find("Ryu");
         float relativePosition = player.transform.position.x - transform.position.x;

@@ -8,26 +8,26 @@ public abstract class ItemScript : MonoBehaviour {
 
 	public AudioClip pickUpClip;
 
-	public abstract bool isAutomatic();
+	public abstract bool IsAutomatic();
 
-	public abstract void deploy();
+	public abstract void Deploy();
 
-	public abstract void onPickedUp();
+	public abstract void OnPickedUp();
 
-	public void pickUp() {
+	public void PickUp() {
 		AudioSource.PlayClipAtPoint(pickUpClip, transform.position, 1.0f);
 		pickedUp = true;
-		if (isAutomatic()) {
-			deploy();
+		if (IsAutomatic()) {
+			Deploy();
 		}
-		onPickedUp();
+		OnPickedUp();
 	}
 
 	protected virtual void Start() {
-		Invoke("destroyItem", 5);
+		Invoke("DestroyItem", 5);
 	}
 
-	public void destroyItem() {
+	public void DestroyItem() {
 		if (!pickedUp)
 			Destroy(this.gameObject);
 	}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Dog : MonoBehaviour {
+public class Dog : EnemyScript {
 
     // Constants
     // =============================================
@@ -36,6 +36,11 @@ public class Dog : MonoBehaviour {
     }
 
     void Update() {
+		if (frozen) {
+			vel = Vector2.zero;
+			return;
+		}
+
         //If goes off camera, destroy the object
         GameObject camera = GameObject.Find("Main Camera");
         float relativePosition = transform.position.x - camera.transform.position.x;
