@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 61: {fileID: 6100000}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: FireWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
     - {fileID: 21300002, guid: 92748fd7217164380a00ca5207ab014a, type: 3}
     - {fileID: 21300004, guid: 92748fd7217164380a00ca5207ab014a, type: 3}
     - {fileID: 21300006, guid: 92748fd7217164380a00ca5207ab014a, type: 3}
-    animationTime: .0500000007
+    animationTime: .0199999996
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

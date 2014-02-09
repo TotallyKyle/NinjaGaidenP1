@@ -8,7 +8,6 @@ public class FireWheel : MonoBehaviour {
 	private GameObject mainCamera;
 
 	void Awake() {
-		collider2D.isTrigger = true;
 		mainCamera = GameObject.Find("Main Camera");
 	}
 
