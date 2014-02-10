@@ -12,6 +12,7 @@ public class RyuAnimationController : AnimationController<Ryu> {
 	public const int ANIM_CROUCH_ATTACK	= 6;
 	public const int ANIM_CASTING		= 7;
 	public const int ANIM_DAMAGED		= 8;
+	public const int ANIM_JUMP_SLASH	= 9;
 
 	public override void UpdateAnimationState() {
 		if (controlled.damaged)
@@ -21,6 +22,11 @@ public class RyuAnimationController : AnimationController<Ryu> {
 		else if (controlled.attacking) {
 			if (controlled.crouching)
 				setDisplayedAnimation(ANIM_CROUCH_ATTACK);
+			else if (!controlled.grounded &&
+			         controlled.item != null && 
+			         controlled.item.tag == "JumpSlash" && 
+			         GameData.spiritData >= 5)
+				setDisplayedAnimation(ANIM_JUMP_SLASH);
 			else
 				setDisplayedAnimation(ANIM_ATTACK);
 		} else if (controlled.casting)

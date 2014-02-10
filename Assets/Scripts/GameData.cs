@@ -29,26 +29,57 @@ public class GameData : MonoBehaviour {
     public Texture2D fireball;
     public Texture2D windmill;
     public Texture2D jumpSlash;
-    public static Texture2D currentItem;
 
     //The Variables that actually hold the information
     public static int scoreData = 0;
     public static int timerData = 150;
     public static int healthData = 16;
-    public static int enemyHealthData = 0;
+    public static int enemyHealthData = 32;
     public static int spiritData = 0;
-    public static int livesData = 2;
+	public static int livesData = 2;
+	public static int currentItem = NO_ITEM;
+
+	public const int NO_ITEM = -1;
+	public const int ITEM_SHURIKEN = 0;
+	public const int ITEM_FIREBLAST = 1;
+	public const int ITEM_WINDMILL_SHURIKEN = 2;
+	public const int ITEM_JUMP_SLASH = 3;
+
+	// Sound to play for counting score
+	public AudioClip scoreClip;
 
     void Start() {
     }
 
-    public void Reset() {
+    public static void Reset() {
         timerData = 150;
         healthData = 16;
         spiritData /= 2;
         livesData--;
-        Application.LoadLevel("Prod Scene");
+		currentItem = NO_ITEM;
+        Application.LoadLevel(Application.loadedLevelName);
     }
+
+	public void Winner() {
+		GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
+		StartCoroutine("CountScore");
+	}
+
+	IEnumerator CountScore() {
+		while (timerData-- > 0) {
+			scoreData += 100;
+			AudioSource.PlayClipAtPoint(scoreClip, transform.position);
+			yield return new WaitForSeconds(0.1f);
+		}
+		timerData = 150;
+		healthData = 16;
+		spiritData = 0;
+		livesData = 2;
+		currentItem = NO_ITEM;
+		scoreData = 0;
+		enemyHealthData = 32;
+		Application.LoadLevel("Prod Scene");
+	}
 
     // Update is called once per frame
     void Update() {
@@ -119,10 +150,21 @@ public class GameData : MonoBehaviour {
             createHUD("Enemy Health " + i, 0, 0, healthFull, 355 + i * 9, -52, 8, 12);
         }
 
-        //Current Item
-        if (currentItem) {
-            createHUD("Current Item", 0.03f, 0.03f, currentItem, 218, -43, 10, 10);
-        }
+		switch (currentItem) {
+		case ITEM_SHURIKEN:
+			createHUD("Current Item", 0.03f, 0.03f, shuriken, 218, -43, 10, 10);
+			break;
+		case ITEM_FIREBLAST:
+			createHUD("Current Item", 0.03f, 0.03f, fireball, 218, -43, 10, 10);
+			break;
+		case ITEM_WINDMILL_SHURIKEN:
+			createHUD("Current Item", 0.03f, 0.03f, windmill, 218, -43, 10, 10);
+			break;
+		case ITEM_JUMP_SLASH:
+			createHUD("Current Item", 0.03f, 0.03f, jumpSlash, 218, -43, 10, 10);
+			break;
+		}
+
     }
 
     private void createHUD(string gameObjectName, float localScaleX, float localScaleY, Texture2D textureUsed, float pixelInsetX, float pixelInsetY, float pixelInsetW, float pixelInsetH) {

@@ -15,6 +15,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     private const int LAYER_ENEMY = 11;
     private const int LAYER_ENEMY_PROJECTILES = 13;
     private const int LAYER_ITEMS = 14;
+	private const int LAYER_BOSS = 16;
 
     /*
      * Different speeds for different actions
@@ -71,15 +72,16 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     // =====================================
 
     public ItemScript item;
-
-    // Game Data
-    // =====================================
-    public GameData gameData;
+	public GameObject shurikenPrefab;
+	public GameObject fireBlastPrefab;
+	public GameObject windmillShurikenPrefab;
+	public GameObject jumpSlashPrefab;
 
 	// Sounds
 	// =====================================
 	public AudioClip jumpClip;
 	public AudioClip hitClip;
+	public AudioClip slashClip;
 
 	private SpriteRenderer spriteRenderer;
 
@@ -95,6 +97,27 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
 		feetStandSize = feetCollider.size;
 		feetStandCenter = feetCollider.center;
+
+		if (GameData.currentItem != GameData.NO_ITEM) {
+			switch (GameData.currentItem) {
+			case GameData.ITEM_SHURIKEN:
+				GameObject shuriken = Instantiate(shurikenPrefab, transform.position, Quaternion.identity) as GameObject;
+				PickUpItem(shuriken.GetComponent<ItemScript>(), false);
+				break;
+			case GameData.ITEM_FIREBLAST:
+				GameObject fireBlast = Instantiate(fireBlastPrefab, transform.position, Quaternion.identity) as GameObject;
+				PickUpItem(fireBlast.GetComponent<ItemScript>(), false);
+				break;
+			case GameData.ITEM_WINDMILL_SHURIKEN:
+				GameObject windmillShurkien = Instantiate(windmillShurikenPrefab, transform.position, Quaternion.identity) as GameObject;
+				PickUpItem(windmillShurkien.GetComponent<ItemScript>(), false);
+				break;
+			case GameData.ITEM_JUMP_SLASH:
+				GameObject jumpSlash = Instantiate(jumpSlashPrefab, transform.position, Quaternion.identity) as GameObject;
+				PickUpItem(jumpSlash.GetComponent<ItemScript>(), false);
+				break;
+			}
+		}
     }
 
 	void AnimationController<Ryu>.AnimationListener.onAnimationRepeat(int animationIndex) {
@@ -109,6 +132,13 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		case RyuAnimationController.ANIM_CASTING:
 			if (casting)
 				casting = false;
+			break;
+		case RyuAnimationController.ANIM_JUMP_SLASH:
+			if (attacking) {
+				attacking = false;
+				if (item != null)
+					((JumpSlashItem) item).EndSlash();
+			}
 			break;
 		}
 	}
@@ -152,6 +182,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			feetCollider.size = feetStandSize;
 			feetCollider.center = feetStandCenter;
 
+			if (attacking && item != null && item.tag == "JumpSlash") {
+				attacking = false;
+				((JumpSlashItem) item).EndSlash();
+			}
+
 			if (damaged) {
 				landAfterHit();
 			}
@@ -164,7 +199,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			feetCollider.center = feetJumpCenter;
 		}
 	
-		feetCollider.enabled = grounded || rigidbody2D.velocity.y < 0;
+		feetCollider.enabled = grounded || rigidbody2D.velocity.y <= 0;
+//		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, !grounded && rigidbody2D.velocity.y > 0);
 
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
@@ -194,15 +230,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 				handleDamage(collision.gameObject);
 			break;
 		case LAYER_ITEMS:
-			ItemScript freeItem = collision.gameObject.GetComponent<ItemScript>();
-			if (freeItem == null) return;
-			if (!freeItem.IsAutomatic()) {
-				item = freeItem;
-				item.transform.parent = transform;
-				item.PickUp();
-			} else {
-				freeItem.PickUp();
-			}
+			PickUpItem(collision.gameObject.GetComponent<ItemScript>());
 			break;
 		}
     }
@@ -215,21 +243,14 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     void OnTriggerEnter2D(Collider2D collider) {
 		switch (collider.gameObject.layer) {
+		case LAYER_BOSS:
 		case LAYER_ENEMY:
 		case LAYER_ENEMY_PROJECTILES:
 			if (!invincible)
 				handleDamage(collider.gameObject);
 			break;
 		case LAYER_ITEMS:
-			ItemScript freeItem = collider.gameObject.GetComponent<ItemScript>();
-			if (freeItem == null) return;
-			if (!freeItem.IsAutomatic()) {
-				item = freeItem;
-				item.transform.parent = transform;
-				item.PickUp();
-			} else {
-				freeItem.PickUp();
-			}
+			PickUpItem(collider.gameObject.GetComponent<ItemScript>());
 			break;
 		case LAYER_WALLS:
 			if (!wallEntered) {
@@ -262,11 +283,32 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     }
 
     void OnTriggerExit2D(Collider2D collider) {
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+		switch (collider.gameObject.layer) {
+		case LAYER_WALLS:
 			wallEntered = false;
 			climbing = false;
+			break;
 		}
     }
+
+	private void PickUpItem(ItemScript freeItem) {
+		PickUpItem(freeItem, true);
+	}
+
+	private void PickUpItem(ItemScript freeItem, bool withSound) {
+		if (freeItem == null) return;
+		if (!freeItem.IsAutomatic()) {
+			if (item != null) {
+				Destroy(item.gameObject);
+			}
+			item = freeItem;
+			item.transform.parent = transform;
+			item.transform.position = transform.position;
+			item.PickUp(withSound);
+		} else {
+			freeItem.PickUp(withSound);
+		}
+	}
 
     /*
      * Tests for the appropriate conditions to initiate a wall jump
@@ -350,12 +392,16 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     private void startAttack() {
         attacking = true;
-        swordController.extendSword();
+		if (!grounded && item != null && item.tag == "JumpSlash" && GameData.spiritData >= 5) {
+			item.Deploy();
+			AudioSource.PlayClipAtPoint(slashClip, transform.position);
+		} else 
+	        swordController.extendSword();
     }
 
     private void startCasting() {
         casting = true;
-        if (item != null) {
+        if (item != null && item.tag != "JumpSlash") {
             item.Deploy();
         }
     }
@@ -430,10 +476,12 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 	public AudioClip deadClip;
 
 	public void die() {
+		music.Stop();
 		damaged = true;
+		item = null;
+		GameData.currentItem = GameData.NO_ITEM;
 		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY, false);
 		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_ENEMY_PROJECTILES, false);
-		music.enabled = false;
 		AudioSource.PlayClipAtPoint(deadClip, transform.position);
 		StartCoroutine("deathPause");
 	}
@@ -448,6 +496,6 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		}
 
 		Utilities.ResumeGame();
-		gameData.Reset();
+		GameData.Reset();
 	}
 }

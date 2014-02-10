@@ -14,9 +14,12 @@ public class Dog : EnemyScript {
     /*
      * Different speeds for different actions
      */
-    public const float SPEED = 2f / 16f * 60f;
-    public const float JUMP = 12f;
+    public const float SPEED = 1.75f / 16f * 60f;
+    public const float JUMP = 9f;
     public Vector2 vel;
+
+	public bool grounded = true;
+	public BoxCollider2D feetCollider;
 
     /*
      * Checks which direction Ryu is then changes the anim to be running in that direction
@@ -24,7 +27,7 @@ public class Dog : EnemyScript {
     void Start() {
         GameObject player = GameObject.Find("Ryu");
         float relativePosition = player.transform.position.x - transform.position.x;
-        vel = new Vector2(0f, 0f);
+        vel = new Vector2(0f, JUMP);
         if (relativePosition < 0) {
             flip();
             vel.x = -SPEED;
@@ -41,6 +44,14 @@ public class Dog : EnemyScript {
 			return;
 		}
 
+		if (grounded) {
+			vel.y = JUMP;
+			rigidbody2D.velocity = vel;
+			grounded = false;
+		}
+
+		feetCollider.enabled = rigidbody2D.velocity.y <= 0;
+
         //If goes off camera, destroy the object
         GameObject camera = GameObject.Find("Main Camera");
         float relativePosition = transform.position.x - camera.transform.position.x;
@@ -48,27 +59,29 @@ public class Dog : EnemyScript {
             Destroy(transform.gameObject);
     }
 
-    void FixedUpdate() {
-        //Adds a hop every 10 fixed updates
-        int counter = 0;
-        if (counter == 2) {
-            vel.y = JUMP;
-            counter = 0;
-        } else {
-            vel.y = 0;
-            counter++;
-        }
-        rigidbody2D.velocity = vel;
-    }
-
     void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.name != "Ryu") {
-            flip();
-            vel.x = -vel.x;
+		if (collider.name != "Ryu") {
+			flip();
+			vel.x = -vel.x;
+			rigidbody2D.velocity = vel;
         }
     }
 
-    private void flip() {
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+			if (!grounded)
+				grounded = true;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision) {
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+			if (grounded)
+				grounded = false;
+		}
+	}
+
+	private void flip() {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;

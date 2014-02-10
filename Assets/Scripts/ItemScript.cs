@@ -15,7 +15,12 @@ public abstract class ItemScript : MonoBehaviour {
 	public abstract void OnPickedUp();
 
 	public void PickUp() {
-		AudioSource.PlayClipAtPoint(pickUpClip, transform.position, 1.0f);
+		PickUp(true);
+	}
+
+	public void PickUp(bool withSound) {
+		if (withSound)
+			AudioSource.PlayClipAtPoint(pickUpClip, transform.position, 1.0f);
 		pickedUp = true;
 		if (IsAutomatic()) {
 			Deploy();

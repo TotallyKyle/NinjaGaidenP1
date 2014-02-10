@@ -8,7 +8,7 @@ public class ItemContainerScript : MonoBehaviour {
 	public AudioClip fireClip;
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Sword") || collider.tag == "SpecialItem") {
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Sword") || collider.tag == "SpecialItem" || collider.tag == "JumpSlash") {
 			if (collider.tag == "SpecialItem")
 				AudioSource.PlayClipAtPoint(fireClip, transform.position);
 			Instantiate(item, transform.position, Quaternion.identity);

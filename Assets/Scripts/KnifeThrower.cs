@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KnifeThrower : EnemyScript
+public class KnifeThrower : EnemyScript, AnimationController<KnifeThrower>.AnimationListener
 {
 
     // Constants
@@ -48,7 +48,17 @@ public class KnifeThrower : EnemyScript
             vel.x = SPEED;
             rigidbody2D.velocity = vel;
         }
+		GetComponent<KnifeThrowerAnimationController>().setAnimationListener(this);
     }
+
+	void AnimationController<KnifeThrower>.AnimationListener.onAnimationRepeat(int animationIndex) {
+		switch (animationIndex) {
+		case KnifeThrowerAnimationController.ANIM_ATTACK:
+		case KnifeThrowerAnimationController.ANIM_CROUCH_ATTACK:
+			finishAttacking();
+			break;
+		}
+	}
 
     void Update()
     {
@@ -107,9 +117,6 @@ public class KnifeThrower : EnemyScript
 
         //Launch Projectile
         launchProjectile();
-
-        //Invoke a finish attack command
-        Invoke("finishAttacking", .5f);
     }
 
     void finishAttacking()

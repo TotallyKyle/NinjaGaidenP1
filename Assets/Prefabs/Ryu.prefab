@@ -348,6 +348,13 @@ MonoBehaviour:
     sprites:
     - {fileID: 21300012, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
     animationTime: .100000001
+  - name: JumpSlash
+    sprites:
+    - {fileID: 21300028, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300030, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300032, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    - {fileID: 21300034, guid: 700e381afe4daa2418c918931fcc33e6, type: 3}
+    animationTime: .0500000007
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -379,9 +386,14 @@ MonoBehaviour:
   casting: 0
   sword: {fileID: 100000}
   item: {fileID: 0}
-  gameData: {fileID: 0}
+  shurikenPrefab: {fileID: 100000, guid: d16f19456f0f64387905ebd089c900e3, type: 2}
+  fireBlastPrefab: {fileID: 100000, guid: 6cfd51a564e434cd0add1b677e2ee134, type: 2}
+  windmillShurikenPrefab: {fileID: 100000, guid: 28c9873201efd43388ab5c1316b68546,
+    type: 2}
+  jumpSlashPrefab: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: 708cb131682744053b37d55ebf590f70, type: 3}
   hitClip: {fileID: 8300000, guid: 3674737e91dcd4b10902c125b43a0fce, type: 3}
+  slashClip: {fileID: 8300000, guid: 9cedf9412fb384502bb2da7448ecc896, type: 3}
   music: {fileID: 0}
   deadClip: {fileID: 8300000, guid: f66920a0858d5463d9a609f654f92d54, type: 3}
 --- !u!212 &21200000

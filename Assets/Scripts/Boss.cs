@@ -6,8 +6,10 @@ public class Boss : EnemyScript {
     // Constants
     // =============================================
     public const int MAX_BOSS_HEALTH = 32;
-    public Transform headPrefab;
-    public Transform tailPrefab;
+	private Transform head;
+	public Transform headPrefab;
+	private Transform tail;
+	public Transform tailPrefab;
     public Transform projectilePrefab;
     public Transform lightningHorizontalPrefab;
     public Transform lightningVerticalPrefab;
@@ -38,6 +40,13 @@ public class Boss : EnemyScript {
     public int movement = 0;
     public int currentHealth;
 
+
+	// Sound effects
+	// ====================================
+	public AudioClip hitClip;
+	public AudioClip lightningClip;
+	public AudioClip flurryClip;
+
     void Start() {
         //Sets Score and Boss Health
         score = 10000;
@@ -49,20 +58,41 @@ public class Boss : EnemyScript {
     }
 
     void FixedUpdate() {
-        if (!movementComplete)
+		if (currentHealth == 0) {
+			rigidbody2D.velocity = Vector2.zero;
+			audio.Stop();
+			return;
+		}
+        if (!movementComplete) {
+			if (!audio.isPlaying) {
+				audio.Play();
+			}
             MoveBoss();
-        else {
-            rigidbody2D.velocity = new Vector2(0, 0);
+		} else {
+			audio.Stop();
+			rigidbody2D.velocity = Vector2.zero;
             HandleAttack();
         }
     }
 
     public override void Die() {
         currentHealth--;
+		AudioSource.PlayClipAtPoint(hitClip, transform.position);
         if (currentHealth <= 0) {
-            base.Die();
+			if (head != null) head.GetComponent<EnemyScript>().Die();
+			if (tail != null) tail.GetComponent<EnemyScript>().Die();
+			Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Boss"), true);
+			GameObject.Find("Main Camera").GetComponent<AudioSource>().Stop();
+			Instantiate(Resources.Load("BossExplosion"), transform.position - new Vector3(0f, 3f, 0f), Quaternion.identity);
+			GameObject.Find("Game HUD").GetComponent<GameData>().Winner();
+			GameData.scoreData += score;
+			Invoke ("Dead", 4f);
         }
     }
+
+	private void Dead() {
+		Destroy(gameObject);
+	}
 
     void MoveBoss() {
         if (movement == 0) {
@@ -159,7 +189,8 @@ public class Boss : EnemyScript {
                 chargingStageOne = false;
                 lightningCasted = 0;
             } else {
-                if (Time.time - timeBetweenAttacks > .5) {
+				if (Time.time - timeBetweenAttacks > .5) {
+					AudioSource.PlayClipAtPoint(lightningClip, transform.position);
                     Transform lightning = Instantiate(lightningHorizontalPrefab, new Vector3(16, 6 + 3.25f * lightningCasted, 0), Quaternion.identity) as Transform;
                     lightning.parent = transform;
                     lightning.Rotate(new Vector3(0, 0, 270));
@@ -187,6 +218,7 @@ public class Boss : EnemyScript {
                 lightningCasted = 0;
             } else {
                 if (Time.time - timeBetweenAttacks > .5) {
+					AudioSource.PlayClipAtPoint(lightningClip, transform.position);
                     Transform lightning = Instantiate(lightningVerticalPrefab, new Vector3(6 + 5 * lightningCasted, 11, 0), Quaternion.identity) as Transform;
                     lightning.parent = transform;
                     timeBetweenAttacks = Time.time;
@@ -212,16 +244,18 @@ public class Boss : EnemyScript {
         } else if (transform.childCount < 1) {
             bodyProjectilesAlive = 2;
             bodyPartsAttack = true;
+			
+			AudioSource.PlayClipAtPoint(lightningClip, transform.position);
 
             if (movement == 1) {
-                Transform head = Instantiate(headPrefab, new Vector3(transform.position.x - 2.5f, 25, 0), Quaternion.identity) as Transform;
+				head = Instantiate(headPrefab, new Vector3(transform.position.x - 2.5f, 25, 0), Quaternion.identity) as Transform;
                 head.parent = transform;
-                Transform tail = Instantiate(tailPrefab, new Vector3(transform.position.x - 2, 2, 0), Quaternion.identity) as Transform;
+				tail = Instantiate(tailPrefab, new Vector3(transform.position.x - 2, 2, 0), Quaternion.identity) as Transform;
                 tail.parent = transform;
             } else if (movement == 3) {
-                Transform head = Instantiate(headPrefab, new Vector3(transform.position.x + 2.5f, 25, 0), Quaternion.identity) as Transform;
+				head = Instantiate(headPrefab, new Vector3(transform.position.x + 2.5f, 25, 0), Quaternion.identity) as Transform;
                 head.parent = transform;
-                Transform tail = Instantiate(tailPrefab, new Vector3(transform.position.x + 2, 2, 0), Quaternion.identity) as Transform;
+				tail = Instantiate(tailPrefab, new Vector3(transform.position.x + 2, 2, 0), Quaternion.identity) as Transform;
                 tail.parent = transform;
             }
         }
@@ -233,6 +267,7 @@ public class Boss : EnemyScript {
                 movementComplete = false;
                 bulletsFlourished = 0;
             } else {
+				AudioSource.PlayClipAtPoint(flurryClip, transform.position);
                 bulletsFlourished++;
                 Transform bullet = Instantiate(projectilePrefab, new Vector3(transform.position.x - 5 + bulletsFlourished, transform.position.y + bulletsFlourished, 0), Quaternion.identity) as Transform;
                 bullet.parent = transform;  

@@ -15,7 +15,7 @@ public class Knife : MonoBehaviour
     /*
      * Different speeds for different actions
      */
-    public const float SPEED = 3f / 16f * 60f;
+    public const float SPEED = 2f / 16f * 60f;
     public Vector2 vel;
 
     /*

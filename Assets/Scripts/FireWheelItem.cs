@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Rigidbody2D))]
 [RequireComponent (typeof(BoxCollider2D))]
 [RequireComponent (typeof(SpriteRenderer))]
 public class FireWheelItem : ItemScript {
@@ -32,6 +31,7 @@ public class FireWheelItem : ItemScript {
 	public override void OnPickedUp() {
 		// TODO set power up sprite in game data
 		GetComponent<SpriteRenderer>().sprite = null;
+		Destroy(rigidbody2D);
 		collider2D.enabled = false;
 	}
 
@@ -42,7 +42,7 @@ public class FireWheelItem : ItemScript {
 			Destroy(fireWheel.gameObject);
 			Destroy(gameObject);
 			ryu.item = null;
-			// TODO remove sprite from game data
+			GameData.currentItem = GameData.NO_ITEM;
 		}
 	}
 }

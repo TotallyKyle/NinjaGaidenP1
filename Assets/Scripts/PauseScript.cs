@@ -11,11 +11,11 @@ public class PauseScript : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Return)) {
 			if (paused) {
-				music.enabled = true;
+				music.Play();
 				Utilities.ResumeGame();
 				paused = false;
 			} else {
-				music.enabled = false;
+				music.Pause();
 				AudioSource.PlayClipAtPoint(pauseClip, transform.position);
 				Utilities.PauseGame();
 				paused = true;

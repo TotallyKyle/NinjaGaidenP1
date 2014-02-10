@@ -57,6 +57,14 @@ public class Boxer : EnemyScript {
     }
 
     void FixedUpdate() {
+		if (frozen) {
+			GetComponent<BoxerAnimationController>().animate = false;
+			vel = Vector2.zero;
+			return;
+		} else {
+			GetComponent<BoxerAnimationController>().animate = true;
+		}
+
         //Attacks every 2 seonds if attacking bool
         if (!attackInvoked) {
             Invoke("attack", 2);

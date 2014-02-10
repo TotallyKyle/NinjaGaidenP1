@@ -28,10 +28,10 @@ public class ThrowingStarItem : ItemScript {
 	}
 
 	public override void OnPickedUp() {
-		// TODO show sprite in the ui layer
+		GameData.currentItem = GameData.ITEM_SHURIKEN;
 		ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		GetComponent<SpriteRenderer>().sprite = null;
-		rigidbody2D.isKinematic = true;
+		Destroy(rigidbody2D);
 		collider2D.enabled = false;
 	}
 }

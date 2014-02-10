@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Rigidbody2D))]
 [RequireComponent (typeof(BoxCollider2D))]
 [RequireComponent (typeof(SpriteRenderer))]
 public class FireBlastItem : ItemScript {
@@ -48,10 +47,10 @@ public class FireBlastItem : ItemScript {
 	}
 
 	public override void OnPickedUp() {
-		// TODO set sprite in game data
+		GameData.currentItem = GameData.ITEM_FIREBLAST;
 		ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		GetComponent<SpriteRenderer>().sprite = null;
-		rigidbody2D.isKinematic = true;
+		Destroy(rigidbody2D);
 		collider2D.enabled = false;
 	}
 }

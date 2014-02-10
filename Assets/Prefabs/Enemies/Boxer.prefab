@@ -91,11 +91,11 @@ MonoBehaviour:
     sprites:
     - {fileID: 21300008, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
     - {fileID: 21300006, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
-    animationTime: .0500000007
+    animationTime: .150000006
   - name: Attacking
     sprites:
     - {fileID: 21300004, guid: 13f5d37e3c68117478d7e6fd95146030, type: 3}
-    animationTime: .0500000007
+    animationTime: .100000001
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,0 +1,274 @@
+fileFormatVersion: 2
+guid: 9aaed8b83a74b4677894505dc920a978
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 16
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: boss_explosion_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 740
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_1
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 740
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_2
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 740
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_3
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 740
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_4
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 740
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 555
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_6
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 555
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_7
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 555
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_8
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 555
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_9
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 555
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 370
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_11
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 370
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_12
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 370
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_13
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 370
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_14
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 370
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 185
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_16
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 185
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_17
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 185
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_18
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 185
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_19
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 185
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_21
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 0
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_22
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 0
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_23
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 0
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: boss_explosion_24
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 0
+        width: 278
+        height: 185
+      alignment: 7
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

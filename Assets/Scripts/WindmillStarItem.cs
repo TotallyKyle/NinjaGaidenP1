@@ -2,8 +2,6 @@
 using System.Collections;
 
 
-[RequireComponent (typeof(Rigidbody2D))]
-
 [RequireComponent (typeof(BoxCollider2D))]
 
 [RequireComponent (typeof(SpriteRenderer))]
@@ -41,10 +39,10 @@ public class WindmillStarItem : ItemScript {
 	}
 
 	public override void OnPickedUp() {
-		// TODO set sprite in game data
+		GameData.currentItem = GameData.ITEM_WINDMILL_SHURIKEN;
 		ryu = GameObject.Find("Ryu").GetComponent<Ryu>();
 		GetComponent<SpriteRenderer>().sprite = null;
-		rigidbody2D.isKinematic = true;
+		Destroy(rigidbody2D);
 		collider2D.enabled = false;
 	}
 }

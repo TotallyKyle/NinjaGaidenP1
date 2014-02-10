@@ -25,7 +25,6 @@ public class WindmillStar : AnimationController<WindmillStar> {
 
 		if (Mathf.Abs(dX) >= MAX_DISTANCE) {
 			direction *= -1;
-			velocity.y = 0.8f * ryu
 		}
 		
 		velocity.x = direction * SPEED;
