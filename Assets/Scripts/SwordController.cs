@@ -4,6 +4,7 @@ using System.Collections;
 public class SwordController : MonoBehaviour {
 
 	private int swordLayer;
+    private int bossLayer;
 	private int enemyLayer;
 
 	private BoxCollider2D boxCollider;
@@ -14,6 +15,7 @@ public class SwordController : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider2D>();
 		swordLayer = LayerMask.NameToLayer("Sword");
 		enemyLayer = LayerMask.NameToLayer("Enemies");
+        bossLayer = LayerMask.NameToLayer("Boss");
 		retractSword();
 	}
 
@@ -43,7 +45,7 @@ public class SwordController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.layer == enemyLayer) {
+		if (other.gameObject.layer == enemyLayer || other.gameObject.layer == bossLayer) {
 			EnemyScript enemy = other.GetComponent<EnemyScript>();
 			if (enemy != null) {
 				enemy.Die();

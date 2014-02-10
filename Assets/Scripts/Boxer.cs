@@ -41,13 +41,27 @@ public class Boxer : EnemyScript {
     }
 
     void Update() {
-		if (frozen) {
-			GetComponent<BoxerAnimationController>().animate = false;
-			vel = Vector2.zero;
-			return;
-		} else {
-			GetComponent<BoxerAnimationController>().animate = true;
-		}
+        if (frozen) {
+            GetComponent<BoxerAnimationController>().animate = false;
+            vel = Vector2.zero;
+            return;
+        } else {
+            GetComponent<BoxerAnimationController>().animate = true;
+        }
+
+        //If goes off camera, destroy the object
+        GameObject camera = GameObject.Find("Main Camera");
+        float relativePosition = transform.position.x - camera.transform.position.x;
+        if (Mathf.Abs(relativePosition) > 26 / 3)
+            Destroy(transform.gameObject);
+    }
+
+    void FixedUpdate() {
+        //Attacks every 2 seonds if attacking bool
+        if (!attackInvoked) {
+            Invoke("attack", 2);
+            attackInvoked = true;
+        }
 
         //Checks which direction Ryu is then changes the anim to be running in that direction
         GameObject player = GameObject.Find("Ryu");
@@ -84,21 +98,6 @@ public class Boxer : EnemyScript {
                     vel.x = -SPEED;
             }
         }
-
-        //If goes off camera, destroy the object
-        GameObject camera = GameObject.Find("Main Camera");
-        relativePosition = transform.position.x - camera.transform.position.x;
-        if (Mathf.Abs(relativePosition) > 26 / 3)
-            Destroy(transform.gameObject);
-    }
-
-    void FixedUpdate() {
-        //Attacks every 2 seonds if attacking bool
-        if (!attackInvoked) {
-            Invoke("attack", 2);
-            attackInvoked = true;
-        }
-
         rigidbody2D.velocity = vel;
     }
 
@@ -123,9 +122,9 @@ public class Boxer : EnemyScript {
         attackInvoked = false;
     }
 
-    private void flip() {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
+        private void flip() {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
 }
