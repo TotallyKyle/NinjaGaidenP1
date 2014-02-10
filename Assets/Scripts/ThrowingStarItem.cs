@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class ThrowingStarItem : ItemScript {
-	
+
+	private Ryu ryu;
 	private Object starPrefab;
 	private Vector3 offset = new Vector3(0.5f, 0f, 0f);
 
@@ -19,18 +20,18 @@ public class ThrowingStarItem : ItemScript {
 		if (GameData.spiritData < 3) {
 			return;
 		}
-		Ryu ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
-		if (!ryu.facingRight)
-			offset.x *= -1;
-		Instantiate(starPrefab, ryu.transform.position + offset, Quaternion.identity);
-		if (!ryu.facingRight)
-			offset.x *= -1;
+		float dir = ryu.facingRight ? 1 : -1;
+
+		Instantiate(starPrefab, ryu.transform.position + dir * offset, Quaternion.identity);
+
 		GameData.spiritData -= 3;
 	}
 
 	public override void OnPickedUp() {
 		// TODO show sprite in the ui layer
+		ryu = (Ryu) GameObject.Find("Ryu").GetComponent<Ryu>();
 		GetComponent<SpriteRenderer>().sprite = null;
+		rigidbody2D.isKinematic = true;
 		collider2D.enabled = false;
 	}
 }

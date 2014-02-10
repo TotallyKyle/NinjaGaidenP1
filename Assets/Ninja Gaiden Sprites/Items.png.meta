@@ -52,8 +52,8 @@ TextureImporter:
         y: 159
         width: 15
         height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Spiritual Strength Red
       rect:
         serializedVersion: 2
@@ -61,8 +61,8 @@ TextureImporter:
         y: 159
         width: 15
         height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Bonus 500
       rect:
         serializedVersion: 2
@@ -70,8 +70,8 @@ TextureImporter:
         y: 159
         width: 16
         height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Bonus 1000
       rect:
         serializedVersion: 2
@@ -79,8 +79,8 @@ TextureImporter:
         y: 159
         width: 16
         height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Restore Physical Strength
       rect:
         serializedVersion: 2
@@ -97,8 +97,8 @@ TextureImporter:
         y: 159
         width: 12
         height: 15
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: 1 Up
       rect:
         serializedVersion: 2
@@ -115,8 +115,8 @@ TextureImporter:
         y: 134
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Throwing Star 0
       rect:
         serializedVersion: 2
@@ -124,8 +124,8 @@ TextureImporter:
         y: 138
         width: 8
         height: 7
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Throwing Star 1
       rect:
         serializedVersion: 2
@@ -133,8 +133,8 @@ TextureImporter:
         y: 138
         width: 8
         height: 7
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Item Container_1 0
       rect:
         serializedVersion: 2
@@ -178,8 +178,8 @@ TextureImporter:
         y: 113
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Art of the Fire Wheel
       rect:
         serializedVersion: 2
@@ -187,8 +187,8 @@ TextureImporter:
         y: 92
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Fire Wheel 0
       rect:
         serializedVersion: 2
@@ -214,8 +214,8 @@ TextureImporter:
         y: 71
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Windmill Throwing Star 0
       rect:
         serializedVersion: 2
@@ -223,8 +223,8 @@ TextureImporter:
         y: 71
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Windmill Throwing Star 1
       rect:
         serializedVersion: 2
@@ -232,8 +232,8 @@ TextureImporter:
         y: 71
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
     - name: Invincible Fire Wheel
       rect:
         serializedVersion: 2
@@ -241,7 +241,7 @@ TextureImporter:
         y: 50
         width: 16
         height: 16
-      alignment: 7
-      pivot: {x: .5, y: 0}
+      alignment: 0
+      pivot: {x: .5, y: .5}
   spritePackingTag: 
   userData: 

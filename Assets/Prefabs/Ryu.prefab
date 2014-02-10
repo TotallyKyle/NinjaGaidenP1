@@ -78,7 +78,7 @@ GameObject:
   - 61: {fileID: 6100004}
   m_Layer: 8
   m_Name: Ryu
-  m_TagString: Untagged
+  m_TagString: Ryu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,8 +193,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 1, y: 1}
-  m_Center: {x: 0, y: 0}
+  m_Size: {x: 1.5, y: .899999976}
+  m_Center: {x: -.280000001, y: 0}
 --- !u!61 &6100002
 BoxCollider2D:
   m_ObjectHideFlags: 1
