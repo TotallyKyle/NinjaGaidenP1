@@ -189,5 +189,14 @@ TextureImporter:
         height: 126
       alignment: 0
       pivot: {x: .5, y: .5}
+    - name: Lightning Horizontal
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 169
+        width: 26
+        height: 112
+      alignment: 8
+      pivot: {x: 1, y: 0}
   spritePackingTag: 
   userData: 

@@ -122,9 +122,9 @@ public class Boxer : EnemyScript {
         attackInvoked = false;
     }
 
-    private void flip() {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
+        private void flip() {
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
 }

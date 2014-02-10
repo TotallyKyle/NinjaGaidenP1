@@ -25,24 +25,30 @@ public class GameData : MonoBehaviour {
     public Texture2D eight;
     public Texture2D nine;
     public Texture2D dash;
+    public Texture2D shuriken;
+    public Texture2D fireball;
+    public Texture2D windmill;
+    public Texture2D jumpSlash;
+    public static Texture2D currentItem;
 
     //The Variables that actually hold the information
     public static int scoreData = 0;
     public static int timerData = 150;
     public static int healthData = 16;
+    public static int enemyHealthData = 0;
     public static int spiritData = 0;
     public static int livesData = 2;
 
     void Start() {
     }
 
-	public void Reset() {
-		timerData = 150;
-		healthData = 16;
-		spiritData /= 2;
-		livesData--;
-		Application.LoadLevel("Prod Scene");
-	}
+    public void Reset() {
+        timerData = 150;
+        healthData = 16;
+        spiritData /= 2;
+        livesData--;
+        Application.LoadLevel("Prod Scene");
+    }
 
     // Update is called once per frame
     void Update() {
@@ -96,10 +102,26 @@ public class GameData : MonoBehaviour {
 
         //Ryu's Health Bars
         for (int i = healthData; i < 16; i++) {
-            createHUD("Ninja " + i, 0, 0, healthEmpty, 355 + i * 9, -37, 8, 12);
+            createHUD("Ninja Empty " + i, 0, 0, healthEmpty, 355 + i * 9, -37, 8, 12);
         }
         for (int i = 0; i < healthData; i++) {
-            createHUD("Health " + i, 0, 0, healthFull, 355 + i * 9, -37, 8, 12);
+            createHUD("Ninja Health " + i, 0, 0, healthFull, 355 + i * 9, -37, 8, 12);
+        }
+
+        //Boss Health
+        createHUD("Enemy", .15f, 0, enemy, 300, -52, 8, 12);
+
+        //Boss Health Bars
+        for (int i = enemyHealthData; i < 16; i++) {
+            createHUD("Enemy Empty " + i, 0, 0, healthEmpty, 355 + i * 9, -52, 8, 12);
+        }
+        for (int i = 0; i < Mathf.Min(enemyHealthData, 16); i++) {
+            createHUD("Enemy Health " + i, 0, 0, healthFull, 355 + i * 9, -52, 8, 12);
+        }
+
+        //Current Item
+        if (currentItem) {
+            createHUD("Current Item", 0.03f, 0.03f, currentItem, 218, -43, 10, 10);
         }
     }
 

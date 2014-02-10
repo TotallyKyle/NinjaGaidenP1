@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour {
 
 	protected bool frozen = false;
 
-	private Vector3 offset = new Vector3(0f, 1f, 0f);
+	protected Vector3 offset = new Vector3(0f, 1f, 0f);
 
 	void Awake() {
 		EnemyController.GetInstance().RegisterEnemy(this);
@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour {
 		rigidbody2D.isKinematic = false;
 	}
 
-	public void Die() {
+	public virtual void Die() {
 		Instantiate(Resources.Load("Explosion"), transform.position + offset, Quaternion.identity);
 		GameData.scoreData += score;
 		Destroy(gameObject);
