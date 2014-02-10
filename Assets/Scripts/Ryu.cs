@@ -172,9 +172,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
 		if (!wasGrounded && grounded) {
 
-			Vector3 position = transform.position;
-			position.y += 0.6f;
-			transform.position = position;
+			if (rigidbody2D.velocity.y <= 0) {
+				Vector3 position = transform.position;
+				position.y += 0.6f;
+				transform.position = position;
+			}
 
 			mainCollider.size = standSize;
 			mainCollider.center = standCenter;
