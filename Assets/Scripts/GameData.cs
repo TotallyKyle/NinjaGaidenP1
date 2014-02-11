@@ -45,9 +45,6 @@ public class GameData : MonoBehaviour {
     public const int ITEM_WINDMILL_SHURIKEN = 2;
     public const int ITEM_JUMP_SLASH = 3;
 
-    // Sound to play for counting score
-    public AudioClip scoreClip;
-
     void Start() {
     }
 
@@ -55,33 +52,21 @@ public class GameData : MonoBehaviour {
         timerData = 150;
         healthData = 16;
         spiritData /= 2;
-        livesData--;
+		livesData--;
         currentItem = NO_ITEM;
         Application.LoadLevel(Application.loadedLevelName);
     }
 
-    public void Winner() {
-        GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
-        StartCoroutine("CountScore");
-    }
-
-    IEnumerator CountScore() {
-        while (timerData-- > 0) {
-            scoreData += 100;
-            AudioSource.PlayClipAtPoint(scoreClip, transform.position);
-            yield return new WaitForSeconds(0.1f);
-        }
-        timerData = 150;
-        healthData = 16;
-        spiritData = 0;
-        livesData = 2;
-        currentItem = NO_ITEM;
-        scoreData = 0;
-        enemyHealthData = 32;
-        Application.LoadLevel("Prod Scene");
-    }
-
-    // Update is called once per frame
+	public static void GameOver() {
+		timerData = 150;
+		healthData = 16;
+		spiritData = 0;
+		livesData = 2;
+		currentItem = NO_ITEM;
+		Application.LoadLevel("Lose Scene");
+	}
+	
+	// Update is called once per frame
     void Update() {
         Transform gameHUD = GameObject.Find("Game HUD").transform;
         foreach (Transform child in gameHUD)

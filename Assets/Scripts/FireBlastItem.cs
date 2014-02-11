@@ -15,6 +15,8 @@ public class FireBlastItem : ItemScript {
 
 	public AudioClip blastClip;
 
+	private GameObject fire1, fire2, fire3;
+
 	protected override void Start () {
 		fireWheelPrefab = Resources.Load("FireBlast");
 		base.Start();
@@ -25,15 +27,20 @@ public class FireBlastItem : ItemScript {
 	}
 	
 	public override void Deploy() {
+
+		if (fire1 != null && fire2 != null && fire3 != null) {
+			return;
+		}
+
 		if (GameData.spiritData < 5) {
 			return;
 		}
 
 		Vector3 position = ryu.transform.position;
 
-		GameObject fire1 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
-		GameObject fire2 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
-		GameObject fire3 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
+		fire1 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
+		fire2 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
+		fire3 = Instantiate(fireWheelPrefab, position, Quaternion.identity) as GameObject;
 
 		AudioSource.PlayClipAtPoint(blastClip, ryu.transform.position);
 

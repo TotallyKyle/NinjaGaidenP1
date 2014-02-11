@@ -140,9 +140,9 @@ public class KnifeThrower : EnemyScript, AnimationController<KnifeThrower>.Anima
             knifeHorizontalOffset = -1;
 
         if (crouching)
-            knifeVerticalOffset = 2.3f - 1.375f;
+            knifeVerticalOffset = 0.9f;
         else
-            knifeVerticalOffset = 2.6f - 1.375f;
+            knifeVerticalOffset = 1.2f;
 
         Transform knife = Instantiate(knifePrefab, new Vector3(transform.position.x + knifeHorizontalOffset, transform.position.y + knifeVerticalOffset, 0), Quaternion.identity) as Transform;
         knife.parent = transform;

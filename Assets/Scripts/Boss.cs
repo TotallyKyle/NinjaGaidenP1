@@ -13,6 +13,7 @@ public class Boss : EnemyScript {
     public Transform projectilePrefab;
     public Transform lightningHorizontalPrefab;
     public Transform lightningVerticalPrefab;
+	public Transform lightning;
 
     /*
      * Layer indecies 
@@ -46,11 +47,12 @@ public class Boss : EnemyScript {
 	public AudioClip hitClip;
 	public AudioClip lightningClip;
 	public AudioClip flurryClip;
+	public AudioClip scoreClip;
 
     void Start() {
         //Sets Score and Boss Health
         score = 10000;
-        currentHealth = MAX_BOSS_HEALTH;
+		currentHealth = MAX_BOSS_HEALTH;
     }
 
     void Update() {
@@ -75,22 +77,78 @@ public class Boss : EnemyScript {
         }
     }
 
+	bool bossDead = false;
+	bool scoreCounted = false;
+
     public override void Die() {
+
+		if (currentHealth <= 0) {
+			return;
+		}
+
         currentHealth--;
 		AudioSource.PlayClipAtPoint(hitClip, transform.position);
-        if (currentHealth <= 0) {
+		if (currentHealth <= 0) {
+
+			GameObject.Find("Main Camera").GetComponent<TimerScript>().Stop();
+
+			// Clean up any ongoing attacks
 			if (head != null) head.GetComponent<EnemyScript>().Die();
 			if (tail != null) tail.GetComponent<EnemyScript>().Die();
+			if (lightning != null) Destroy(lightning.gameObject);
+
 			Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Boss"), true);
+
 			GameObject.Find("Main Camera").GetComponent<AudioSource>().Stop();
+
 			Instantiate(Resources.Load("BossExplosion"), transform.position - new Vector3(0f, 3f, 0f), Quaternion.identity);
-			GameObject.Find("Game HUD").GetComponent<GameData>().Winner();
+
 			GameData.scoreData += score;
-			Invoke ("Dead", 4f);
+
+			StartCoroutine("CountScore");
+
+			StartCoroutine("FadeAway");
         }
     }
 
-	private void Dead() {
+	private IEnumerator FadeAway() {
+		float t = 0f;
+		while (t < 8f) {
+			t += Time.deltaTime;
+			if (t < 4f) {
+				Color color = GetComponent<SpriteRenderer>().color;
+				color.a = 1f - t / 4f;
+				GetComponent<SpriteRenderer>().color = color;
+			}
+			yield return new WaitForSeconds(1f / 60f);
+		}
+		bossDead = true;
+		if (scoreCounted) {
+			Invoke("ResetGame", 1f);
+		}
+	}
+
+	private IEnumerator CountScore() {
+		while (--GameData.timerData > 0) {
+			GameData.scoreData += 100;
+			AudioSource.PlayClipAtPoint(scoreClip, transform.position);
+			yield return new WaitForSeconds(0.1f);
+		}
+		scoreCounted = true;
+		if (bossDead) {
+			Invoke("ResetGame", 1f);
+		}
+	}
+
+	private void ResetGame() {
+		GameData.timerData = 150;
+		GameData.healthData = 16;
+		GameData.spiritData = 0;
+		GameData.livesData = 2;
+		GameData.currentItem = GameData.NO_ITEM;
+		GameData.scoreData = 0;
+		GameData.enemyHealthData = 32;
+		Application.LoadLevel("Win Scene");
 		Destroy(gameObject);
 	}
 
@@ -191,7 +249,7 @@ public class Boss : EnemyScript {
             } else {
 				if (Time.time - timeBetweenAttacks > .5) {
 					AudioSource.PlayClipAtPoint(lightningClip, transform.position);
-                    Transform lightning = Instantiate(lightningHorizontalPrefab, new Vector3(16, 6 + 3.25f * lightningCasted, 0), Quaternion.identity) as Transform;
+                    lightning = Instantiate(lightningHorizontalPrefab, new Vector3(16, 6 + 3.25f * lightningCasted, 0), Quaternion.identity) as Transform;
                     lightning.parent = transform;
                     lightning.Rotate(new Vector3(0, 0, 270));
                     timeBetweenAttacks = Time.time;
@@ -219,7 +277,7 @@ public class Boss : EnemyScript {
             } else {
                 if (Time.time - timeBetweenAttacks > .5) {
 					AudioSource.PlayClipAtPoint(lightningClip, transform.position);
-                    Transform lightning = Instantiate(lightningVerticalPrefab, new Vector3(6 + 5 * lightningCasted, 11, 0), Quaternion.identity) as Transform;
+                    lightning = Instantiate(lightningVerticalPrefab, new Vector3(6 + 5 * lightningCasted, 11, 0), Quaternion.identity) as Transform;
                     lightning.parent = transform;
                     timeBetweenAttacks = Time.time;
                     lightningCasted++;

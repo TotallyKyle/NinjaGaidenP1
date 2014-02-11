@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Knife : MonoBehaviour
+public class Knife : EnemyScript
 {
 
     // Constants

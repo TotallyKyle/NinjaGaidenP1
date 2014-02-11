@@ -6,6 +6,7 @@ public class SwordController : MonoBehaviour {
 	private int swordLayer;
     private int bossLayer;
 	private int enemyLayer;
+	private int projectileLayer;
 
 	private BoxCollider2D boxCollider;
 
@@ -16,6 +17,7 @@ public class SwordController : MonoBehaviour {
 		swordLayer = LayerMask.NameToLayer("Sword");
 		enemyLayer = LayerMask.NameToLayer("Enemies");
         bossLayer = LayerMask.NameToLayer("Boss");
+		projectileLayer = LayerMask.NameToLayer("Enemy Projectiles");
 		retractSword();
 	}
 
@@ -45,7 +47,9 @@ public class SwordController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.layer == enemyLayer || other.gameObject.layer == bossLayer) {
+		if (other.gameObject.layer == enemyLayer ||
+		    other.gameObject.layer == bossLayer || 
+		    other.gameObject.layer == projectileLayer) {
 			EnemyScript enemy = other.GetComponent<EnemyScript>();
 			if (enemy != null) {
 				enemy.Die();

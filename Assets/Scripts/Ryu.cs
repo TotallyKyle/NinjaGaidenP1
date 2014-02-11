@@ -145,15 +145,15 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     void Update() {
         if (!damaged) {
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt)) {
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.RightAlt) || Input.GetKeyDown(KeyCode.Comma)) {
                 // Can only jump when grounded
                 if (grounded && !climbing) {
                     jump(false);
                 }
-            } else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift)) {
+			} else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.Period)) {
                 // Can attack from any state except climbing
                 if (!climbing) {
-                    if (Input.GetKey(KeyCode.UpArrow) && !running && grounded && !casting) {
+					if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && !running && grounded && !casting) {
                         startCasting();
                     } else if (!attacking) {
                         startAttack();
@@ -172,11 +172,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
 		if (!wasGrounded && grounded) {
 
-			if (rigidbody2D.velocity.y <= 0) {
-				Vector3 position = transform.position;
-				position.y += 0.6f;
-				transform.position = position;
-			}
+			Vector3 position = transform.position;
+			position.y += 0.6f;
+			transform.position = position;
 
 			mainCollider.size = standSize;
 			mainCollider.center = standCenter;
@@ -207,7 +205,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
 
-		if (!damaged) {
+		if (!damaged && Time.timeScale > 0f) {
 			if (climbing) {
 				rigidbody2D.Sleep();
 				handleWallJump();
@@ -226,6 +224,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     void OnCollisionEnter2D(Collision2D collision) {
 		switch (collision.gameObject.layer) {
+		case LAYER_BOSS:
 		case LAYER_ENEMY:
 		case LAYER_ENEMY_PROJECTILES:
 			if (!invincible)
@@ -338,7 +337,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
      */
     private void handleInput() {
         float velocity = 0f;
-        if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) {
+		if ((Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) || 
+		    (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))) {
             if (!grounded) {
                 running = false;
                 crouching = false;
@@ -349,7 +349,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
                 velocity = -1 * SPEED;
                 if (facingRight) flip();
             }
-        } else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) {
+		} else if ((Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) || 
+		           (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))) {
             if (!grounded) {
                 running = false;
                 crouching = false;
@@ -360,7 +361,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
                 velocity = SPEED;
                 if (!facingRight) flip();
             }
-        } else if (Input.GetKey(KeyCode.DownArrow)) {
+        } else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
             running = false;
             crouching = true;
         } else {
@@ -454,7 +455,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		feetCollider.center = feetJumpCenter;
 
         //Invoke a function that executes to restore player states
-        Invoke("makeVincible", 1.5f);
+        Invoke("makeVincible", 1.0f);
     }
 
 	private void landAfterHit() {
@@ -498,6 +499,11 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 		}
 
 		Utilities.ResumeGame();
-		GameData.Reset();
+
+		if (GameData.livesData == 0) {
+			GameData.GameOver();
+		} else {
+			GameData.Reset();
+		}
 	}
 }

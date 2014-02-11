@@ -12,12 +12,13 @@ public class TimerScript : MonoBehaviour {
 	}
 
 	private void checkTime() {
-		GameData.timerData--;
-		if (GameData.timerData <= 10) {
-			AudioSource.PlayClipAtPoint(tickClip, transform.position);
-		}
 		if (GameData.timerData == 0) {
 			GameObject.Find("Ryu").GetComponent<Ryu>().die();
+		} else {
+			GameData.timerData--;
+			if (GameData.timerData <= 10) {
+				AudioSource.PlayClipAtPoint(tickClip, transform.position);
+			}
 		}
 	}
 

@@ -19,7 +19,8 @@ public class FireWheel : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemies")) {
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemies") ||
+		    collider.gameObject.layer == LayerMask.NameToLayer("Boss")) {
 			EnemyScript enemy = collider.GetComponent<EnemyScript>();
 			if (enemy != null) {
 				enemy.Die();
