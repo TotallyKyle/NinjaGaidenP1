@@ -11,6 +11,7 @@ public class GameData : MonoBehaviour {
     public Texture2D ninja;
     public Texture2D enemy;
     public Texture2D healthFull;
+    public Texture2D healthFullLevel2;
     public Texture2D healthEmpty;
     public Texture2D spiritPower;
     public Texture2D powerUp;
@@ -76,89 +77,98 @@ public class GameData : MonoBehaviour {
         Texture2D[] numberArray = { zero, one, two, three, four, five, six, seven, eight, nine };
 
         //Score
-        createHUD("Score", .1f, 0.025f, score, .239f, .96f);
+        createHUD("Score", .1f, 0.025f, score, .239f, .96f, 0);
 
         //Score Digits
         for (int i = 1; i < 7; i++) {
-            createHUD("Score " + i + " Digit", 0.018f, 0.025f, numberArray[(int)Mathf.Floor(scoreData / Mathf.Pow(10, 6 - i)) % 10], .305f + (i - 1) * .021f, .96f);
+            createHUD("Score " + i + " Digit", 0.018f, 0.025f, numberArray[(int)Mathf.Floor(scoreData / Mathf.Pow(10, 6 - i)) % 10], .305f + (i - 1) * .021f, .96f, 0);
         }
 
         //Timer
-        createHUD("Timer", .1f, 0.025f, timer, .239f, .93f);
+        createHUD("Timer", .1f, 0.025f, timer, .239f, .93f, 0);
 
         //Timer Digits
         for (int i = 1; i < 4; i++) {
-            createHUD("Timer " + i + " Digit", .018f, .025f, numberArray[(int)Mathf.Floor(timerData / Mathf.Pow(10, 3 - i)) % 10], .304f + (i - 1) * .021f, .93f);
+            createHUD("Timer " + i + " Digit", .018f, .025f, numberArray[(int)Mathf.Floor(timerData / Mathf.Pow(10, 3 - i)) % 10], .304f + (i - 1) * .021f, .93f, 0);
         }
 
         //Lives
-        createHUD("Lives", .045f, 0.025f, lives, .215f, .9f);
+        createHUD("Lives", .045f, 0.025f, lives, .215f, .9f, 0);
 
         //Lives Digits
         for (int i = 1; i < 3; i++) {
-            createHUD("Lives " + i + " Digit", .018f, 0.025f, numberArray[(int)Mathf.Floor(livesData / Mathf.Pow(10, 2 - i)) % 10], .259f + (i - 1) * .021f, .9f);
+            createHUD("Lives " + i + " Digit", .018f, 0.025f, numberArray[(int)Mathf.Floor(livesData / Mathf.Pow(10, 2 - i)) % 10], .259f + (i - 1) * .021f, .9f, 0);
         }
 
         //Spiritual Power
-        createHUD("Spirit Power", .045f, 0.025f, spiritPower, .325f, .9f);
+        createHUD("Spirit Power", .045f, 0.025f, spiritPower, .325f, .9f, 0);
 
         //Spirit Power Digits
         for (int i = 1; i < 4; i++) {
-            createHUD("Spirit Power " + i + " Digit", 0.018f, 0.025f, numberArray[(int)Mathf.Floor(spiritData / Mathf.Pow(10, 3 - i)) % 10], .367f + (i - 1) * .021f, .9f);
+            createHUD("Spirit Power " + i + " Digit", 0.018f, 0.025f, numberArray[(int)Mathf.Floor(spiritData / Mathf.Pow(10, 3 - i)) % 10], .367f + (i - 1) * .021f, .9f, 0);
         }
 
         //Stage
-        createHUD("Stage", .1f, 0.025f, stage, .6f, .96f);
-        createHUD("Stage Digit 1", .018f, .025f, one, .663f, .96f);
-        createHUD("Stage Digit Dash", .01f, .005f, dash, .685f, .96f);
-        createHUD("Stage Digit 2", .018f, .025f, two, .706f, .96f);
+        createHUD("Stage", .1f, 0.025f, stage, .6f, .96f, 0);
+        createHUD("Stage Digit 1", .018f, .025f, one, .663f, .96f, 0);
+        createHUD("Stage Digit Dash", .01f, .005f, dash, .685f, .96f, 0);
+        createHUD("Stage Digit 2", .018f, .025f, two, .706f, .96f, 0);
 
         //Power Up
-        createHUD("Power Up", .1f, 0.09f, powerUp, .48f, .93f);
+        createHUD("Power Up", .1f, 0.09f, powerUp, .485f, .93f, 0);
 
         //Ryu's Health
-        createHUD("Ninja", .1f, 0.025f, ninja, .6f, .93f);
+        createHUD("Ninja", .1f, 0.025f, ninja, .6f, .93f, 0);
 
         //Ryu's Health Bars
         for (int i = healthData; i < 16; i++) {
-            createHUD("Ninja Empty " + i, 0.01f, 0.025f, healthEmpty, .663f + i * .012f, .928f);
+            createHUD("Ninja Empty " + i, 0.01f, 0.025f, healthEmpty, .663f + i * .012f, .928f, 0);
         }
         for (int i = 0; i < healthData; i++) {
-            createHUD("Ninja Health " + i, 0.01f, 0.025f, healthFull, .663f + i * .012f, .928f);
+            createHUD("Ninja Health " + i, 0.01f, 0.025f, healthFull, .663f + i * .012f, .928f, 0);
         }
 
         //Boss Health
-        createHUD("Enemy", .1f, .025f, enemy, .6f, .9f);
+        createHUD("Enemy", .1f, .025f, enemy, .6f, .9f, 0);
 
         //Boss Health Bars
         for (int i = enemyHealthData; i < 16; i++) {
-            createHUD("Enemy Empty " + i, 0.01f, 0.025f, healthEmpty, .663f + i * .012f, .898f);
+            createHUD("Enemy Empty " + i, 0.01f, 0.025f, healthEmpty, .663f + i * .012f, .898f, 1);
         }
-        for (int i = 0; i < Mathf.Min(enemyHealthData, 16); i++) {
-            createHUD("Enemy Health " + i, 0.01f, 0.025f, healthFull, .663f + i * .012f, .898f);
+        for (int i = 0; i < enemyHealthData - 16; i++) {
+            createHUD("Enemy Health Level 2 " + i, 0.01f, 0.025f, healthFullLevel2, .663f + i * .012f, .898f, -1);
+        }
+        if (enemyHealthData <= 16) {
+            for (int i = 0; i < Mathf.Min(enemyHealthData, 16); i++) {
+                createHUD("Enemy Health " + i, 0.01f, 0.025f, healthFull, .663f + i * .012f, .898f, 0);
+            }
+        } else {
+            for (int i = 0; i < Mathf.Min(enemyHealthData, 16); i++) {
+                createHUD("Enemy Health " + i, 0.0075f, 0.015f, healthFull, .663f + i * .012f, .898f, 0);
+            }
         }
 
         switch (currentItem) {
             case ITEM_SHURIKEN:
-                createHUD("Current Item", 0.07f, 0.07f, shuriken, .48f, .93f);
+                createHUD("Current Item", 0.07f, 0.07f, shuriken, .48f, .93f, 0);
                 break;
             case ITEM_FIREBLAST:
-                createHUD("Current Item", 0.07f, 0.07f, fireball, .48f, .93f);
+                createHUD("Current Item", 0.07f, 0.07f, fireball, .48f, .93f, 0);
                 break;
             case ITEM_WINDMILL_SHURIKEN:
-                createHUD("Current Item", 0.07f, 0.07f, windmill, .48f, .93f);
+                createHUD("Current Item", 0.07f, 0.07f, windmill, .48f, .93f, 0);
                 break;
             case ITEM_JUMP_SLASH:
-                createHUD("Current Item", 0.07f, 0.07f, jumpSlash, .48f, .93f);
+                createHUD("Current Item", 0.07f, 0.07f, jumpSlash, .48f, .93f, 0);
                 break;
         }
 
     }
 
-    private void createHUD(string gameObjectName, float localScaleX, float localScaleY, Texture2D textureUsed, float positionX, float positionY) {
+    private void createHUD(string gameObjectName, float localScaleX, float localScaleY, Texture2D textureUsed, float positionX, float positionY, float positionZ) {
         GameObject createdObject = new GameObject(gameObjectName);
         createdObject.AddComponent(typeof(GUITexture));
-        createdObject.transform.position = new Vector3(positionX, positionY, 0);
+        createdObject.transform.position = new Vector3(positionX, positionY, positionZ);
         createdObject.transform.localScale = new Vector3(localScaleX, localScaleY, 1);
         createdObject.guiTexture.texture = textureUsed;
         createdObject.guiTexture.pixelInset = new Rect(0, 0, 0, 0);
