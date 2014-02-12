@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickedUp: 0
   pickUpClip: {fileID: 8300000, guid: 9b190cb313a6342028c0dbfc01f705d3, type: 3}
+  slashClip: {fileID: 8300000, guid: 9cedf9412fb384502bb2da7448ecc896, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

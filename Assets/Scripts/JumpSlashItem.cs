@@ -5,11 +5,14 @@ using System.Collections;
 [RequireComponent (typeof(SpriteRenderer))]
 public class JumpSlashItem : ItemScript {
 
+	public AudioClip slashClip;
+
 	public override bool IsAutomatic() {
 		return false;
 	}
 
 	public override void Deploy() {
+		AudioSource.PlayClipAtPoint(slashClip, transform.position);
 		collider2D.enabled = true;
 	}
 

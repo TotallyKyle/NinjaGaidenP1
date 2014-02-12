@@ -22,15 +22,12 @@ public class RyuAnimationController : AnimationController<Ryu> {
 		else if (controlled.attacking) {
 			if (controlled.crouching)
 				setDisplayedAnimation(ANIM_CROUCH_ATTACK);
-			else if (!controlled.grounded &&
-			         controlled.item != null && 
-			         controlled.item.tag == "JumpSlash" && 
-			         GameData.spiritData >= 5)
-				setDisplayedAnimation(ANIM_JUMP_SLASH);
 			else
 				setDisplayedAnimation(ANIM_ATTACK);
 		} else if (controlled.casting)
 			setDisplayedAnimation(ANIM_CASTING);
+		else if (controlled.jumpSlashing)
+			setDisplayedAnimation(ANIM_JUMP_SLASH);
 		else if (!controlled.grounded)
 			setDisplayedAnimation(ANIM_JUMPING);
 		else if (controlled.running)

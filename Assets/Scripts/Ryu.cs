@@ -63,7 +63,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
     public bool damaged = false;
 	public bool invincible = false;
     public bool attacking = false;
-    public bool casting = false;
+	public bool casting = false;
+	public bool jumpSlashing = false;
 
     public GameObject sword;
     private SwordController swordController;
@@ -134,9 +135,9 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 				casting = false;
 			break;
 		case RyuAnimationController.ANIM_JUMP_SLASH:
-			if (attacking) {
-				attacking = false;
-				if (item != null)
+			if (jumpSlashing) {
+				jumpSlashing = false;
+				if (item != null && item.tag == "JumpSlash")
 					((JumpSlashItem) item).EndSlash();
 			}
 			break;
@@ -155,7 +156,10 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
                 if (!climbing) {
 					if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && !running && grounded && !casting) {
                         startCasting();
-                    } else if (!attacking) {
+					} else if (item != null && item.tag == "JumpSlash" && !grounded && GameData.spiritData >= 5) {
+						jumpSlashing = true;
+						item.Deploy();
+					} else if (!attacking) {
                         startAttack();
                     }
                 }
@@ -182,8 +186,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			feetCollider.size = feetStandSize;
 			feetCollider.center = feetStandCenter;
 
-			if (attacking && item != null && item.tag == "JumpSlash") {
-				attacking = false;
+			if (jumpSlashing && item != null && item.tag == "JumpSlash") {
+				jumpSlashing = false;
 				((JumpSlashItem) item).EndSlash();
 			}
 
@@ -199,8 +203,8 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 			feetCollider.center = feetJumpCenter;
 		}
 	
-		feetCollider.enabled = grounded || rigidbody2D.velocity.y <= 0;
-//		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, !grounded && rigidbody2D.velocity.y > 0);
+//		feetCollider.enabled = grounded || rigidbody2D.velocity.y <= 0;
+		Physics2D.IgnoreLayerCollision(LAYER_PLAYER, LAYER_GROUND, !grounded && rigidbody2D.velocity.y > 0);
 
         //Sword Crouch Checking
         swordController.onCrouchStateChanged(crouching);
@@ -395,11 +399,7 @@ public class Ryu : MonoBehaviour, AnimationController<Ryu>.AnimationListener {
 
     private void startAttack() {
         attacking = true;
-		if (!grounded && item != null && item.tag == "JumpSlash" && GameData.spiritData >= 5) {
-			item.Deploy();
-			AudioSource.PlayClipAtPoint(slashClip, transform.position);
-		} else 
-	        swordController.extendSword();
+		swordController.extendSword();
     }
 
     private void startCasting() {

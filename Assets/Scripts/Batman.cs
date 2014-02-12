@@ -56,11 +56,22 @@ public class Batman : EnemyScript
             Destroy(transform.gameObject);
     }
 
+	bool wallEntered = false;
+
     void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy Patrol Walls")) {
-        	flip();
+			if (!wallEntered) {
+				wallEntered = true;
+				flip();
+			}
 		}
     }
+
+	void OnTriggerExit2D(Collider2D collider) {
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy Patrol Walls")) {
+			wallEntered = false;
+		}
+	}
 
     private void flip()
 	{

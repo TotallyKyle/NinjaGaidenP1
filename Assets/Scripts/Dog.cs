@@ -50,7 +50,7 @@ public class Dog : EnemyScript {
 			grounded = false;
 		}
 
-		feetCollider.enabled = rigidbody2D.velocity.y <= 0;
+		feetCollider.enabled = grounded || rigidbody2D.velocity.y < 0;
 
         //If goes off camera, destroy the object
         GameObject camera = GameObject.Find("Main Camera");

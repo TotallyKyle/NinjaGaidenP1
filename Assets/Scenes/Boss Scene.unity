@@ -230,7 +230,7 @@ GameObject:
   - 4: {fileID: 75668119}
   - 33: {fileID: 75668121}
   - 23: {fileID: 75668120}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,9 +775,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 268825639}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Left Ground
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2193,7 +2193,7 @@ GameObject:
   - 4: {fileID: 936466122}
   - 33: {fileID: 936466124}
   - 23: {fileID: 936466123}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2747,7 +2747,7 @@ GameObject:
   - 4: {fileID: 1064942580}
   - 61: {fileID: 1064942581}
   - 114: {fileID: 1064942582}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Environment
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2927,6 +2927,22 @@ Prefab:
     - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
       propertyPath: m_Name
       value: Left Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
@@ -3277,6 +3293,22 @@ Prefab:
     - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
       propertyPath: m_Name
       value: Right Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 026c800035d76ae42887fa29b034ce7a, type: 2}
@@ -3757,9 +3789,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1657889783}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Right Ground
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4367,7 +4399,7 @@ GameObject:
   - 4: {fileID: 1915912427}
   - 61: {fileID: 1915912428}
   - 114: {fileID: 1915912429}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Environment
   m_TagString: Ground
   m_Icon: {fileID: 0}
