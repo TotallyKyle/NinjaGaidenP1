@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 6, z: 0}
+  m_LocalPosition: {x: 25, y: 6, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -155,6 +155,7 @@ MonoBehaviour:
     type: 2}
   lightningVerticalPrefab: {fileID: 400000, guid: bb1b3fa8f579a9b4891c8621b28daf03,
     type: 2}
+  lightning: {fileID: 0}
   vel: {x: 0, y: 0}
   movementComplete: 0
   idle: 1
@@ -168,6 +169,10 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   movement: 0
   currentHealth: 0
+  hitClip: {fileID: 0}
+  lightningClip: {fileID: 0}
+  flurryClip: {fileID: 0}
+  scoreClip: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
